@@ -111,7 +111,7 @@ class NanoForensicsInvestigator:
         result=None if fresh else self.store.cached(key)
         cached=result is not None
         if result is None:
-            result=run_bounded(specimen,timeout=min(RUN_TIMEOUT,remaining))
+            result=run_bounded(specimen,timeout=min(getattr(self,'run_timeout',RUN_TIMEOUT),remaining))
             self.store.save_result(key,result)
         self._save(f'{"Cached immutable" if cached else "Freshly computed"} replicate seed {specimen.protocol.seed}','simulation',seed=specimen.protocol.seed,result_id=result.sim_id,cached=cached,outcome=result.outcome,wall_time_sec=result.wall_time_sec,relaxation_convergence=result.diagnostics.get('minimization_residual'),error_code=result.error_code)
         return result

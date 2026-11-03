@@ -20,3 +20,5 @@ No required audit work remains. Useful future research: larger predeclared indep
 ## New active task: prospective demonstration V1
 
 Read demonstrations/registration.json and PREREGISTRATION.md. No new trajectories generated at this checkpoint. One design, no post-outcome tuning. Original DB snapshotted/fingerprinted in runtime/demonstration. Separate database/API namespace required. Preserve existing user edits. Stage new sections of TEST_RESULTS separately from its pre-existing formatting changes.
+
+V1 development baseline generation complete (9 real MD runs, ~140 s total); numerical gates pass so far. Development counterfactual evaluation running; do not generate held-out data until predictions and analysis code are locked in Git. The registered design/thresholds must remain unchanged even if development findings fail. Backend/API isolation and component geometry have 7 passing new tests. Original regression 35 passed before additional new tests.

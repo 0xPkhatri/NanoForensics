@@ -14,7 +14,7 @@ locks=defaultdict(threading.RLock)
 last_evaluation=0.
 
 
-def store(request): return request.app.state.store
+def store(request): return getattr(request.state,'dataset_store',request.app.state.store)
 
 
 def known(request,case_id):
@@ -22,6 +22,9 @@ def known(request,case_id):
 
 
 def enqueue(request,case_id,kind,payload=None):
+    if getattr(request.state,'is_demonstration',False):
+        payload=dict(payload or {})
+        payload['timeout_sec']=min(payload.get('timeout_sec') or 900,900)
     with locks[case_id]:
         state=None
         if kind!='evaluate':

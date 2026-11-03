@@ -13,7 +13,8 @@ from backend.simulation.worker import kill_tree
 
 
 class JobManager:
-    def __init__(self,store):
+    def __init__(self,store,worker_module='backend.api.job_worker'):
+        self.worker_module=worker_module
         self.store=store; self.stop_event=threading.Event();self.children={}
         self.thread=threading.Thread(target=self._loop,daemon=True,name='nano-job-supervisor')
 
@@ -30,7 +31,7 @@ class JobManager:
                 if pid and psutil.pid_exists(pid):
                     try:
                         command=psutil.Process(pid).cmdline()
-                        if 'backend.api.job_worker' in command and job['id'] in command: kill_tree(pid)
+                        if self.worker_module in command and job['id'] in command: kill_tree(pid)
                     except psutil.NoSuchProcess: pass
                 self._finish(job['id'],'INTERRUPTED','Recovered orphaned job after supervisor crash')
         self.thread.start()
@@ -90,7 +91,7 @@ class JobManager:
                     job_tmp=ROOT/'runtime/job_tmp'/job['id']
                     job_tmp.mkdir(parents=True,exist_ok=True)
                     try:
-                        proc=subprocess.Popen([sys.executable,'-m','backend.api.job_worker',str(self.store.path.resolve()),job['id']],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True,env={**os.environ,'NANO_TMP_ROOT':str(job_tmp),'TMPDIR':str(job_tmp)})
+                        proc=subprocess.Popen([sys.executable,'-m',self.worker_module,str(self.store.path.resolve()),job['id']],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True,env={**os.environ,'NANO_TMP_ROOT':str(job_tmp),'TMPDIR':str(job_tmp)})
                     except OSError as exc:
                         self._finish(job['id'],'FAILED',f'Worker launch failed: {type(exc).__name__}')
                         continue

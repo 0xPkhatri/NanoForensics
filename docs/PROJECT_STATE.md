@@ -22,3 +22,7 @@ User changes preserved: original TEST_RESULTS.md formatting and next-env.d.ts ed
 [~] V1 preregistration committed before any new trajectories; original checkpoint f4fbbca preserved.
 [ ] Independent development, analysis lock, held-out generation/scoring and isolated dashboard integration.
 Original immutable database fingerprint: runtime/demonstration/original-fingerprint.json. User edits retained.
+
+[x] Separate study generator, geometric tools, analysis and namespace implemented; registration unchanged.
+[x] Development baselines generated with real MD; target runtime exceeded honestly (~15 s/run).
+[~] Development competing-arm outcomes and prospective held-out lock pending.
