@@ -123,3 +123,15 @@ def test_live_provenance_requires_operation_schema_success(monkeypatch,store):
     monkeypatch.setattr(muse,'_request',lambda *args: ({'invalid':'json'},t))
     decision,telemetry,provenance=muse.decide({'geometry':'test'},'revise_after_evidence')
     assert decision is None and telemetry.execution_mode=='OFFLINE_HEURISTIC_FALLBACK'
+
+
+def test_diagnostic_new_seeds_measure_variance_without_claiming_repair(store,monkeypatch):
+    monkeypatch.delenv('META_MUSE_API_KEY',raising=False)
+    deny_truth(monkeypatch)
+    state=NanoForensicsInvestigator(store).investigate('CASE_DELTA',intervention='repeat_replicate_seeds',max_experiments=1)
+    result=next(iter(state.executed_experiments.values()))
+    assert {101,202,303}<set(result.replicate_seeds)
+    assert len(result.replicate_results)==6
+    assert len({r['seed'] for r in result.replicate_results})==6
+    assert all(v.verdict not in ['SUPPORTED','REJECTED'] for v in state.verifications)
+    print('Diagnostic actual seed outcomes:',[(r['seed'],r['outcome'],r['failure_strain']) for r in result.replicate_results])

@@ -32,11 +32,12 @@ def failed(specimen, code, message, elapsed):
 
 def run_bounded(specimen, timeout=None):
     started=time.perf_counter()
-    (ROOT/'runtime/tmp').mkdir(parents=True,exist_ok=True)
-    with tempfile.TemporaryDirectory(dir=ROOT/'runtime/tmp',prefix='run-') as tmp:
+    temp_root=Path(os.getenv('NANO_TMP_ROOT',str(ROOT/'runtime/tmp')))
+    temp_root.mkdir(parents=True,exist_ok=True)
+    with tempfile.TemporaryDirectory(dir=temp_root,prefix='run-') as tmp:
         inp,out=Path(tmp)/'input.json',Path(tmp)/'output.json'
         inp.write_text(specimen.model_dump_json())
-        proc=subprocess.Popen([sys.executable,'-m','backend.simulation.worker',str(inp),str(out)],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE)
+        proc=subprocess.Popen([sys.executable,'-m','backend.simulation.worker',str(inp),str(out)],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.PIPE,env={**os.environ,'TMPDIR':str(tmp)})
         try:
             _,stderr=proc.communicate(timeout=RUN_TIMEOUT if timeout is None else timeout)
             if proc.returncode or not out.exists():

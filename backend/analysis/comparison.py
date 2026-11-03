@@ -1,11 +1,13 @@
 import numpy as np
+from backend.models.schemas import SimulationOutcome
+from backend.simulation.numpy_md_fallback import content_hash
 
 
 def paired_statistics(baseline, counterfactual):
     b = {r.seed:r for r in baseline}
     c = {r.seed:r for r in counterfactual}
     seeds = sorted(b.keys() & c.keys())
-    usable = [s for s in seeds if b[s].outcome != 'EXECUTION_FAILED' and c[s].outcome != 'EXECUTION_FAILED']
+    usable = [s for s in seeds if b[s].outcome != 'EXECUTION_FAILED' and c[s].outcome != 'EXECUTION_FAILED' and b[s].numerical_check.is_valid and c[s].numerical_check.is_valid]
     uncensored = [s for s in usable if b[s].failure_strain is not None and c[s].failure_strain is not None]
     stats = {'seeds':seeds, 'valid_seeds':usable, 'uncensored_seeds':uncensored, 'baseline_censored':sum(b[s].failure_strain is None for s in usable), 'counterfactual_censored':sum(c[s].failure_strain is None for s in usable)}
     if len(uncensored) >= 3:
@@ -19,24 +21,33 @@ def paired_statistics(baseline, counterfactual):
 
 
 def aggregate(runs):
-    out=runs[0].model_copy(deep=True)
+    if not runs: raise ValueError('No executed replicates')
+    valid=[r for r in runs if r.outcome!=SimulationOutcome.EXECUTION_FAILED and r.numerical_check.is_valid]
+    out=(valid[0] if valid else runs[0]).model_copy(deep=True)
+    out.sim_id=content_hash({'aggregate_result_ids':[r.sim_id for r in runs]})[:24]
     out.replicate_seeds=[r.seed for r in runs]
     out.replicate_results=[r.model_dump(mode='json') for r in runs]
-    out.peak_stress=float(np.mean([r.peak_stress for r in runs]))
-    out.peak_stress_std=float(np.std([r.peak_stress for r in runs], ddof=1)) if len(runs)>1 else 0.
-    if all(r.failure_strain is not None for r in runs):
-        out.failure_strain=float(np.mean([r.failure_strain for r in runs]))
-        out.failure_strain_std=float(np.std([r.failure_strain for r in runs], ddof=1)) if len(runs)>1 else 0.
+    out.wall_time_sec=sum(r.wall_time_sec for r in runs)
+    out.diagnostics['aggregate_description']='Only valid runs contribute to means/envelopes; raw failed runs retained and condition marked failed; snapshots from first valid replicate when available.'
+    out.diagnostics['valid_replicate_count']=len(valid)
+    out.diagnostics['failed_replicate_count']=len(runs)-len(valid)
+    if valid:
+        out.peak_stress=float(np.mean([r.peak_stress for r in valid]))
+        out.peak_stress_std=float(np.std([r.peak_stress for r in valid],ddof=1)) if len(valid)>1 else 0.
+        for point in out.stress_strain_curve:
+            measured=[r for r in valid if r.stress_strain_curve]
+            values=[np.interp(point['strain'],[p['strain'] for p in r.stress_strain_curve],[p['stress'] for p in r.stress_strain_curve]) for r in measured]
+            point['stress']=float(np.mean(values));point['stress_std']=float(np.std(values,ddof=1)) if len(values)>1 else 0.
+    if len(valid)==len(runs) and all(r.failure_strain is not None for r in valid):
+        out.failure_strain=float(np.mean([r.failure_strain for r in valid]))
+        out.failure_strain_std=float(np.std([r.failure_strain for r in valid],ddof=1)) if len(valid)>1 else 0.
     else:
         out.failure_strain=None
-    for point in out.stress_strain_curve:
-        values=[np.interp(point['strain'], [p['strain'] for p in r.stress_strain_curve], [p['stress'] for p in r.stress_strain_curve]) for r in runs]
-        point['stress']=float(np.mean(values)); point['stress_std']=float(np.std(values, ddof=1)) if len(values)>1 else 0.
-    out.wall_time_sec=sum(r.wall_time_sec for r in runs)
-    out.diagnostics['aggregate_description']='Mean curve on first replicate strain grid; raw runs retained; snapshots belong to first replicate.'
-    if any(r.outcome=='EXECUTION_FAILED' for r in runs):
-        out.outcome=type(runs[0].outcome)('EXECUTION_FAILED')
+    if len(valid)<len(runs):
+        out.outcome=SimulationOutcome.EXECUTION_FAILED
         out.numerical_check.is_valid=False
-    elif any(r.failure_strain is None for r in runs):
-        out.outcome=type(runs[0].outcome)('NOT_FRACTURED_WITHIN_HORIZON')
+        out.error_code='REPLICATE_EXECUTION_FAILED'
+        out.error_message=f'{len(runs)-len(valid)} failed replicates excluded from means; no complete condition-level comparison'
+    elif any(r.failure_strain is None for r in valid):
+        out.outcome=SimulationOutcome.NOT_FRACTURED_WITHIN_HORIZON
     return out

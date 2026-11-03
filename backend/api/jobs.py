@@ -1,5 +1,6 @@
 """Durable, globally bounded job claim and actual OS process supervision."""
 import json
+import shutil
 import os
 import subprocess
 import sys
@@ -20,7 +21,11 @@ class JobManager:
         # Recover only jobs whose supervising server is demonstrably gone.
         for job in self.store.active_jobs():
             owner=job['owner_pid']
-            if job['status']=='RUNNING' and (not owner or not psutil.pid_exists(owner)):
+            try:
+                alive=bool(owner) and psutil.pid_exists(owner) and psutil.Process(owner).status()!=psutil.STATUS_ZOMBIE and psutil.Process(owner).create_time()<=job['created']
+            except psutil.NoSuchProcess:
+                alive=False
+            if job['status']=='RUNNING' and not alive:
                 pid=job['pid']
                 if pid and psutil.pid_exists(pid):
                     try:
@@ -63,6 +68,7 @@ class JobManager:
                 state.audit_log.append({'timestamp':datetime.now(timezone.utc).isoformat(),'stage':'execution','status':status,'message':error})
             self.store.save_state(state)
         self.store.update_job(job_id,status=status,error=error)
+        shutil.rmtree(ROOT/'runtime/job_tmp'/job_id,ignore_errors=True)
 
     def _loop(self):
         while not self.stop_event.is_set():
@@ -81,7 +87,13 @@ class JobManager:
                         proc.wait();self._finish(job_id,status,error);del self.children[job_id]
                 job=self._claim()
                 if job:
-                    proc=subprocess.Popen([sys.executable,'-m','backend.api.job_worker',str(self.store.path.resolve()),job['id']],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True)
+                    job_tmp=ROOT/'runtime/job_tmp'/job['id']
+                    job_tmp.mkdir(parents=True,exist_ok=True)
+                    try:
+                        proc=subprocess.Popen([sys.executable,'-m','backend.api.job_worker',str(self.store.path.resolve()),job['id']],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True,env={**os.environ,'NANO_TMP_ROOT':str(job_tmp),'TMPDIR':str(job_tmp)})
+                    except OSError as exc:
+                        self._finish(job['id'],'FAILED',f'Worker launch failed: {type(exc).__name__}')
+                        continue
                     self.store.update_job(job['id'],pid=proc.pid)
                     payload=json.loads(job['payload'])
                     self.children[job['id']]=(proc,time.monotonic(),min(float(payload.get('timeout_sec') or JOB_TIMEOUT),1800.))

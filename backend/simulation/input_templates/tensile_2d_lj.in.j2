@@ -11,23 +11,24 @@ group bottom id {{ bottom }}
 group top id {{ top }}
 group grips union bottom top
 group mobile subtract all grips
-fix plane all enforce2d
 fix integrate mobile nve
 {% if thermostat %}
 fix bath mobile langevin {{ temperature }} {{ temperature }} {{ damp }} {{ seed }} tally yes
 {% endif %}
 fix lower bottom move linear 0 -{{ speed }} 0 units box
 fix upper top move linear 0 {{ speed }} 0 units box
+# Applied after every force-changing fix so Langevin cannot reintroduce z force.
+fix plane all enforce2d
 timestep {{ dt }}
 variable fn atom sqrt(fx*fx+fy*fy)
 variable ds atom sqrt(vx*vx+vy*vy)*{{ dt }}+0.5*v_fn*{{ dt }}*{{ dt }}
 compute fmax all reduce max v_fn
 compute dmax all reduce max v_ds
 fix bounds all ave/time 1 1 1 c_fmax c_dmax file bounds.dat
-dump trajectory all custom {{ sample }} trajectory.dump id x y vx vy
+dump trajectory all custom {{ sample }} trajectory.dump id x y vx vy z vz
 dump_modify trajectory sort id format float %.17g
 thermo {{ sample }}
 thermo_modify lost error
 run {{ steps }}
 # Last non-cadence step must be retained.
-write_dump all custom last.dump id x y vx vy modify sort id
+write_dump all custom last.dump id x y vx vy z vz modify sort id

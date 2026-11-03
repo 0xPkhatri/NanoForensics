@@ -135,3 +135,48 @@ Route (app)
 ```
 
 Local preview launched after build; visual/interactive QA continues with mandatory Phase 5. Counterfactual API execution now defaults to fresh computation; audit distinguishes cache reuse.
+
+## Scientific audit correction — earlier LAMMPS trajectory evidence INVALIDATED
+
+A final regression added explicit dump z/vz checks and failed the geometric-response test: Langevin was registered after enforce2d, so its post-force stochastic z component could evade the earlier planar constraint. This is an objective dimensionality bug, not a benchmark tuning decision. Earlier archived trajectory-based metrics, calibration and verdict evidence are invalid; pair_write force/energy checks and NumPy NVE checks remain valid. Solver bumped to sflj-1.1; enforce2d is registered last. The frozen input coordinates, preparation protocols, intervention algorithms and acceptance thresholds remain unchanged. Regenerate all trajectory records before further observer/scorer runs. Initial Phase 5 HTTP gate: 9 passed in 28.07 s, superseded pending corrected solver rerun.
+
+## Corrected Phase 1 — PASS
+
+Solver sflj-1.1. Explicit z/vz=0 validation passes with enforce2d after Langevin. Aggregation also excludes failed empty trajectories without crashing or contaminating means.
+
+```text
+============================= test session starts ==============================
+platform darwin -- Python 3.13.3, pytest-9.2.0, pluggy-1.7.0 -- /Users/prakash_mac/Desktop/code/x/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/prakash_mac/Desktop/code/x
+configfile: pytest.ini
+plugins: anyio-4.16.0
+collecting ... collected 14 items
+
+tests/test_physics_and_defects.py::test_sflj_derivative_cutoff_and_near_limit PASSED
+tests/test_physics_and_defects.py::test_arbitrary_coordinates_force_virial_against_independent_reference PASSED
+tests/test_physics_and_defects.py::test_tension_sign_and_grip_reaction_elastic PASSED
+tests/test_physics_and_defects.py::test_nve_500_step_total_energy_conservation 500-step NVE max/terminal drift: 1.2315537663914266e-06 3.1114277362151706e-07
+PASSED
+tests/test_physics_and_defects.py::test_offgrid_table_and_real_lammps_output SFLJ interpolation validation: {'minimum_sampled_distance': 0.8000315365768289, 'energy_max_absolute_error': 1.1109873149450777e-05, 'force_max_absolute_error': 0.0002007423646546158, 'energy_scale_relative_error': 2.583236828522499e-07, 'force_scale_relative_error': 2.647278030751452e-07, 'points': 20000, 'lammps_pair_output_status': 'PASS', 'lammps_actual': {'minimum_sampled_distance': 0.800013, 'energy_max_absolute_error': 4.1755040321334036e-05, 'force_max_absolute_error': 0.0008497719763909117, 'energy_scale_relative_error': 9.705593324957982e-07, 'force_scale_relative_error': 1.1202707806996011e-06}}
+PASSED
+tests/test_physics_and_defects.py::test_native_lammps_pair_parity PASSED
+tests/test_physics_and_defects.py::test_geometric_healing_changes_force_and_measured_response Actual healing effect (may be censored): 2.585425228037246 2.697670474193199 None None
+PASSED
+tests/test_physics_and_defects.py::test_driven_numpy_valid_reproducible_and_censored PASSED
+tests/test_physics_and_defects.py::test_worker_timeout_terminates_process PASSED
+tests/test_verifier.py::test_free_surface_and_notch_not_initial_fracture PASSED
+tests/test_verifier.py::test_severed_reference_bonds_are_separate_from_coordination PASSED
+tests/test_verifier.py::test_persistent_cluster_and_retrospective_peak PASSED
+tests/test_verifier.py::test_empirical_verdicts_censoring_failures_and_id_invariance PASSED
+tests/test_verifier.py::test_aggregate_excludes_failed_empty_trajectories_without_inventing_statistics PASSED
+
+=============================== warnings summary ===============================
+tests/test_verifier.py::test_aggregate_excludes_failed_empty_trajectories_without_inventing_statistics
+  /Users/prakash_mac/Desktop/code/x/.venv/lib/python3.13/site-packages/pydantic/main.py:520: UserWarning: Pydantic serializer warnings:
+    PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [field_name='outcome', input_value='EXECUTION_FAILED', input_type=str])
+    return self.__pydantic_serializer__.to_python(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 14 passed, 1 warning in 1.19s =========================
+```

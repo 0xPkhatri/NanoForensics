@@ -86,7 +86,7 @@ class NumericalConsistencyCheck(BaseModel):
 class SimulationSummary(BaseModel):
 
     units: str = "lj_reduced_2d"
-    solver_version: str = "sflj-1.0"
+    solver_version: str = "sflj-1.1"
     strain_rate_convention: str = "engineering strain / LJ time"
     area_convention: str = "nominal width * current grip gauge; unit thickness; tensile-positive virial"
     effective_gauge_length: float = 0.0

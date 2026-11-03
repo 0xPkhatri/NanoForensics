@@ -87,7 +87,7 @@ class NanoForensicsInvestigator:
             existing.modified_parameters=params.model_dump(exclude_none=True)
             return existing
         h=next((h for h in self.state.hypotheses if h.proposed_intervention==intervention),None)
-        p=ExperimentProposal(experiment_id=uuid.uuid4().hex,case_id=case_id,target_hypothesis_id=h.id if h else 'DIAGNOSTIC',intervention=intervention,matched_seeds=SEEDS,controlled_parameters={'matched_seeds':SEEDS},modified_parameters=params.model_dump(exclude_none=True),rationale=rationale,estimated_cost_sec=18,expected_information_gain=.2,risk_penalty=.1,utility_score=-.08,ai_execution_mode=FALLBACK,provenance={'action':'registered_user_selection'})
+        p=ExperimentProposal(experiment_id=uuid.uuid4().hex,case_id=case_id,target_hypothesis_id=h.id if h else 'DIAGNOSTIC',intervention=intervention,matched_seeds=(SEEDS+[101,202,303] if intervention==InterventionType.REPEAT_REPLICATE_SEEDS else SEEDS),controlled_parameters={'matched_seeds':SEEDS},modified_parameters=params.model_dump(exclude_none=True),rationale=rationale,estimated_cost_sec=18,expected_information_gain=.2,risk_penalty=.1,utility_score=-.08,ai_execution_mode=FALLBACK,provenance={'action':'registered_user_selection'})
         self.state.proposed_experiments.append(p)
         return p
 
@@ -105,7 +105,7 @@ class NanoForensicsInvestigator:
 
     def _run(self,specimen,fresh=False):
         remaining=self._budget()
-        key=content_hash({'input':specimen.model_dump(),'solver_version':'sflj-1.0','engine':engine_capabilities()})
+        key=content_hash({'input':specimen.model_dump(),'solver_version':'sflj-1.1','engine':engine_capabilities()})
         result=None if fresh else self.store.cached(key)
         cached=result is not None
         if result is None:
@@ -126,6 +126,7 @@ class NanoForensicsInvestigator:
             baseline.append(self._run(b));counter.append(self._run(c,fresh=self.force_recompute))
         self.baseline_runs[experiment_id]=baseline
         summary=aggregate(counter)
+        self.store.save_result('aggregate:'+summary.sim_id,summary)
         self.state.executed_experiments[experiment_id]=summary
         self._save('Matched-seed counterfactual completed','experiment',experiment_id=experiment_id,raw_result_ids=[r.sim_id for r in counter])
         return summary

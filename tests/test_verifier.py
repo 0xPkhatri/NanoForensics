@@ -57,3 +57,14 @@ def test_empirical_verdicts_censoring_failures_and_id_invariance():
     assert verify(p,b,[run(s,.26) for s in [42,137,271]]).verdict==answer.verdict
     p.intervention=InterventionType.REPEAT_REPLICATE_SEEDS
     assert verify(p,b,[run(s,.26) for s in [42,137,271]]).verdict=='INCONCLUSIVE'
+
+
+def test_aggregate_excludes_failed_empty_trajectories_without_inventing_statistics():
+    from backend.analysis.comparison import aggregate
+    good=run(42)
+    bad=run(137,valid=False,stress=1000)
+    bad.outcome='EXECUTION_FAILED'
+    result=aggregate([good,bad])
+    assert result.peak_stress==good.peak_stress
+    assert result.outcome=='EXECUTION_FAILED' and result.failure_strain is None
+    assert len(result.replicate_results)==2 and result.diagnostics['failed_replicate_count']==1

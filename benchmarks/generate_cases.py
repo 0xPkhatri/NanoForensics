@@ -14,7 +14,7 @@ from backend.storage.db import Store
 
 
 def cache_key(specimen):
-    return content_hash({'input':specimen.model_dump(),'solver_version':'sflj-1.0','engine':engine_capabilities()})
+    return content_hash({'input':specimen.model_dump(),'solver_version':'sflj-1.1','engine':engine_capabilities()})
 
 
 def generate(store=None,truth_path=None):
@@ -48,6 +48,7 @@ def generate(store=None,truth_path=None):
             store.save_result(cache_key(inp),result)
             runs.append(result)
         public=FailureCasePublic(case_id=name,display_title=f'Blind Specimen {name.split("_")[1].title()} (2D Hexagonal LJ)',material_system='2D reduced-unit Lennard-Jones computational testbed',atom_count=len(coords),nominal_strain_rate=.05,initial_observations_summary='Actual three-seed simulated stress and trajectory measurements. The hidden preparation is withheld; observed coordinates are equally available to every comparator.',baseline_simulation=aggregate(runs),observed_configuration={'coordinates':coords.tolist(),'atom_ids':specimen.atom_ids})
+        store.save_result('aggregate:'+public.baseline_simulation.sim_id,public.baseline_simulation)
         store.put_specimen(public,specimen)
         truth[name]={'cause':cause,'removed_original_site_ids':[int(x) for x in removed],'original_unmodified_lattice_site_ids':list(range(len(pristine))),'preparation_protocol':p.model_dump(),'input_hash':content_hash(specimen.model_dump()),'frozen_before_observers':True}
     truth_path.parent.mkdir(parents=True,exist_ok=True)
