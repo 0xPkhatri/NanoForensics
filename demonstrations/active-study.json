@@ -1,10 +1,16 @@
 {
-  "version": 2,
-  "registration": "v2/registration.json",
-  "retained_prior_study": {
-    "version": 1,
-    "development_status": "NOT_VALIDATED",
-    "held_out_status": "NOT_GENERATED",
-    "reason": "No distinctive repair contrast in development; no held-out labels used for redesign."
-  }
+  "version": 3,
+  "registration": "v3/registration.json",
+  "retained_prior_studies": [
+    {
+      "version": 1,
+      "development_status": "NOT_VALIDATED",
+      "held_out_status": "NOT_GENERATED"
+    },
+    {
+      "version": 2,
+      "development_status": "PHYSICAL_VALIDATION_FAILED",
+      "held_out_status": "NOT_GENERATED"
+    }
+  ]
 }

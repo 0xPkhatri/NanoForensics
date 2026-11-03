@@ -1,0 +1,137 @@
+{
+  "study_id": "NF-DEMO-2026-11-04-V3",
+  "version": 3,
+  "design_basis": "V1 lacked a unique repair contrast. V2 supplemental temperature control failed during development. Neither held-out set was generated. V3 is a final deterministic athermal mechanistic reference, not a thermal population-discovery claim; validation units are unseen geometries, not seed labels.",
+  "source_checkpoint": "522d133",
+  "lattice": {
+    "nx": 16,
+    "ny": 20,
+    "spacing": "2^(1/6)",
+    "orientation": "horizontal close-packed rows; y loading"
+  },
+  "protocol": {
+    "dt": 0.002,
+    "temperature": 0.0,
+    "strain_rate": 0.005,
+    "max_strain": 0.35,
+    "sample_every": 50,
+    "warmup_steps": 4000,
+    "gamma": 2.0,
+    "nve_steps": 500,
+    "minimize_tolerance": 0.005
+  },
+  "families": [
+    {
+      "name": "interior-dominant hypothesis",
+      "large_gap": "six adjacent centered columns in two consecutive transverse rows (12 sites)",
+      "secondary_gap": "one left boundary site in same row",
+      "hypothesis": "interior reconstruction increases failure strain more than edge reconstruction"
+    },
+    {
+      "name": "boundary-dominant hypothesis",
+      "large_gap": "six adjacent left-boundary columns in two consecutive transverse rows (12 sites)",
+      "secondary_gap": "one interior site at column 11 in same row",
+      "hypothesis": "edge reconstruction increases failure strain more than interior reconstruction"
+    },
+    {
+      "name": "negative control",
+      "large_gap": "none",
+      "secondary_gap": "none",
+      "hypothesis": "no supported geometric repair; no applicable edit is not evidence of causal rejection"
+    }
+  ],
+  "development": {
+    "seeds": [
+      5801,
+      5802,
+      5803
+    ],
+    "gap_row": 9,
+    "case_ids": [
+      "DEMO_401",
+      "DEMO_402",
+      "DEMO_403"
+    ],
+    "interpretation": "three exact replay labels per geometry; one independent geometry per case, zero independent thermal samples"
+  },
+  "held_out": {
+    "seeds": [
+      6801,
+      6802,
+      6803
+    ],
+    "gap_row": 8,
+    "case_ids": [
+      "DEMO_501",
+      "DEMO_502",
+      "DEMO_503"
+    ],
+    "access": "unseen one-row-shift geometries; generate only after committed development predictions and analysis lock",
+    "interpretation": "three deterministic replay labels; generalization is across registered geometries only"
+  },
+  "interventions": [
+    "heal_interior_vacancy",
+    "smooth_surface_notch"
+  ],
+  "geometric_edit_rule": "Same circular row-phase fit and component topology as V1; candidate sites require at least two measured nearest-shell neighbors, allowing reconstruction of each bank-adjacent row of a two-row slot. No pristine site IDs. Entire missing-site components classified by observable external-boundary connectivity.",
+  "physical_validation": {
+    "nve_drift_lt": 0.001,
+    "max_force_lt": 10000,
+    "max_step_displacement_lt": 0.1,
+    "raw_temperature_error_lt": 0.35,
+    "positive_peak_required": true,
+    "fracture_rule": "unchanged post-global-peak 0.65 load drop plus reference-bond-loss cluster >=4 persisting three samples; null strain if censored",
+    "planarity": "z=vz=0 verified in LAMMPS",
+    "reproducibility": "one development replicate rerun fresh; same engine/version numeric outputs equal; ignore walltime/PIDs",
+    "open_slot_bank_separation_gt": 2.5,
+    "open_slot_measurement": "For every inferred missing component spanning at least two lattice rows, measure nearest opposing-bank distance in the central half of its x extent after NVE and before loading. It must remain above the SFLJ force cutoff; retain actual distances. One-site components and pristine controls have no open-slot requirement.",
+    "temperature_note": "Athermal target T=0; original raw kinetic-temperature gate with its disclosed 0.01 scale remains unchanged. No relative-temperature claim at a zero target. Finite-rate motion and energy released at rupture remain measured.",
+    "force_moment_identity_absolute_error_lt": 1e-08,
+    "heldout_timestep_refinement": {
+      "required": true,
+      "dt": 0.001,
+      "warmup_steps": 8000,
+      "nve_steps": 1000,
+      "sample_every": 100,
+      "fixed_seed_label": 6801,
+      "max_absolute_failure_strain_difference": 0.01,
+      "max_relative_peak_stress_difference": 0.05,
+      "same_identified_mechanism_required": true,
+      "arms": "baseline and both applicable repairs; no-op arms remain no-op",
+      "comparison": "same physical warmup/NVE duration, loading rate, horizon and sampling interval"
+    }
+  },
+  "scientific_validation": {
+    "failure_recovery_pct_min": 18,
+    "paired_snr_min": 2.5,
+    "cohort_cv_pct_max": 12,
+    "winner_contrast_recovery_percentage_points_min": 10,
+    "winner_contrast_snr_min": 2.5,
+    "complete_valid_uncensored_cohort_required": true,
+    "negative_control": "no supported repair",
+    "inference_framework": "Deterministic counterfactual identification at fixed model/protocol. Replay SD and CV measure repeatability only. SNR is contrast relative to the unchanged 0.004 engineering-strain floor, not population uncertainty. No t interval or independent-seed confidence claim is permitted.",
+    "exact_replay_required": true
+  },
+  "holdout_policy": "No scientific source, protocol, geometry, endpoint or threshold changes after the development analysis lock. Freeze coarse and refined decisions before scoring private assignments. All held-out geometries and applicable arms must pass registered physical, deterministic replay and convergence criteria. No discarded cases. Failure is NOT_VALIDATED.",
+  "selection_policy": "Final single registered design. No further design search if V3 fails. Development physical failure prohibits held-out generation. All negative V1/V2 outcomes retained. No amendments to V3 after its first trajectory.",
+  "budgets": {
+    "per_run_sec": 90,
+    "whole_study_sec": 1800,
+    "interactive_job_sec": 900,
+    "loading_horizon_must_not_be_shortened": true,
+    "runtime_target_sec": [
+      3,
+      12
+    ],
+    "over_target_reported": true
+  },
+  "inference": {
+    "modes": "offline deterministic registered tools initially; live inference only with successful per-action JSON provenance",
+    "public_observations": "identical measured geometry, protocol, curves and snapshots available to every comparator",
+    "hidden": "ID-family map and original lattice site identifiers only in separate private generator/scorer files",
+    "validation_unit": "One geometry per public case, with three exact numerical replays. Held-out row position is unseen during development. No independent thermal samples exist at T=0."
+  },
+  "scope": "Educational athermal finite-rate 2D SFLJ open-slot counterfactual reference. Validates only the held-out registered geometry shift and solver timestep convergence; not thermal robustness, population inference, broad shape generalization or real-material prediction. V1/V2 negative development findings and original four benchmark results remain unchanged.",
+  "dashboard_policy": "Always separate original frozen benchmark from this study. Show registration hash, development vs held-out, validation state, cached vs fresh, seed counts, failed/censored states and model mode. Never describe NOT_VALIDATED data as a successful discovery. Preserve all arms and all seeds.",
+  "geometry_algorithm": "observable-component-fit-v2"
+}
