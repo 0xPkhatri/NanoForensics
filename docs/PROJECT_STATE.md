@@ -15,3 +15,11 @@ Latest tested source checkpoint: 965eaef (all final accepted source, physics, ap
 Scientific/environment limits: Meta Muse credentials unavailable, so actual operations are OFFLINE_HEURISTIC_FALLBACK. Two ALPHA baseline replicas violate temperature stability, so they supply no causal verdict. All current benchmark investigations are INCONCLUSIVE. Live Meta inference is still required for a judging demo that requires live model use. This is a small 2D LJ testbed, not validated engineering-material fracture prediction.
 
 Local demo running: http://127.0.0.1:3000 and http://127.0.0.1:8000, owned PID/log records in runtime/demo. Final browser check generated hypotheses and ran three freshly computed BETA counterfactual replicates via the UI; audit dialog opened correctly, no browser console errors. Stop the owned demo with `.venv/bin/python scripts/e2e_servers.py stop runtime/demo`.
+
+## Active scientific audit (2026-11-04)
+
+[~] Root-cause diagnosis on branch science/root-cause-audit; frozen records snapshotted, existing user changes preserved.
+[ ] Independent temperature/geometry/rate sensitivity experiments and expanded seeds.
+[ ] Fix only evidence-demonstrated defects; rerun all gates and document measurements.
+
+See SCIENTIFIC_AUDIT_PLAN.md. Original build checkpoint 00c4375 remains available.

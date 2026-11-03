@@ -128,6 +128,8 @@ def summarize(specimen, frames, mobile, bottom, top, diagnostics, started, engin
     gauge = float(ref[top, 1].mean()-ref[bottom, 1].mean())
     width = float(np.ptp(ref[:, 0]))
     snapshots, clusters, temps, reactions = [], [], [], []
+    thermal_series=[]
+    from backend.analysis.thermal_diagnostics import kinetic_diagnostics
     maxforce, maxdisp, minimum = 0., 0., 10.
     last_q = ref
     for k, q, v in frames:
@@ -140,6 +142,7 @@ def summarize(specimen, frames, mobile, bottom, top, diagnostics, started, engin
         atom = np.column_stack([specimen.atom_ids, q, z, loss, -vir[:, 1, 1]])
         snapshots.append(AtomSnapshot(timestep=k, strain=strain, stress_yy=stress, potential_energy=u, kinetic_energy=.5*float((v[mobile]**2).sum()), atoms=atom.tolist()))
         clusters.append(groups)
+        thermal_series.append(kinetic_diagnostics(q,v,mobile,bottom,top,gauge,p.strain_rate))
         temps.append(float((v[mobile]**2).sum())/(2*mobile.sum()))
         reactions.append(float((f[bottom, 1].sum()-f[top, 1].sum())/(2*width)))
         maxforce = max(maxforce, float(np.linalg.norm(f, axis=1).max()))
@@ -157,6 +160,7 @@ def summarize(specimen, frames, mobile, bottom, top, diagnostics, started, engin
     check = NumericalConsistencyCheck(is_valid=bool(valid), max_force_norm=maxforce, max_step_displacement=diagnostics.get('max_step_displacement', maxdisp), thermostat_temperature_error_ratio=terr, energy_drift_ratio=diagnostics['nve_max_drift'], nan_detected=False, fracture_criterion_met=fail is not None, notes='No external work in pre-load NVE. Temperature: time-mean mobile kinetic DOF. Stress: tensile positive, negative pressure tensor. Displacement is measured each integrator step when available; sampled estimate otherwise.')
     curve = [{'strain': s.strain, 'stress': s.stress_yy, 'stress_std': 0.} for s in snapshots]
     outcome = 'EXECUTION_FAILED' if not valid else 'FRACTURED' if fail is not None else 'NOT_FRACTURED_WITHIN_HORIZON'
+    diagnostics['thermal_diagnostics']={'analysis_version':'kinematic-1','gate_unchanged':'laboratory kinetic temperature; error <0.35','series':thermal_series,'means':{key:float(np.mean([row[key] for row in thermal_series])) for key in thermal_series[0]}}
     diagnostics.update(minimum_sampled_distance=minimum, grip_reaction_traction=reactions, mobile_temperature_series=temps, raw_sample_count=len(frames), stress_smoothing='centered 3-sample mean; replicated endpoints', fracture_assignment='first qualifying frame confirmed across three measurements', thermostat='NumPy BAOAB during common warmup; '+('LAMMPS Langevin + NVE during loading' if engine=='LAMMPS_BINARY' else 'BAOAB during loading'), cross_engine_ensemble='NOT_RUN')
     return SimulationSummary(sim_id=content_hash({'input': specimen.model_dump(), 'engine': engine, 'version':'sflj-1.1'})[:24], seed=p.seed, peak_stress=float(max(stresses)), failure_strain=snapshots[fail].strain if fail is not None and valid else None, toughness=float(np.trapezoid(stresses, [s.strain for s in snapshots])), crack_initiation_region=localize(cluster, ref), mean_coordination_at_peak=float(np.mean(np.array(snapshots[peak].atoms)[mobile, 3])), max_bond_loss_cluster_size=max((len(c) for gs in clusters for c in gs), default=0), min_coordination_region=localize(cluster, ref), stress_strain_curve=curve, snapshots=[snapshots[0], snapshots[peak], snapshots[fail if fail is not None else -1]], numerical_check=check, wall_time_sec=time.perf_counter()-started, engine_used=engine, outcome=outcome, max_observed_strain=snapshots[-1].strain, effective_gauge_length=gauge, reference_geometry={'width':width,'gauge':gauge,'reference_coordinates':ref.tolist(),'reference_neighbor_cutoff':1.35*2**(1/6)}, measurement_horizon={'steps':frames[-1][0], 'lj_time':frames[-1][0]*p.dt, 'target_strain':p.max_strain}, protocol_hash=content_hash(p.model_dump()), initial_configuration_hash=content_hash({'coordinates':specimen.coordinates,'atom_ids':specimen.atom_ids}), diagnostics=diagnostics, error_code=None if valid else 'NUMERICAL_VALIDITY_GATE', error_message=None if valid else 'NVE, force, displacement or measured temperature exceeded the operating bound')
 

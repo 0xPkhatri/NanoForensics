@@ -406,3 +406,7 @@ Command: `.venv/bin/python -m benchmarks.validate_engines`. Six actual, bounded 
 ## Final browser QA — PASS
 
 Compiled production frontend, actual backend, corrected solver sflj-1.1. Used the Browser skill to select BETA, generate hypotheses, observe action disabling/progress, click the registered surface-repair paired test, wait for terminal state and open/close the scientific audit dialog. API audit confirms three freshly computed counterfactual replicates. Mechanical result: -3.5714% paired recovery; tested mechanism REJECTED, final investigation INCONCLUSIVE. Canvas and Plotly rendered actual data; no browser console errors. Local demo left running with owned process records in runtime/demo.
+
+## Scientific audit resumed — 2026-11-04
+
+Starting checkpoint 00c4375; frozen specimen snapshot and fingerprints stored in runtime/science-audit. Existing user edits are preserved. Independent baseline rerun on DB clone: 25 passed in 5.68 s. Three new invariants pass: kinetic-energy decomposition and Galilean invariance, observable repair geometry/energy, and same-microstate NVE dt refinement. Temperature diagnostics are supplemental; raw-temperature bound 0.35 is unchanged. New protocol runs are independent sensitivities, never substituted into frozen benchmark data. See SCIENTIFIC_AUDIT_PLAN.md.

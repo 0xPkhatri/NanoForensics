@@ -15,3 +15,7 @@ Read AGENTS.md and docs before changing this project. Latest tested source check
 ## Final browser handoff
 
 The local compiled demo is now left running at http://127.0.0.1:3000 (API :8000). PID/log files: runtime/demo/{api,ui}.{pid,log}. Stop only these owned processes with `.venv/bin/python scripts/e2e_servers.py stop runtime/demo`. A Chrome dashboard tab is left open on BETA. Browser controls generated hypotheses, disabled actions during work, ran the smooth-surface intervention with three fresh counterfactual trajectories, showed paired recovery -3.5714% and REJECTED for that mechanism, retained final INCONCLUSIVE, and opened/closed the audit modal. No browser console errors. Frozen input data were preserved; prior mutable test investigation states were reset before this actual UI journey.
+
+## Resumed scientific investigation (2026-11-04)
+
+Read SCIENTIFIC_AUDIT_PLAN.md. Current branch science/root-cause-audit; original checkpoint 00c4375 preserved. Uncommitted user formatting changes in TEST_RESULTS.md and next-env.d.ts and untracked repomix-output.xml predate this turn; do not discard or stage them indiscriminately. Frozen snapshot runtime/science-audit/original.db. Use independent experiments, never rewrite frozen specimens or baseline summaries.
