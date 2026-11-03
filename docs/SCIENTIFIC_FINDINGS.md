@@ -34,3 +34,5 @@ Reproduce on the existing frozen database (the runner snapshots it once and read
 ```
 
 The thermostat interpretation follows LAMMPS documentation: [temperature profiles](https://docs.lammps.org/compute_temp_profile.html) and [Langevin velocity-bias support](https://docs.lammps.org/fix_langevin.html). A profile-unbiased thermostat would require separate validation in both engines; it has not been silently substituted into this benchmark.
+
+Verification: 32 backend tests and 9 live E2E tests PASS; evaluator completes with 0 correct / 0 incorrect / 4 NO_DECISION for each method. Production frontend build, npm dependency audit (0 vulnerabilities), and post-restoration TypeScript check PASS. Logs: [validation.log](science-audit/validation.log). The local demo was restored at http://127.0.0.1:3000 without resetting original investigation state. Physics studies intentionally used deterministic tools without model calls; live Muse execution was not validated by this audit.

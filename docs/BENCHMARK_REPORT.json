@@ -4,7 +4,7 @@
     "case_id": "CASE_ALPHA",
     "identified_cause": null,
     "status": "INCONCLUSIVE",
-    "wall_time_sec": 3.962247791001573,
+    "wall_time_sec": 4.071465790999355,
     "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
     "experimental_budget": 4,
     "replicate_seeds": [
@@ -32,7 +32,7 @@
       },
       "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
       "budget_total_sec": 1800.0,
-      "budget_used_sec": 3.9604473749932367,
+      "budget_used_sec": 4.069539042015094,
       "hypotheses": [
         {
           "id": "H1",
@@ -43,7 +43,7 @@
             "Visible geometric candidate sites: interior=3, edge=0.",
             "Measured crack region: surface_right.",
             "Baseline outcome: SimulationOutcome.EXECUTION_FAILED.",
-            "Numerical or execution failure: no scientific verdict assigned."
+            "Numerical or execution failure: no scientific verdict assigned. baseline seed 42: Failed validity gates: driven_laboratory_temperature; baseline seed 271: Failed validity gates: driven_laboratory_temperature"
           ],
           "missing_evidence": "Three numerically valid, uncensored matched-seed intervention pairs.",
           "proposed_intervention": "heal_interior_vacancy",
@@ -125,7 +125,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "45dd20c101df475fbb7975b9b80b4787",
+          "experiment_id": "075e61d97ce64c1c96de4f5393f62e34",
           "case_id": "CASE_ALPHA",
           "target_hypothesis_id": "H1",
           "intervention": "heal_interior_vacancy",
@@ -156,7 +156,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "62efcf9fdf5b4e8f834afa900cfe7b9a",
+          "experiment_id": "51dc68551cec44619079252be710eaf8",
           "case_id": "CASE_ALPHA",
           "target_hypothesis_id": "H3",
           "intervention": "normalize_strain_rate",
@@ -187,7 +187,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "7f06fb23ad8346edad115ae452ff4f3e",
+          "experiment_id": "df192dcd3f57404781e9b3c15f801a72",
           "case_id": "CASE_ALPHA",
           "target_hypothesis_id": "H4",
           "intervention": "normalize_temperature",
@@ -218,7 +218,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "39d85f9f26364269bef6417cb24ab3c0",
+          "experiment_id": "6924ddcbfcac413286eb5ffa991b8a9a",
           "case_id": "CASE_ALPHA",
           "target_hypothesis_id": "H2",
           "intervention": "smooth_surface_notch",
@@ -247,7 +247,7 @@
         }
       ],
       "executed_experiments": {
-        "45dd20c101df475fbb7975b9b80b4787": {
+        "075e61d97ce64c1c96de4f5393f62e34": {
           "units": "lj_reduced_2d",
           "solver_version": "sflj-1.1",
           "strain_rate_convention": "engineering strain / LJ time",
@@ -24178,7 +24178,7 @@
       },
       "verifications": [
         {
-          "experiment_id": "45dd20c101df475fbb7975b9b80b4787",
+          "experiment_id": "075e61d97ce64c1c96de4f5393f62e34",
           "hypothesis_id": "H1",
           "intervention": "heal_interior_vacancy",
           "matched_seeds_used": [
@@ -24218,29 +24218,29 @@
             "8a2d48908d2f44500c477746"
           ],
           "statistics_label": "descriptive; 1 complete uncensored matched pairs; no population confidence claim",
-          "scientific_explanation": "Numerical or execution failure: no scientific verdict assigned."
+          "scientific_explanation": "Numerical or execution failure: no scientific verdict assigned. baseline seed 42: Failed validity gates: driven_laboratory_temperature; baseline seed 271: Failed validity gates: driven_laboratory_temperature"
         }
       ],
       "identified_cause": null,
       "final_verdict_summary": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit.",
       "audit_log": [
         {
-          "timestamp": "2026-11-03T14:29:12.319201+00:00",
+          "timestamp": "2026-11-03T18:53:46.063648+00:00",
           "stage": "hypothesize",
           "message": "Fixed checklist, same visible geometry and measurement access"
         },
         {
-          "timestamp": "2026-11-03T14:29:12.319708+00:00",
+          "timestamp": "2026-11-03T18:53:46.064188+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "heal_interior_vacancy",
-          "experiment_id": "45dd20c101df475fbb7975b9b80b4787"
+          "experiment_id": "075e61d97ce64c1c96de4f5393f62e34"
         },
         {
-          "timestamp": "2026-11-03T14:29:12.321758+00:00",
+          "timestamp": "2026-11-03T18:53:46.066326+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "45dd20c101df475fbb7975b9b80b4787",
+          "experiment_id": "075e61d97ce64c1c96de4f5393f62e34",
           "trace": {
             "status": "APPLIED",
             "inferred_locations": [
@@ -24268,19 +24268,19 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:14.292359+00:00",
+          "timestamp": "2026-11-03T18:53:48.088218+00:00",
           "stage": "simulation",
           "message": "Freshly computed replicate seed 42",
           "seed": 42,
           "result_id": "8d9be2e3ee9f6bcfb954c9c3",
           "cached": false,
           "outcome": "EXECUTION_FAILED",
-          "wall_time_sec": 1.6403032919915859,
+          "wall_time_sec": 1.6899133329861797,
           "relaxation_convergence": 0.0013421738244012611,
           "error_code": "NUMERICAL_VALIDITY_GATE"
         },
         {
-          "timestamp": "2026-11-03T14:29:14.294040+00:00",
+          "timestamp": "2026-11-03T18:53:48.090069+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -24292,7 +24292,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:14.295461+00:00",
+          "timestamp": "2026-11-03T18:53:48.091505+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -24304,7 +24304,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:14.296520+00:00",
+          "timestamp": "2026-11-03T18:53:48.092622+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -24316,19 +24316,19 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.224991+00:00",
+          "timestamp": "2026-11-03T18:53:50.077333+00:00",
           "stage": "simulation",
           "message": "Freshly computed replicate seed 271",
           "seed": 271,
           "result_id": "b0ab4dca375ce4e707219375",
           "cached": false,
           "outcome": "EXECUTION_FAILED",
-          "wall_time_sec": 1.6214667080203071,
+          "wall_time_sec": 1.6744799999869429,
           "relaxation_convergence": 0.0013421738244012611,
           "error_code": "NUMERICAL_VALIDITY_GATE"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.226623+00:00",
+          "timestamp": "2026-11-03T18:53:50.079102+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -24340,10 +24340,10 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.245212+00:00",
+          "timestamp": "2026-11-03T18:53:50.098451+00:00",
           "stage": "experiment",
           "message": "Matched-seed counterfactual completed",
-          "experiment_id": "45dd20c101df475fbb7975b9b80b4787",
+          "experiment_id": "075e61d97ce64c1c96de4f5393f62e34",
           "raw_result_ids": [
             "30fd0567fc0973710268546b",
             "ca097b849ae2fdbb3edd5d89",
@@ -24351,11 +24351,11 @@
           ]
         },
         {
-          "timestamp": "2026-11-03T14:29:16.249871+00:00",
+          "timestamp": "2026-11-03T18:53:50.102013+00:00",
           "stage": "verify",
           "message": "Independent empirical verification completed",
           "verification": {
-            "experiment_id": "45dd20c101df475fbb7975b9b80b4787",
+            "experiment_id": "075e61d97ce64c1c96de4f5393f62e34",
             "hypothesis_id": "H1",
             "intervention": "heal_interior_vacancy",
             "matched_seeds_used": [
@@ -24395,26 +24395,26 @@
               "8a2d48908d2f44500c477746"
             ],
             "statistics_label": "descriptive; 1 complete uncensored matched pairs; no population confidence claim",
-            "scientific_explanation": "Numerical or execution failure: no scientific verdict assigned."
+            "scientific_explanation": "Numerical or execution failure: no scientific verdict assigned. baseline seed 42: Failed validity gates: driven_laboratory_temperature; baseline seed 271: Failed validity gates: driven_laboratory_temperature"
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.251708+00:00",
+          "timestamp": "2026-11-03T18:53:50.104085+00:00",
           "stage": "belief_revision",
           "message": "Fixed-order baseline retains verifier decisions without adaptive model calls"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.253426+00:00",
+          "timestamp": "2026-11-03T18:53:50.105828+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "smooth_surface_notch",
-          "experiment_id": "39d85f9f26364269bef6417cb24ab3c0"
+          "experiment_id": "6924ddcbfcac413286eb5ffa991b8a9a"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.256705+00:00",
+          "timestamp": "2026-11-03T18:53:50.109488+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "39d85f9f26364269bef6417cb24ab3c0",
+          "experiment_id": "6924ddcbfcac413286eb5ffa991b8a9a",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -24425,23 +24425,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.258405+00:00",
+          "timestamp": "2026-11-03T18:53:50.111254+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "39d85f9f26364269bef6417cb24ab3c0"
+          "experiment_id": "6924ddcbfcac413286eb5ffa991b8a9a"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.259989+00:00",
+          "timestamp": "2026-11-03T18:53:50.112914+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_strain_rate",
-          "experiment_id": "62efcf9fdf5b4e8f834afa900cfe7b9a"
+          "experiment_id": "51dc68551cec44619079252be710eaf8"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.262393+00:00",
+          "timestamp": "2026-11-03T18:53:50.115240+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "62efcf9fdf5b4e8f834afa900cfe7b9a",
+          "experiment_id": "51dc68551cec44619079252be710eaf8",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -24452,23 +24452,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.264017+00:00",
+          "timestamp": "2026-11-03T18:53:50.116912+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "62efcf9fdf5b4e8f834afa900cfe7b9a"
+          "experiment_id": "51dc68551cec44619079252be710eaf8"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.265611+00:00",
+          "timestamp": "2026-11-03T18:53:50.118856+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_temperature",
-          "experiment_id": "7f06fb23ad8346edad115ae452ff4f3e"
+          "experiment_id": "df192dcd3f57404781e9b3c15f801a72"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.267954+00:00",
+          "timestamp": "2026-11-03T18:53:50.121380+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "7f06fb23ad8346edad115ae452ff4f3e",
+          "experiment_id": "df192dcd3f57404781e9b3c15f801a72",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -24479,18 +24479,18 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.269633+00:00",
+          "timestamp": "2026-11-03T18:53:50.123250+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "7f06fb23ad8346edad115ae452ff4f3e"
+          "experiment_id": "df192dcd3f57404781e9b3c15f801a72"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.271308+00:00",
+          "timestamp": "2026-11-03T18:53:50.124953+00:00",
           "stage": "conclude",
           "message": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit."
         },
         {
-          "timestamp": "2026-11-03T14:29:16.272998+00:00",
+          "timestamp": "2026-11-03T18:53:50.126849+00:00",
           "stage": "complete",
           "message": "Investigation stopped; results persisted"
         }
@@ -24502,7 +24502,7 @@
     "case_id": "CASE_BETA",
     "identified_cause": null,
     "status": "INCONCLUSIVE",
-    "wall_time_sec": 0.059377333003794774,
+    "wall_time_sec": 0.06208800000604242,
     "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
     "experimental_budget": 4,
     "replicate_seeds": [
@@ -24530,7 +24530,7 @@
       },
       "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
       "budget_total_sec": 1800.0,
-      "budget_used_sec": 0.057480292016407475,
+      "budget_used_sec": 0.06018416699953377,
       "hypotheses": [
         {
           "id": "H1",
@@ -24562,7 +24562,7 @@
             "Visible geometric candidate sites: interior=0, edge=2.",
             "Measured crack region: surface_right.",
             "Baseline outcome: SimulationOutcome.FRACTURED.",
-            "Measured paired recovery -3.57%, paired SNR 0.46, CV 6.19%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+            "Measured paired recovery -3.57%, paired SNR 0.46, CV 6.19%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
           ],
           "missing_evidence": "Three numerically valid, uncensored matched-seed intervention pairs.",
           "proposed_intervention": "smooth_surface_notch",
@@ -24623,7 +24623,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "f8f38d46b6ec4e4ab26e37afcf452b9d",
+          "experiment_id": "530cd3c7fc984b79bfdda89eeb4e2750",
           "case_id": "CASE_BETA",
           "target_hypothesis_id": "H2",
           "intervention": "smooth_surface_notch",
@@ -24654,7 +24654,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "af2db46cacf744f69af82d1a712a684d",
+          "experiment_id": "3cf37b968cd941fb937ba9f15add6635",
           "case_id": "CASE_BETA",
           "target_hypothesis_id": "H3",
           "intervention": "normalize_strain_rate",
@@ -24685,7 +24685,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "02c0658747b841baa9159c6ebcd67e28",
+          "experiment_id": "648997c714eb46febb6c4a4fe13685ca",
           "case_id": "CASE_BETA",
           "target_hypothesis_id": "H4",
           "intervention": "normalize_temperature",
@@ -24716,7 +24716,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "c28af330e2f04043ae881390bce5efc3",
+          "experiment_id": "82cb25f023184c95bd26b60d7f3329d1",
           "case_id": "CASE_BETA",
           "target_hypothesis_id": "H1",
           "intervention": "heal_interior_vacancy",
@@ -24745,7 +24745,7 @@
         }
       ],
       "executed_experiments": {
-        "f8f38d46b6ec4e4ab26e37afcf452b9d": {
+        "530cd3c7fc984b79bfdda89eeb4e2750": {
           "units": "lj_reduced_2d",
           "solver_version": "sflj-1.1",
           "strain_rate_convention": "engineering strain / LJ time",
@@ -48676,7 +48676,7 @@
       },
       "verifications": [
         {
-          "experiment_id": "f8f38d46b6ec4e4ab26e37afcf452b9d",
+          "experiment_id": "530cd3c7fc984b79bfdda89eeb4e2750",
           "hypothesis_id": "H2",
           "intervention": "smooth_surface_notch",
           "matched_seeds_used": [
@@ -48716,29 +48716,29 @@
             "d7748b1659be963008ec3313"
           ],
           "statistics_label": "descriptive; 3 complete uncensored matched pairs; no population confidence claim",
-          "scientific_explanation": "Measured paired recovery -3.57%, paired SNR 0.46, CV 6.19%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+          "scientific_explanation": "Measured paired recovery -3.57%, paired SNR 0.46, CV 6.19%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
         }
       ],
       "identified_cause": null,
       "final_verdict_summary": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit.",
       "audit_log": [
         {
-          "timestamp": "2026-11-03T14:29:16.281692+00:00",
+          "timestamp": "2026-11-03T18:53:50.135528+00:00",
           "stage": "hypothesize",
           "message": "Fixed checklist, same visible geometry and measurement access"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.282140+00:00",
+          "timestamp": "2026-11-03T18:53:50.135998+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "heal_interior_vacancy",
-          "experiment_id": "c28af330e2f04043ae881390bce5efc3"
+          "experiment_id": "82cb25f023184c95bd26b60d7f3329d1"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.284237+00:00",
+          "timestamp": "2026-11-03T18:53:50.138162+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "c28af330e2f04043ae881390bce5efc3",
+          "experiment_id": "82cb25f023184c95bd26b60d7f3329d1",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -48749,23 +48749,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.284720+00:00",
+          "timestamp": "2026-11-03T18:53:50.138670+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "c28af330e2f04043ae881390bce5efc3"
+          "experiment_id": "82cb25f023184c95bd26b60d7f3329d1"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.285258+00:00",
+          "timestamp": "2026-11-03T18:53:50.139394+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "smooth_surface_notch",
-          "experiment_id": "f8f38d46b6ec4e4ab26e37afcf452b9d"
+          "experiment_id": "530cd3c7fc984b79bfdda89eeb4e2750"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.287309+00:00",
+          "timestamp": "2026-11-03T18:53:50.141571+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "f8f38d46b6ec4e4ab26e37afcf452b9d",
+          "experiment_id": "530cd3c7fc984b79bfdda89eeb4e2750",
           "trace": {
             "status": "APPLIED",
             "inferred_locations": [
@@ -48788,7 +48788,7 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.288985+00:00",
+          "timestamp": "2026-11-03T18:53:50.143299+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -48800,7 +48800,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.290046+00:00",
+          "timestamp": "2026-11-03T18:53:50.144544+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -48812,7 +48812,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.291241+00:00",
+          "timestamp": "2026-11-03T18:53:50.146017+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -48824,7 +48824,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.292297+00:00",
+          "timestamp": "2026-11-03T18:53:50.147238+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -48836,7 +48836,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.293536+00:00",
+          "timestamp": "2026-11-03T18:53:50.148741+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -48848,7 +48848,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.294569+00:00",
+          "timestamp": "2026-11-03T18:53:50.149890+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -48860,10 +48860,10 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.313011+00:00",
+          "timestamp": "2026-11-03T18:53:50.168685+00:00",
           "stage": "experiment",
           "message": "Matched-seed counterfactual completed",
-          "experiment_id": "f8f38d46b6ec4e4ab26e37afcf452b9d",
+          "experiment_id": "530cd3c7fc984b79bfdda89eeb4e2750",
           "raw_result_ids": [
             "ac6ff43f0137f630e57c8321",
             "f99382f7743d67d85a0497a8",
@@ -48871,11 +48871,11 @@
           ]
         },
         {
-          "timestamp": "2026-11-03T14:29:16.316280+00:00",
+          "timestamp": "2026-11-03T18:53:50.172126+00:00",
           "stage": "verify",
           "message": "Independent empirical verification completed",
           "verification": {
-            "experiment_id": "f8f38d46b6ec4e4ab26e37afcf452b9d",
+            "experiment_id": "530cd3c7fc984b79bfdda89eeb4e2750",
             "hypothesis_id": "H2",
             "intervention": "smooth_surface_notch",
             "matched_seeds_used": [
@@ -48915,26 +48915,26 @@
               "d7748b1659be963008ec3313"
             ],
             "statistics_label": "descriptive; 3 complete uncensored matched pairs; no population confidence claim",
-            "scientific_explanation": "Measured paired recovery -3.57%, paired SNR 0.46, CV 6.19%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+            "scientific_explanation": "Measured paired recovery -3.57%, paired SNR 0.46, CV 6.19%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.318140+00:00",
+          "timestamp": "2026-11-03T18:53:50.174120+00:00",
           "stage": "belief_revision",
           "message": "Fixed-order baseline retains verifier decisions without adaptive model calls"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.319837+00:00",
+          "timestamp": "2026-11-03T18:53:50.175751+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_strain_rate",
-          "experiment_id": "af2db46cacf744f69af82d1a712a684d"
+          "experiment_id": "3cf37b968cd941fb937ba9f15add6635"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.322234+00:00",
+          "timestamp": "2026-11-03T18:53:50.178129+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "af2db46cacf744f69af82d1a712a684d",
+          "experiment_id": "3cf37b968cd941fb937ba9f15add6635",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -48945,23 +48945,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.323823+00:00",
+          "timestamp": "2026-11-03T18:53:50.179782+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "af2db46cacf744f69af82d1a712a684d"
+          "experiment_id": "3cf37b968cd941fb937ba9f15add6635"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.325478+00:00",
+          "timestamp": "2026-11-03T18:53:50.181632+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_temperature",
-          "experiment_id": "02c0658747b841baa9159c6ebcd67e28"
+          "experiment_id": "648997c714eb46febb6c4a4fe13685ca"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.327818+00:00",
+          "timestamp": "2026-11-03T18:53:50.184204+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "02c0658747b841baa9159c6ebcd67e28",
+          "experiment_id": "648997c714eb46febb6c4a4fe13685ca",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -48972,18 +48972,18 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.329506+00:00",
+          "timestamp": "2026-11-03T18:53:50.186121+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "02c0658747b841baa9159c6ebcd67e28"
+          "experiment_id": "648997c714eb46febb6c4a4fe13685ca"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.331181+00:00",
+          "timestamp": "2026-11-03T18:53:50.187832+00:00",
           "stage": "conclude",
           "message": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit."
         },
         {
-          "timestamp": "2026-11-03T14:29:16.332880+00:00",
+          "timestamp": "2026-11-03T18:53:50.189569+00:00",
           "stage": "complete",
           "message": "Investigation stopped; results persisted"
         }
@@ -48995,7 +48995,7 @@
     "case_id": "CASE_DELTA",
     "identified_cause": null,
     "status": "INCONCLUSIVE",
-    "wall_time_sec": 0.052141666994430125,
+    "wall_time_sec": 0.055290291988058016,
     "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
     "experimental_budget": 4,
     "replicate_seeds": [
@@ -49023,7 +49023,7 @@
       },
       "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
       "budget_total_sec": 1800.0,
-      "budget_used_sec": 0.05023516700020991,
+      "budget_used_sec": 0.053400375007186085,
       "hypotheses": [
         {
           "id": "H1",
@@ -49097,7 +49097,7 @@
             "Visible geometric candidate sites: interior=0, edge=0.",
             "Measured crack region: surface_left.",
             "Baseline outcome: SimulationOutcome.FRACTURED.",
-            "Measured paired recovery 7.77%, paired SNR 0.39, CV 22.76%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+            "Measured paired recovery 7.77%, paired SNR 0.39, CV 22.76%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
           ],
           "missing_evidence": "Three numerically valid, uncensored matched-seed intervention pairs.",
           "proposed_intervention": "normalize_temperature",
@@ -49116,7 +49116,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "e4e5a712153b457ea027ff01122df5dc",
+          "experiment_id": "6bd6158ac0994e5dbd62f341fdedc801",
           "case_id": "CASE_DELTA",
           "target_hypothesis_id": "H3",
           "intervention": "normalize_strain_rate",
@@ -49147,7 +49147,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "76f8e8d3de034deebf9ab8f1ddac66d9",
+          "experiment_id": "4d32ba0e21fe43a4b9462b7966e4e9db",
           "case_id": "CASE_DELTA",
           "target_hypothesis_id": "H4",
           "intervention": "normalize_temperature",
@@ -49178,7 +49178,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "4a47349eea9249d9acdd5c605415eec8",
+          "experiment_id": "797b83d769624368b886ae224ffeb76c",
           "case_id": "CASE_DELTA",
           "target_hypothesis_id": "H1",
           "intervention": "heal_interior_vacancy",
@@ -49209,7 +49209,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "0eb7f77ab39c42e397261d14a324555e",
+          "experiment_id": "17eb2b6c0091414587dfd875e1e59444",
           "case_id": "CASE_DELTA",
           "target_hypothesis_id": "H2",
           "intervention": "smooth_surface_notch",
@@ -49238,7 +49238,7 @@
         }
       ],
       "executed_experiments": {
-        "76f8e8d3de034deebf9ab8f1ddac66d9": {
+        "4d32ba0e21fe43a4b9462b7966e4e9db": {
           "units": "lj_reduced_2d",
           "solver_version": "sflj-1.1",
           "strain_rate_convention": "engineering strain / LJ time",
@@ -73169,7 +73169,7 @@
       },
       "verifications": [
         {
-          "experiment_id": "76f8e8d3de034deebf9ab8f1ddac66d9",
+          "experiment_id": "4d32ba0e21fe43a4b9462b7966e4e9db",
           "hypothesis_id": "H4",
           "intervention": "normalize_temperature",
           "matched_seeds_used": [
@@ -73209,29 +73209,29 @@
             "aa64d879d11deee543d9b9df"
           ],
           "statistics_label": "descriptive; 3 complete uncensored matched pairs; no population confidence claim",
-          "scientific_explanation": "Measured paired recovery 7.77%, paired SNR 0.39, CV 22.76%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+          "scientific_explanation": "Measured paired recovery 7.77%, paired SNR 0.39, CV 22.76%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
         }
       ],
       "identified_cause": null,
       "final_verdict_summary": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit.",
       "audit_log": [
         {
-          "timestamp": "2026-11-03T14:29:16.341566+00:00",
+          "timestamp": "2026-11-03T18:53:50.198618+00:00",
           "stage": "hypothesize",
           "message": "Fixed checklist, same visible geometry and measurement access"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.342053+00:00",
+          "timestamp": "2026-11-03T18:53:50.199109+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "heal_interior_vacancy",
-          "experiment_id": "4a47349eea9249d9acdd5c605415eec8"
+          "experiment_id": "797b83d769624368b886ae224ffeb76c"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.343906+00:00",
+          "timestamp": "2026-11-03T18:53:50.201344+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "4a47349eea9249d9acdd5c605415eec8",
+          "experiment_id": "797b83d769624368b886ae224ffeb76c",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -73242,23 +73242,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.344350+00:00",
+          "timestamp": "2026-11-03T18:53:50.201878+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "4a47349eea9249d9acdd5c605415eec8"
+          "experiment_id": "797b83d769624368b886ae224ffeb76c"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.344785+00:00",
+          "timestamp": "2026-11-03T18:53:50.202530+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "smooth_surface_notch",
-          "experiment_id": "0eb7f77ab39c42e397261d14a324555e"
+          "experiment_id": "17eb2b6c0091414587dfd875e1e59444"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.346669+00:00",
+          "timestamp": "2026-11-03T18:53:50.204711+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "0eb7f77ab39c42e397261d14a324555e",
+          "experiment_id": "17eb2b6c0091414587dfd875e1e59444",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -73269,23 +73269,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.347110+00:00",
+          "timestamp": "2026-11-03T18:53:50.205250+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "0eb7f77ab39c42e397261d14a324555e"
+          "experiment_id": "17eb2b6c0091414587dfd875e1e59444"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.347553+00:00",
+          "timestamp": "2026-11-03T18:53:50.205798+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_strain_rate",
-          "experiment_id": "e4e5a712153b457ea027ff01122df5dc"
+          "experiment_id": "6bd6158ac0994e5dbd62f341fdedc801"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.348702+00:00",
+          "timestamp": "2026-11-03T18:53:50.207120+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "e4e5a712153b457ea027ff01122df5dc",
+          "experiment_id": "6bd6158ac0994e5dbd62f341fdedc801",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -73296,23 +73296,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.349157+00:00",
+          "timestamp": "2026-11-03T18:53:50.207664+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "e4e5a712153b457ea027ff01122df5dc"
+          "experiment_id": "6bd6158ac0994e5dbd62f341fdedc801"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.349699+00:00",
+          "timestamp": "2026-11-03T18:53:50.208160+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_temperature",
-          "experiment_id": "76f8e8d3de034deebf9ab8f1ddac66d9"
+          "experiment_id": "4d32ba0e21fe43a4b9462b7966e4e9db"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.350963+00:00",
+          "timestamp": "2026-11-03T18:53:50.209390+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "76f8e8d3de034deebf9ab8f1ddac66d9",
+          "experiment_id": "4d32ba0e21fe43a4b9462b7966e4e9db",
           "trace": {
             "status": "APPLIED",
             "inferred_locations": [],
@@ -73323,7 +73323,7 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.352555+00:00",
+          "timestamp": "2026-11-03T18:53:50.211036+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -73335,7 +73335,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.353595+00:00",
+          "timestamp": "2026-11-03T18:53:50.212390+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -73347,7 +73347,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.354816+00:00",
+          "timestamp": "2026-11-03T18:53:50.213747+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -73359,7 +73359,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.355776+00:00",
+          "timestamp": "2026-11-03T18:53:50.214960+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -73371,7 +73371,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.357027+00:00",
+          "timestamp": "2026-11-03T18:53:50.216560+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -73383,7 +73383,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.358056+00:00",
+          "timestamp": "2026-11-03T18:53:50.217706+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -73395,10 +73395,10 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.377101+00:00",
+          "timestamp": "2026-11-03T18:53:50.236495+00:00",
           "stage": "experiment",
           "message": "Matched-seed counterfactual completed",
-          "experiment_id": "76f8e8d3de034deebf9ab8f1ddac66d9",
+          "experiment_id": "4d32ba0e21fe43a4b9462b7966e4e9db",
           "raw_result_ids": [
             "3ad3f9717a0eb546575b4a90",
             "0cbeffeee3b145facf874445",
@@ -73406,11 +73406,11 @@
           ]
         },
         {
-          "timestamp": "2026-11-03T14:29:16.380397+00:00",
+          "timestamp": "2026-11-03T18:53:50.239783+00:00",
           "stage": "verify",
           "message": "Independent empirical verification completed",
           "verification": {
-            "experiment_id": "76f8e8d3de034deebf9ab8f1ddac66d9",
+            "experiment_id": "4d32ba0e21fe43a4b9462b7966e4e9db",
             "hypothesis_id": "H4",
             "intervention": "normalize_temperature",
             "matched_seeds_used": [
@@ -73450,21 +73450,21 @@
               "aa64d879d11deee543d9b9df"
             ],
             "statistics_label": "descriptive; 3 complete uncensored matched pairs; no population confidence claim",
-            "scientific_explanation": "Measured paired recovery 7.77%, paired SNR 0.39, CV 22.76%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+            "scientific_explanation": "Measured paired recovery 7.77%, paired SNR 0.39, CV 22.76%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.382172+00:00",
+          "timestamp": "2026-11-03T18:53:50.241622+00:00",
           "stage": "belief_revision",
           "message": "Fixed-order baseline retains verifier decisions without adaptive model calls"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.383916+00:00",
+          "timestamp": "2026-11-03T18:53:50.243818+00:00",
           "stage": "conclude",
           "message": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit."
         },
         {
-          "timestamp": "2026-11-03T14:29:16.385608+00:00",
+          "timestamp": "2026-11-03T18:53:50.245464+00:00",
           "stage": "complete",
           "message": "Investigation stopped; results persisted"
         }
@@ -73476,7 +73476,7 @@
     "case_id": "CASE_GAMMA",
     "identified_cause": null,
     "status": "INCONCLUSIVE",
-    "wall_time_sec": 0.05472050001844764,
+    "wall_time_sec": 0.05714616700424813,
     "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
     "experimental_budget": 4,
     "replicate_seeds": [
@@ -73504,7 +73504,7 @@
       },
       "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
       "budget_total_sec": 1800.0,
-      "budget_used_sec": 0.05289262501173653,
+      "budget_used_sec": 0.05534879199694842,
       "hypotheses": [
         {
           "id": "H1",
@@ -73557,7 +73557,7 @@
             "Visible geometric candidate sites: interior=0, edge=0.",
             "Measured crack region: interior.",
             "Baseline outcome: SimulationOutcome.FRACTURED.",
-            "Measured paired recovery -28.85%, paired SNR 7.86, CV 3.85%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+            "Measured paired recovery -28.85%, paired SNR 7.86, CV 3.85%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
           ],
           "missing_evidence": "Three numerically valid, uncensored matched-seed intervention pairs.",
           "proposed_intervention": "normalize_strain_rate",
@@ -73597,7 +73597,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "99eb138d7bdd405e89dbd9cac35f475c",
+          "experiment_id": "22125dcc80804e22aaa65560cdf92062",
           "case_id": "CASE_GAMMA",
           "target_hypothesis_id": "H3",
           "intervention": "normalize_strain_rate",
@@ -73628,7 +73628,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "b9f693e11a4d44d8964cc19054d7dd9b",
+          "experiment_id": "1da217dd4e37410f89c475ad30712d9f",
           "case_id": "CASE_GAMMA",
           "target_hypothesis_id": "H4",
           "intervention": "normalize_temperature",
@@ -73659,7 +73659,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "0f044cad82644db880e3754a34c68655",
+          "experiment_id": "9253714480a7484b86de629b684e2bc4",
           "case_id": "CASE_GAMMA",
           "target_hypothesis_id": "H1",
           "intervention": "heal_interior_vacancy",
@@ -73690,7 +73690,7 @@
           "provenance": {
             "action": "fixed_checklist"
           },
-          "experiment_id": "766dffaccab44bae8510a7eb35f29d49",
+          "experiment_id": "7e8d919376054c60b231e8bbc435b8c2",
           "case_id": "CASE_GAMMA",
           "target_hypothesis_id": "H2",
           "intervention": "smooth_surface_notch",
@@ -73719,7 +73719,7 @@
         }
       ],
       "executed_experiments": {
-        "99eb138d7bdd405e89dbd9cac35f475c": {
+        "22125dcc80804e22aaa65560cdf92062": {
           "units": "lj_reduced_2d",
           "solver_version": "sflj-1.1",
           "strain_rate_convention": "engineering strain / LJ time",
@@ -97650,7 +97650,7 @@
       },
       "verifications": [
         {
-          "experiment_id": "99eb138d7bdd405e89dbd9cac35f475c",
+          "experiment_id": "22125dcc80804e22aaa65560cdf92062",
           "hypothesis_id": "H3",
           "intervention": "normalize_strain_rate",
           "matched_seeds_used": [
@@ -97690,29 +97690,29 @@
             "aa64d879d11deee543d9b9df"
           ],
           "statistics_label": "descriptive; 3 complete uncensored matched pairs; no population confidence claim",
-          "scientific_explanation": "Measured paired recovery -28.85%, paired SNR 7.86, CV 3.85%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+          "scientific_explanation": "Measured paired recovery -28.85%, paired SNR 7.86, CV 3.85%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
         }
       ],
       "identified_cause": null,
       "final_verdict_summary": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit.",
       "audit_log": [
         {
-          "timestamp": "2026-11-03T14:29:16.393548+00:00",
+          "timestamp": "2026-11-03T18:53:50.253705+00:00",
           "stage": "hypothesize",
           "message": "Fixed checklist, same visible geometry and measurement access"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.394003+00:00",
+          "timestamp": "2026-11-03T18:53:50.254290+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "heal_interior_vacancy",
-          "experiment_id": "0f044cad82644db880e3754a34c68655"
+          "experiment_id": "9253714480a7484b86de629b684e2bc4"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.395946+00:00",
+          "timestamp": "2026-11-03T18:53:50.256509+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "0f044cad82644db880e3754a34c68655",
+          "experiment_id": "9253714480a7484b86de629b684e2bc4",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -97723,23 +97723,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.396487+00:00",
+          "timestamp": "2026-11-03T18:53:50.257003+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "0f044cad82644db880e3754a34c68655"
+          "experiment_id": "9253714480a7484b86de629b684e2bc4"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.397108+00:00",
+          "timestamp": "2026-11-03T18:53:50.257683+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "smooth_surface_notch",
-          "experiment_id": "766dffaccab44bae8510a7eb35f29d49"
+          "experiment_id": "7e8d919376054c60b231e8bbc435b8c2"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.399508+00:00",
+          "timestamp": "2026-11-03T18:53:50.259842+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "766dffaccab44bae8510a7eb35f29d49",
+          "experiment_id": "7e8d919376054c60b231e8bbc435b8c2",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -97750,23 +97750,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.399982+00:00",
+          "timestamp": "2026-11-03T18:53:50.260443+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "766dffaccab44bae8510a7eb35f29d49"
+          "experiment_id": "7e8d919376054c60b231e8bbc435b8c2"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.400447+00:00",
+          "timestamp": "2026-11-03T18:53:50.261133+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_strain_rate",
-          "experiment_id": "99eb138d7bdd405e89dbd9cac35f475c"
+          "experiment_id": "22125dcc80804e22aaa65560cdf92062"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.401602+00:00",
+          "timestamp": "2026-11-03T18:53:50.262431+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "99eb138d7bdd405e89dbd9cac35f475c",
+          "experiment_id": "22125dcc80804e22aaa65560cdf92062",
           "trace": {
             "status": "APPLIED",
             "inferred_locations": [],
@@ -97777,7 +97777,7 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.403084+00:00",
+          "timestamp": "2026-11-03T18:53:50.264152+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -97789,7 +97789,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.404117+00:00",
+          "timestamp": "2026-11-03T18:53:50.265266+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -97801,7 +97801,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.405233+00:00",
+          "timestamp": "2026-11-03T18:53:50.266483+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -97813,7 +97813,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.406331+00:00",
+          "timestamp": "2026-11-03T18:53:50.267791+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -97825,7 +97825,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.407535+00:00",
+          "timestamp": "2026-11-03T18:53:50.268985+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -97837,7 +97837,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.408571+00:00",
+          "timestamp": "2026-11-03T18:53:50.270085+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -97849,10 +97849,10 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:16.426823+00:00",
+          "timestamp": "2026-11-03T18:53:50.289062+00:00",
           "stage": "experiment",
           "message": "Matched-seed counterfactual completed",
-          "experiment_id": "99eb138d7bdd405e89dbd9cac35f475c",
+          "experiment_id": "22125dcc80804e22aaa65560cdf92062",
           "raw_result_ids": [
             "3ad3f9717a0eb546575b4a90",
             "0cbeffeee3b145facf874445",
@@ -97860,11 +97860,11 @@
           ]
         },
         {
-          "timestamp": "2026-11-03T14:29:16.430251+00:00",
+          "timestamp": "2026-11-03T18:53:50.292087+00:00",
           "stage": "verify",
           "message": "Independent empirical verification completed",
           "verification": {
-            "experiment_id": "99eb138d7bdd405e89dbd9cac35f475c",
+            "experiment_id": "22125dcc80804e22aaa65560cdf92062",
             "hypothesis_id": "H3",
             "intervention": "normalize_strain_rate",
             "matched_seeds_used": [
@@ -97904,26 +97904,26 @@
               "aa64d879d11deee543d9b9df"
             ],
             "statistics_label": "descriptive; 3 complete uncensored matched pairs; no population confidence claim",
-            "scientific_explanation": "Measured paired recovery -28.85%, paired SNR 7.86, CV 3.85%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+            "scientific_explanation": "Measured paired recovery -28.85%, paired SNR 7.86, CV 3.85%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.431977+00:00",
+          "timestamp": "2026-11-03T18:53:50.293824+00:00",
           "stage": "belief_revision",
           "message": "Fixed-order baseline retains verifier decisions without adaptive model calls"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.433630+00:00",
+          "timestamp": "2026-11-03T18:53:50.295590+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_temperature",
-          "experiment_id": "b9f693e11a4d44d8964cc19054d7dd9b"
+          "experiment_id": "1da217dd4e37410f89c475ad30712d9f"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.435978+00:00",
+          "timestamp": "2026-11-03T18:53:50.297957+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "b9f693e11a4d44d8964cc19054d7dd9b",
+          "experiment_id": "1da217dd4e37410f89c475ad30712d9f",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -97934,18 +97934,18 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.437691+00:00",
+          "timestamp": "2026-11-03T18:53:50.299651+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "b9f693e11a4d44d8964cc19054d7dd9b"
+          "experiment_id": "1da217dd4e37410f89c475ad30712d9f"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.439327+00:00",
+          "timestamp": "2026-11-03T18:53:50.301592+00:00",
           "stage": "conclude",
           "message": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit."
         },
         {
-          "timestamp": "2026-11-03T14:29:16.440998+00:00",
+          "timestamp": "2026-11-03T18:53:50.303294+00:00",
           "stage": "complete",
           "message": "Investigation stopped; results persisted"
         }
@@ -97957,7 +97957,7 @@
     "case_id": "CASE_ALPHA",
     "identified_cause": null,
     "status": "INCONCLUSIVE",
-    "wall_time_sec": 3.9754014580103103,
+    "wall_time_sec": 4.149913291999837,
     "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
     "experimental_budget": 4,
     "replicate_seeds": [
@@ -97985,7 +97985,7 @@
       },
       "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
       "budget_total_sec": 1800.0,
-      "budget_used_sec": 3.973294041992631,
+      "budget_used_sec": 4.147683874994982,
       "hypotheses": [
         {
           "id": "H1",
@@ -97996,7 +97996,7 @@
             "Visible geometric candidate sites: interior=3, edge=0.",
             "Measured crack region: surface_right.",
             "Baseline outcome: SimulationOutcome.EXECUTION_FAILED.",
-            "Numerical or execution failure: no scientific verdict assigned."
+            "Numerical or execution failure: no scientific verdict assigned. baseline seed 42: Failed validity gates: driven_laboratory_temperature; baseline seed 271: Failed validity gates: driven_laboratory_temperature"
           ],
           "missing_evidence": "Three numerically valid, uncensored matched-seed intervention pairs.",
           "proposed_intervention": "heal_interior_vacancy",
@@ -98119,7 +98119,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "5b36bf8117a941ab96f8e4977b122540",
+          "experiment_id": "4dd37514331449db92fad7701f8eaf4c",
           "case_id": "CASE_ALPHA",
           "target_hypothesis_id": "H1",
           "intervention": "heal_interior_vacancy",
@@ -98149,7 +98149,7 @@
         {
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "c455d887c19776dc54159622e8b39ab5894238f8a30697282318f191580f994e",
+            "request_hash": "abefd9a4d35b0aa5e64eb29efc24bd73c0e1768398f00df7868e1d2e5c57fbd9",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -98159,7 +98159,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "3f088a846c284a4186ef5bb890362d15",
+          "experiment_id": "8f0e075f86bc465aa86f3a77cb8561f6",
           "case_id": "CASE_ALPHA",
           "target_hypothesis_id": "H3",
           "intervention": "normalize_strain_rate",
@@ -98189,7 +98189,7 @@
         {
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "c455d887c19776dc54159622e8b39ab5894238f8a30697282318f191580f994e",
+            "request_hash": "abefd9a4d35b0aa5e64eb29efc24bd73c0e1768398f00df7868e1d2e5c57fbd9",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -98199,7 +98199,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "b06f92494657436598300c2075c1cd19",
+          "experiment_id": "2dcf980c46b74f038f86b765b0e383cb",
           "case_id": "CASE_ALPHA",
           "target_hypothesis_id": "H4",
           "intervention": "normalize_temperature",
@@ -98229,7 +98229,7 @@
         {
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "c455d887c19776dc54159622e8b39ab5894238f8a30697282318f191580f994e",
+            "request_hash": "abefd9a4d35b0aa5e64eb29efc24bd73c0e1768398f00df7868e1d2e5c57fbd9",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -98239,7 +98239,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "6d5f112dac634570a386f333cea538a0",
+          "experiment_id": "302f820f84b54d3291fbc64897b2d5b9",
           "case_id": "CASE_ALPHA",
           "target_hypothesis_id": "H2",
           "intervention": "smooth_surface_notch",
@@ -98268,7 +98268,7 @@
         }
       ],
       "executed_experiments": {
-        "5b36bf8117a941ab96f8e4977b122540": {
+        "4dd37514331449db92fad7701f8eaf4c": {
           "units": "lj_reduced_2d",
           "solver_version": "sflj-1.1",
           "strain_rate_convention": "engineering strain / LJ time",
@@ -122199,7 +122199,7 @@
       },
       "verifications": [
         {
-          "experiment_id": "5b36bf8117a941ab96f8e4977b122540",
+          "experiment_id": "4dd37514331449db92fad7701f8eaf4c",
           "hypothesis_id": "H1",
           "intervention": "heal_interior_vacancy",
           "matched_seeds_used": [
@@ -122239,19 +122239,19 @@
             "8a2d48908d2f44500c477746"
           ],
           "statistics_label": "descriptive; 1 complete uncensored matched pairs; no population confidence claim",
-          "scientific_explanation": "Numerical or execution failure: no scientific verdict assigned."
+          "scientific_explanation": "Numerical or execution failure: no scientific verdict assigned. baseline seed 42: Failed validity gates: driven_laboratory_temperature; baseline seed 271: Failed validity gates: driven_laboratory_temperature"
         }
       ],
       "identified_cause": null,
       "final_verdict_summary": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit.",
       "audit_log": [
         {
-          "timestamp": "2026-11-03T14:29:16.459436+00:00",
+          "timestamp": "2026-11-03T18:53:50.323162+00:00",
           "stage": "observe",
           "message": "Inspecting blind observed specimen"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.471096+00:00",
+          "timestamp": "2026-11-03T18:53:50.334783+00:00",
           "stage": "hypothesize",
           "message": "Competing hypotheses generated",
           "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
@@ -122269,22 +122269,22 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:16.474675+00:00",
+          "timestamp": "2026-11-03T18:53:50.338215+00:00",
           "stage": "plan",
           "message": "Candidate interventions ranked by information, cost and risk"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.475221+00:00",
+          "timestamp": "2026-11-03T18:53:50.338798+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "heal_interior_vacancy",
-          "experiment_id": "5b36bf8117a941ab96f8e4977b122540"
+          "experiment_id": "4dd37514331449db92fad7701f8eaf4c"
         },
         {
-          "timestamp": "2026-11-03T14:29:16.477456+00:00",
+          "timestamp": "2026-11-03T18:53:50.341020+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "5b36bf8117a941ab96f8e4977b122540",
+          "experiment_id": "4dd37514331449db92fad7701f8eaf4c",
           "trace": {
             "status": "APPLIED",
             "inferred_locations": [
@@ -122312,19 +122312,19 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:18.435565+00:00",
+          "timestamp": "2026-11-03T18:53:52.382704+00:00",
           "stage": "simulation",
           "message": "Freshly computed replicate seed 42",
           "seed": 42,
           "result_id": "8d9be2e3ee9f6bcfb954c9c3",
           "cached": false,
           "outcome": "EXECUTION_FAILED",
-          "wall_time_sec": 1.6445574999961536,
+          "wall_time_sec": 1.7099009169905912,
           "relaxation_convergence": 0.0013421738244012611,
           "error_code": "NUMERICAL_VALIDITY_GATE"
         },
         {
-          "timestamp": "2026-11-03T14:29:18.437342+00:00",
+          "timestamp": "2026-11-03T18:53:52.384399+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -122336,7 +122336,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:18.438818+00:00",
+          "timestamp": "2026-11-03T18:53:52.385743+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -122348,7 +122348,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:18.439937+00:00",
+          "timestamp": "2026-11-03T18:53:52.386886+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -122360,19 +122360,19 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.373548+00:00",
+          "timestamp": "2026-11-03T18:53:54.410146+00:00",
           "stage": "simulation",
           "message": "Freshly computed replicate seed 271",
           "seed": 271,
           "result_id": "b0ab4dca375ce4e707219375",
           "cached": false,
           "outcome": "EXECUTION_FAILED",
-          "wall_time_sec": 1.6240797089994885,
+          "wall_time_sec": 1.7078079170023557,
           "relaxation_convergence": 0.0013421738244012611,
           "error_code": "NUMERICAL_VALIDITY_GATE"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.375202+00:00",
+          "timestamp": "2026-11-03T18:53:54.411814+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -122384,10 +122384,10 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.394329+00:00",
+          "timestamp": "2026-11-03T18:53:54.430792+00:00",
           "stage": "experiment",
           "message": "Matched-seed counterfactual completed",
-          "experiment_id": "5b36bf8117a941ab96f8e4977b122540",
+          "experiment_id": "4dd37514331449db92fad7701f8eaf4c",
           "raw_result_ids": [
             "30fd0567fc0973710268546b",
             "ca097b849ae2fdbb3edd5d89",
@@ -122395,11 +122395,11 @@
           ]
         },
         {
-          "timestamp": "2026-11-03T14:29:20.397901+00:00",
+          "timestamp": "2026-11-03T18:53:54.435017+00:00",
           "stage": "verify",
           "message": "Independent empirical verification completed",
           "verification": {
-            "experiment_id": "5b36bf8117a941ab96f8e4977b122540",
+            "experiment_id": "4dd37514331449db92fad7701f8eaf4c",
             "hypothesis_id": "H1",
             "intervention": "heal_interior_vacancy",
             "matched_seeds_used": [
@@ -122439,17 +122439,17 @@
               "8a2d48908d2f44500c477746"
             ],
             "statistics_label": "descriptive; 1 complete uncensored matched pairs; no population confidence claim",
-            "scientific_explanation": "Numerical or execution failure: no scientific verdict assigned."
+            "scientific_explanation": "Numerical or execution failure: no scientific verdict assigned. baseline seed 42: Failed validity gates: driven_laboratory_temperature; baseline seed 271: Failed validity gates: driven_laboratory_temperature"
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.410149+00:00",
+          "timestamp": "2026-11-03T18:53:54.447082+00:00",
           "stage": "belief_revision",
           "message": "Deterministic revision: use independent verification; retain PENDING when evidence is unavailable; consider remaining interventions.",
           "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "c455d887c19776dc54159622e8b39ab5894238f8a30697282318f191580f994e",
+            "request_hash": "abefd9a4d35b0aa5e64eb29efc24bd73c0e1768398f00df7868e1d2e5c57fbd9",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -122461,17 +122461,17 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.412059+00:00",
+          "timestamp": "2026-11-03T18:53:54.449109+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_strain_rate",
-          "experiment_id": "3f088a846c284a4186ef5bb890362d15"
+          "experiment_id": "8f0e075f86bc465aa86f3a77cb8561f6"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.414526+00:00",
+          "timestamp": "2026-11-03T18:53:54.451875+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "3f088a846c284a4186ef5bb890362d15",
+          "experiment_id": "8f0e075f86bc465aa86f3a77cb8561f6",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -122482,23 +122482,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.416256+00:00",
+          "timestamp": "2026-11-03T18:53:54.453683+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "3f088a846c284a4186ef5bb890362d15"
+          "experiment_id": "8f0e075f86bc465aa86f3a77cb8561f6"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.417992+00:00",
+          "timestamp": "2026-11-03T18:53:54.455395+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_temperature",
-          "experiment_id": "b06f92494657436598300c2075c1cd19"
+          "experiment_id": "2dcf980c46b74f038f86b765b0e383cb"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.420271+00:00",
+          "timestamp": "2026-11-03T18:53:54.457798+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "b06f92494657436598300c2075c1cd19",
+          "experiment_id": "2dcf980c46b74f038f86b765b0e383cb",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -122509,23 +122509,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.421950+00:00",
+          "timestamp": "2026-11-03T18:53:54.459597+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "b06f92494657436598300c2075c1cd19"
+          "experiment_id": "2dcf980c46b74f038f86b765b0e383cb"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.423647+00:00",
+          "timestamp": "2026-11-03T18:53:54.461292+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "smooth_surface_notch",
-          "experiment_id": "6d5f112dac634570a386f333cea538a0"
+          "experiment_id": "302f820f84b54d3291fbc64897b2d5b9"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.427006+00:00",
+          "timestamp": "2026-11-03T18:53:54.464481+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "6d5f112dac634570a386f333cea538a0",
+          "experiment_id": "302f820f84b54d3291fbc64897b2d5b9",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -122536,18 +122536,18 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.428744+00:00",
+          "timestamp": "2026-11-03T18:53:54.466424+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "6d5f112dac634570a386f333cea538a0"
+          "experiment_id": "302f820f84b54d3291fbc64897b2d5b9"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.430395+00:00",
+          "timestamp": "2026-11-03T18:53:54.468504+00:00",
           "stage": "conclude",
           "message": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit."
         },
         {
-          "timestamp": "2026-11-03T14:29:20.432116+00:00",
+          "timestamp": "2026-11-03T18:53:54.470224+00:00",
           "stage": "complete",
           "message": "Investigation stopped; results persisted"
         }
@@ -122559,7 +122559,7 @@
     "case_id": "CASE_BETA",
     "identified_cause": null,
     "status": "INCONCLUSIVE",
-    "wall_time_sec": 0.08190420898608863,
+    "wall_time_sec": 0.08150679100072011,
     "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
     "experimental_budget": 4,
     "replicate_seeds": [
@@ -122587,7 +122587,7 @@
       },
       "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
       "budget_total_sec": 1800.0,
-      "budget_used_sec": 0.0799914590024855,
+      "budget_used_sec": 0.0796897080144845,
       "hypotheses": [
         {
           "id": "H1",
@@ -122627,7 +122627,7 @@
             "Visible geometric candidate sites: interior=0, edge=2.",
             "Measured crack region: surface_right.",
             "Baseline outcome: SimulationOutcome.FRACTURED.",
-            "Measured paired recovery -3.57%, paired SNR 0.46, CV 6.19%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+            "Measured paired recovery -3.57%, paired SNR 0.46, CV 6.19%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
           ],
           "missing_evidence": "Three numerically valid, uncensored matched-seed intervention pairs.",
           "proposed_intervention": "smooth_surface_notch",
@@ -122721,7 +122721,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "b52c465673f441b4afd6501621af1029",
+          "experiment_id": "175f5ef909f944449197600abd9664be",
           "case_id": "CASE_BETA",
           "target_hypothesis_id": "H2",
           "intervention": "smooth_surface_notch",
@@ -122751,7 +122751,7 @@
         {
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "374c7d9c9b28ed5dbe1fbc23303d73cf7498e3cc27d4d504322cc0c4a0a6f2ea",
+            "request_hash": "03fb34f1fec9602ade243f775e56956d7d37b5e0a134c0770b165eb7f090b070",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -122761,7 +122761,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "5e2abf3a368240e3a5080c738793449e",
+          "experiment_id": "19172574867445968e67c7cbd1aa642b",
           "case_id": "CASE_BETA",
           "target_hypothesis_id": "H3",
           "intervention": "normalize_strain_rate",
@@ -122791,7 +122791,7 @@
         {
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "374c7d9c9b28ed5dbe1fbc23303d73cf7498e3cc27d4d504322cc0c4a0a6f2ea",
+            "request_hash": "03fb34f1fec9602ade243f775e56956d7d37b5e0a134c0770b165eb7f090b070",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -122801,7 +122801,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "09aa60f157144b46ba664b94600be4e9",
+          "experiment_id": "0e5d2e1a245f4ed6b01abc80ed651d82",
           "case_id": "CASE_BETA",
           "target_hypothesis_id": "H4",
           "intervention": "normalize_temperature",
@@ -122831,7 +122831,7 @@
         {
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "374c7d9c9b28ed5dbe1fbc23303d73cf7498e3cc27d4d504322cc0c4a0a6f2ea",
+            "request_hash": "03fb34f1fec9602ade243f775e56956d7d37b5e0a134c0770b165eb7f090b070",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -122841,7 +122841,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "3f618e0156ea41b18c497e3a4705123a",
+          "experiment_id": "557bd261d9514a59a941fd206f35d673",
           "case_id": "CASE_BETA",
           "target_hypothesis_id": "H1",
           "intervention": "heal_interior_vacancy",
@@ -122870,7 +122870,7 @@
         }
       ],
       "executed_experiments": {
-        "b52c465673f441b4afd6501621af1029": {
+        "175f5ef909f944449197600abd9664be": {
           "units": "lj_reduced_2d",
           "solver_version": "sflj-1.1",
           "strain_rate_convention": "engineering strain / LJ time",
@@ -146801,7 +146801,7 @@
       },
       "verifications": [
         {
-          "experiment_id": "b52c465673f441b4afd6501621af1029",
+          "experiment_id": "175f5ef909f944449197600abd9664be",
           "hypothesis_id": "H2",
           "intervention": "smooth_surface_notch",
           "matched_seeds_used": [
@@ -146841,19 +146841,19 @@
             "d7748b1659be963008ec3313"
           ],
           "statistics_label": "descriptive; 3 complete uncensored matched pairs; no population confidence claim",
-          "scientific_explanation": "Measured paired recovery -3.57%, paired SNR 0.46, CV 6.19%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+          "scientific_explanation": "Measured paired recovery -3.57%, paired SNR 0.46, CV 6.19%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
         }
       ],
       "identified_cause": null,
       "final_verdict_summary": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit.",
       "audit_log": [
         {
-          "timestamp": "2026-11-03T14:29:20.435419+00:00",
+          "timestamp": "2026-11-03T18:53:54.473775+00:00",
           "stage": "observe",
           "message": "Inspecting blind observed specimen"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.445743+00:00",
+          "timestamp": "2026-11-03T18:53:54.484146+00:00",
           "stage": "hypothesize",
           "message": "Competing hypotheses generated",
           "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
@@ -146871,22 +146871,22 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.449159+00:00",
+          "timestamp": "2026-11-03T18:53:54.487736+00:00",
           "stage": "plan",
           "message": "Candidate interventions ranked by information, cost and risk"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.449644+00:00",
+          "timestamp": "2026-11-03T18:53:54.488251+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "smooth_surface_notch",
-          "experiment_id": "b52c465673f441b4afd6501621af1029"
+          "experiment_id": "175f5ef909f944449197600abd9664be"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.451797+00:00",
+          "timestamp": "2026-11-03T18:53:54.490405+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "b52c465673f441b4afd6501621af1029",
+          "experiment_id": "175f5ef909f944449197600abd9664be",
           "trace": {
             "status": "APPLIED",
             "inferred_locations": [
@@ -146909,7 +146909,7 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.453469+00:00",
+          "timestamp": "2026-11-03T18:53:54.492178+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -146921,7 +146921,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.454617+00:00",
+          "timestamp": "2026-11-03T18:53:54.493371+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -146933,7 +146933,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.455939+00:00",
+          "timestamp": "2026-11-03T18:53:54.494644+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -146945,7 +146945,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.456989+00:00",
+          "timestamp": "2026-11-03T18:53:54.495622+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -146957,7 +146957,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.458295+00:00",
+          "timestamp": "2026-11-03T18:53:54.496902+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -146969,7 +146969,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.459359+00:00",
+          "timestamp": "2026-11-03T18:53:54.497970+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -146981,10 +146981,10 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.478066+00:00",
+          "timestamp": "2026-11-03T18:53:54.516116+00:00",
           "stage": "experiment",
           "message": "Matched-seed counterfactual completed",
-          "experiment_id": "b52c465673f441b4afd6501621af1029",
+          "experiment_id": "175f5ef909f944449197600abd9664be",
           "raw_result_ids": [
             "ac6ff43f0137f630e57c8321",
             "f99382f7743d67d85a0497a8",
@@ -146992,11 +146992,11 @@
           ]
         },
         {
-          "timestamp": "2026-11-03T14:29:20.481627+00:00",
+          "timestamp": "2026-11-03T18:53:54.519489+00:00",
           "stage": "verify",
           "message": "Independent empirical verification completed",
           "verification": {
-            "experiment_id": "b52c465673f441b4afd6501621af1029",
+            "experiment_id": "175f5ef909f944449197600abd9664be",
             "hypothesis_id": "H2",
             "intervention": "smooth_surface_notch",
             "matched_seeds_used": [
@@ -147036,17 +147036,17 @@
               "d7748b1659be963008ec3313"
             ],
             "statistics_label": "descriptive; 3 complete uncensored matched pairs; no population confidence claim",
-            "scientific_explanation": "Measured paired recovery -3.57%, paired SNR 0.46, CV 6.19%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+            "scientific_explanation": "Measured paired recovery -3.57%, paired SNR 0.46, CV 6.19%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.493142+00:00",
+          "timestamp": "2026-11-03T18:53:54.530793+00:00",
           "stage": "belief_revision",
           "message": "Deterministic revision: use independent verification; retain PENDING when evidence is unavailable; consider remaining interventions.",
           "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "374c7d9c9b28ed5dbe1fbc23303d73cf7498e3cc27d4d504322cc0c4a0a6f2ea",
+            "request_hash": "03fb34f1fec9602ade243f775e56956d7d37b5e0a134c0770b165eb7f090b070",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -147058,17 +147058,17 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.494948+00:00",
+          "timestamp": "2026-11-03T18:53:54.532692+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_strain_rate",
-          "experiment_id": "5e2abf3a368240e3a5080c738793449e"
+          "experiment_id": "19172574867445968e67c7cbd1aa642b"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.497333+00:00",
+          "timestamp": "2026-11-03T18:53:54.535172+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "5e2abf3a368240e3a5080c738793449e",
+          "experiment_id": "19172574867445968e67c7cbd1aa642b",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -147079,23 +147079,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.499052+00:00",
+          "timestamp": "2026-11-03T18:53:54.536907+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "5e2abf3a368240e3a5080c738793449e"
+          "experiment_id": "19172574867445968e67c7cbd1aa642b"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.500693+00:00",
+          "timestamp": "2026-11-03T18:53:54.538624+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_temperature",
-          "experiment_id": "09aa60f157144b46ba664b94600be4e9"
+          "experiment_id": "0e5d2e1a245f4ed6b01abc80ed651d82"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.503035+00:00",
+          "timestamp": "2026-11-03T18:53:54.541030+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "09aa60f157144b46ba664b94600be4e9",
+          "experiment_id": "0e5d2e1a245f4ed6b01abc80ed651d82",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -147106,23 +147106,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.504700+00:00",
+          "timestamp": "2026-11-03T18:53:54.542757+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "09aa60f157144b46ba664b94600be4e9"
+          "experiment_id": "0e5d2e1a245f4ed6b01abc80ed651d82"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.506272+00:00",
+          "timestamp": "2026-11-03T18:53:54.544499+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "heal_interior_vacancy",
-          "experiment_id": "3f618e0156ea41b18c497e3a4705123a"
+          "experiment_id": "557bd261d9514a59a941fd206f35d673"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.509682+00:00",
+          "timestamp": "2026-11-03T18:53:54.547704+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "3f618e0156ea41b18c497e3a4705123a",
+          "experiment_id": "557bd261d9514a59a941fd206f35d673",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -147133,18 +147133,18 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.511416+00:00",
+          "timestamp": "2026-11-03T18:53:54.549444+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "3f618e0156ea41b18c497e3a4705123a"
+          "experiment_id": "557bd261d9514a59a941fd206f35d673"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.513095+00:00",
+          "timestamp": "2026-11-03T18:53:54.551142+00:00",
           "stage": "conclude",
           "message": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit."
         },
         {
-          "timestamp": "2026-11-03T14:29:20.514818+00:00",
+          "timestamp": "2026-11-03T18:53:54.552794+00:00",
           "stage": "complete",
           "message": "Investigation stopped; results persisted"
         }
@@ -147156,7 +147156,7 @@
     "case_id": "CASE_DELTA",
     "identified_cause": null,
     "status": "INCONCLUSIVE",
-    "wall_time_sec": 0.08837291697273031,
+    "wall_time_sec": 0.0891335420019459,
     "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
     "experimental_budget": 4,
     "replicate_seeds": [
@@ -147184,7 +147184,7 @@
       },
       "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
       "budget_total_sec": 1800.0,
-      "budget_used_sec": 0.08619666600134224,
+      "budget_used_sec": 0.08719820799888112,
       "hypotheses": [
         {
           "id": "H1",
@@ -147282,7 +147282,7 @@
             "Visible geometric candidate sites: interior=0, edge=0.",
             "Measured crack region: surface_left.",
             "Baseline outcome: SimulationOutcome.FRACTURED.",
-            "Measured paired recovery 7.77%, paired SNR 0.39, CV 22.76%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+            "Measured paired recovery 7.77%, paired SNR 0.39, CV 22.76%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
           ],
           "missing_evidence": "Three numerically valid, uncensored matched-seed intervention pairs.",
           "proposed_intervention": "normalize_temperature",
@@ -147318,7 +147318,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "5492a44cb6774019a3767dee85eaccf6",
+          "experiment_id": "7f3da2b4320b46609ba98cef9d4d51ac",
           "case_id": "CASE_DELTA",
           "target_hypothesis_id": "H3",
           "intervention": "normalize_strain_rate",
@@ -147358,7 +147358,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "2c76329780504de2ac50d236b74a9008",
+          "experiment_id": "43b67352f16a4be18ce07d4c5cc7553f",
           "case_id": "CASE_DELTA",
           "target_hypothesis_id": "H4",
           "intervention": "normalize_temperature",
@@ -147388,7 +147388,7 @@
         {
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "dd228608ad2a10679f23c57d2fd9594d6b406f337ca2c31ec41f70ef6f18cb78",
+            "request_hash": "7cef4e335d0c01158d53399a949280fac3372a044ce2ca12b06652eecef7b807",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -147398,7 +147398,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "da3b062c5edb4f32bb4efa66427bf23f",
+          "experiment_id": "e150db9cb00f4cfab41960daae062313",
           "case_id": "CASE_DELTA",
           "target_hypothesis_id": "H1",
           "intervention": "heal_interior_vacancy",
@@ -147428,7 +147428,7 @@
         {
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "dd228608ad2a10679f23c57d2fd9594d6b406f337ca2c31ec41f70ef6f18cb78",
+            "request_hash": "7cef4e335d0c01158d53399a949280fac3372a044ce2ca12b06652eecef7b807",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -147438,7 +147438,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "89c99217de8b4c0c8fd78bf17ebe6c15",
+          "experiment_id": "9cde69912bbe4b9f9caaaa357edd303c",
           "case_id": "CASE_DELTA",
           "target_hypothesis_id": "H2",
           "intervention": "smooth_surface_notch",
@@ -147467,7 +147467,7 @@
         }
       ],
       "executed_experiments": {
-        "2c76329780504de2ac50d236b74a9008": {
+        "43b67352f16a4be18ce07d4c5cc7553f": {
           "units": "lj_reduced_2d",
           "solver_version": "sflj-1.1",
           "strain_rate_convention": "engineering strain / LJ time",
@@ -171398,7 +171398,7 @@
       },
       "verifications": [
         {
-          "experiment_id": "2c76329780504de2ac50d236b74a9008",
+          "experiment_id": "43b67352f16a4be18ce07d4c5cc7553f",
           "hypothesis_id": "H4",
           "intervention": "normalize_temperature",
           "matched_seeds_used": [
@@ -171438,19 +171438,19 @@
             "aa64d879d11deee543d9b9df"
           ],
           "statistics_label": "descriptive; 3 complete uncensored matched pairs; no population confidence claim",
-          "scientific_explanation": "Measured paired recovery 7.77%, paired SNR 0.39, CV 22.76%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+          "scientific_explanation": "Measured paired recovery 7.77%, paired SNR 0.39, CV 22.76%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
         }
       ],
       "identified_cause": null,
       "final_verdict_summary": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit.",
       "audit_log": [
         {
-          "timestamp": "2026-11-03T14:29:20.517901+00:00",
+          "timestamp": "2026-11-03T18:53:54.555792+00:00",
           "stage": "observe",
           "message": "Inspecting blind observed specimen"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.527996+00:00",
+          "timestamp": "2026-11-03T18:53:54.565970+00:00",
           "stage": "hypothesize",
           "message": "Competing hypotheses generated",
           "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
@@ -171468,22 +171468,22 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.531334+00:00",
+          "timestamp": "2026-11-03T18:53:54.569384+00:00",
           "stage": "plan",
           "message": "Candidate interventions ranked by information, cost and risk"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.531822+00:00",
+          "timestamp": "2026-11-03T18:53:54.569839+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_strain_rate",
-          "experiment_id": "5492a44cb6774019a3767dee85eaccf6"
+          "experiment_id": "7f3da2b4320b46609ba98cef9d4d51ac"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.533113+00:00",
+          "timestamp": "2026-11-03T18:53:54.571089+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "5492a44cb6774019a3767dee85eaccf6",
+          "experiment_id": "7f3da2b4320b46609ba98cef9d4d51ac",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -171494,23 +171494,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.533549+00:00",
+          "timestamp": "2026-11-03T18:53:54.571552+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "5492a44cb6774019a3767dee85eaccf6"
+          "experiment_id": "7f3da2b4320b46609ba98cef9d4d51ac"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.534010+00:00",
+          "timestamp": "2026-11-03T18:53:54.572138+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_temperature",
-          "experiment_id": "2c76329780504de2ac50d236b74a9008"
+          "experiment_id": "43b67352f16a4be18ce07d4c5cc7553f"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.535214+00:00",
+          "timestamp": "2026-11-03T18:53:54.573437+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "2c76329780504de2ac50d236b74a9008",
+          "experiment_id": "43b67352f16a4be18ce07d4c5cc7553f",
           "trace": {
             "status": "APPLIED",
             "inferred_locations": [],
@@ -171521,7 +171521,7 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.536891+00:00",
+          "timestamp": "2026-11-03T18:53:54.575176+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -171533,7 +171533,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.538007+00:00",
+          "timestamp": "2026-11-03T18:53:54.576348+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -171545,7 +171545,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.539217+00:00",
+          "timestamp": "2026-11-03T18:53:54.577623+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -171557,7 +171557,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.540276+00:00",
+          "timestamp": "2026-11-03T18:53:54.578673+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -171569,7 +171569,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.541553+00:00",
+          "timestamp": "2026-11-03T18:53:54.580091+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -171581,7 +171581,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.542606+00:00",
+          "timestamp": "2026-11-03T18:53:54.581160+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -171593,10 +171593,10 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.560901+00:00",
+          "timestamp": "2026-11-03T18:53:54.610031+00:00",
           "stage": "experiment",
           "message": "Matched-seed counterfactual completed",
-          "experiment_id": "2c76329780504de2ac50d236b74a9008",
+          "experiment_id": "43b67352f16a4be18ce07d4c5cc7553f",
           "raw_result_ids": [
             "3ad3f9717a0eb546575b4a90",
             "0cbeffeee3b145facf874445",
@@ -171604,11 +171604,11 @@
           ]
         },
         {
-          "timestamp": "2026-11-03T14:29:20.574308+00:00",
+          "timestamp": "2026-11-03T18:53:54.613509+00:00",
           "stage": "verify",
           "message": "Independent empirical verification completed",
           "verification": {
-            "experiment_id": "2c76329780504de2ac50d236b74a9008",
+            "experiment_id": "43b67352f16a4be18ce07d4c5cc7553f",
             "hypothesis_id": "H4",
             "intervention": "normalize_temperature",
             "matched_seeds_used": [
@@ -171648,17 +171648,17 @@
               "aa64d879d11deee543d9b9df"
             ],
             "statistics_label": "descriptive; 3 complete uncensored matched pairs; no population confidence claim",
-            "scientific_explanation": "Measured paired recovery 7.77%, paired SNR 0.39, CV 22.76%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+            "scientific_explanation": "Measured paired recovery 7.77%, paired SNR 0.39, CV 22.76%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.586762+00:00",
+          "timestamp": "2026-11-03T18:53:54.625077+00:00",
           "stage": "belief_revision",
           "message": "Deterministic revision: use independent verification; retain PENDING when evidence is unavailable; consider remaining interventions.",
           "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "dd228608ad2a10679f23c57d2fd9594d6b406f337ca2c31ec41f70ef6f18cb78",
+            "request_hash": "7cef4e335d0c01158d53399a949280fac3372a044ce2ca12b06652eecef7b807",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -171670,17 +171670,17 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.588730+00:00",
+          "timestamp": "2026-11-03T18:53:54.626889+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "heal_interior_vacancy",
-          "experiment_id": "da3b062c5edb4f32bb4efa66427bf23f"
+          "experiment_id": "e150db9cb00f4cfab41960daae062313"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.591989+00:00",
+          "timestamp": "2026-11-03T18:53:54.630277+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "da3b062c5edb4f32bb4efa66427bf23f",
+          "experiment_id": "e150db9cb00f4cfab41960daae062313",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -171691,23 +171691,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.593686+00:00",
+          "timestamp": "2026-11-03T18:53:54.632040+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "da3b062c5edb4f32bb4efa66427bf23f"
+          "experiment_id": "e150db9cb00f4cfab41960daae062313"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.595369+00:00",
+          "timestamp": "2026-11-03T18:53:54.633735+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "smooth_surface_notch",
-          "experiment_id": "89c99217de8b4c0c8fd78bf17ebe6c15"
+          "experiment_id": "9cde69912bbe4b9f9caaaa357edd303c"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.598465+00:00",
+          "timestamp": "2026-11-03T18:53:54.636937+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "89c99217de8b4c0c8fd78bf17ebe6c15",
+          "experiment_id": "9cde69912bbe4b9f9caaaa357edd303c",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -171718,18 +171718,18 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.600136+00:00",
+          "timestamp": "2026-11-03T18:53:54.638953+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "89c99217de8b4c0c8fd78bf17ebe6c15"
+          "experiment_id": "9cde69912bbe4b9f9caaaa357edd303c"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.601880+00:00",
+          "timestamp": "2026-11-03T18:53:54.640734+00:00",
           "stage": "conclude",
           "message": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit."
         },
         {
-          "timestamp": "2026-11-03T14:29:20.603510+00:00",
+          "timestamp": "2026-11-03T18:53:54.642402+00:00",
           "stage": "complete",
           "message": "Investigation stopped; results persisted"
         }
@@ -171741,7 +171741,7 @@
     "case_id": "CASE_GAMMA",
     "identified_cause": null,
     "status": "INCONCLUSIVE",
-    "wall_time_sec": 0.07630208300543018,
+    "wall_time_sec": 0.07666004198836163,
     "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
     "experimental_budget": 4,
     "replicate_seeds": [
@@ -171769,7 +171769,7 @@
       },
       "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
       "budget_total_sec": 1800.0,
-      "budget_used_sec": 0.07434849999845028,
+      "budget_used_sec": 0.0748228750017006,
       "hypotheses": [
         {
           "id": "H1",
@@ -171838,7 +171838,7 @@
             "Visible geometric candidate sites: interior=0, edge=0.",
             "Measured crack region: interior.",
             "Baseline outcome: SimulationOutcome.FRACTURED.",
-            "Measured paired recovery -28.85%, paired SNR 7.86, CV 3.85%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+            "Measured paired recovery -28.85%, paired SNR 7.86, CV 3.85%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
           ],
           "missing_evidence": "Three numerically valid, uncensored matched-seed intervention pairs.",
           "proposed_intervention": "normalize_strain_rate",
@@ -171903,7 +171903,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "fcd6fcc0f09c4cfc9c5426c98d23231f",
+          "experiment_id": "27a199ee0d794bf487e82c9eaa2792c8",
           "case_id": "CASE_GAMMA",
           "target_hypothesis_id": "H3",
           "intervention": "normalize_strain_rate",
@@ -171933,7 +171933,7 @@
         {
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "dd3166034d8c30714bcd4a028ec2f5135040967da21aa80b291873e38233b972",
+            "request_hash": "dad3beb5aa33f49a66af74fbdb1b1d52f9661cd0710abf0b894f4312550062ca",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -171943,7 +171943,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "484cbe5293e54d919741695049d818f3",
+          "experiment_id": "079d2d21c71e46cc8a5ede0abff14af4",
           "case_id": "CASE_GAMMA",
           "target_hypothesis_id": "H4",
           "intervention": "normalize_temperature",
@@ -171973,7 +171973,7 @@
         {
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "dd3166034d8c30714bcd4a028ec2f5135040967da21aa80b291873e38233b972",
+            "request_hash": "dad3beb5aa33f49a66af74fbdb1b1d52f9661cd0710abf0b894f4312550062ca",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -171983,7 +171983,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "d1161549db9847f5b6ff8285e143f0d8",
+          "experiment_id": "557d4b1ba5b34490b3b32890ac0311a0",
           "case_id": "CASE_GAMMA",
           "target_hypothesis_id": "H1",
           "intervention": "heal_interior_vacancy",
@@ -172013,7 +172013,7 @@
         {
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "dd3166034d8c30714bcd4a028ec2f5135040967da21aa80b291873e38233b972",
+            "request_hash": "dad3beb5aa33f49a66af74fbdb1b1d52f9661cd0710abf0b894f4312550062ca",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -172023,7 +172023,7 @@
             },
             "fallback_reason": "META_MUSE_API_KEY not configured"
           },
-          "experiment_id": "09b03a84a47749f4abc63e042988129d",
+          "experiment_id": "1f954a46273b45a881df2026e21592c4",
           "case_id": "CASE_GAMMA",
           "target_hypothesis_id": "H2",
           "intervention": "smooth_surface_notch",
@@ -172052,7 +172052,7 @@
         }
       ],
       "executed_experiments": {
-        "fcd6fcc0f09c4cfc9c5426c98d23231f": {
+        "27a199ee0d794bf487e82c9eaa2792c8": {
           "units": "lj_reduced_2d",
           "solver_version": "sflj-1.1",
           "strain_rate_convention": "engineering strain / LJ time",
@@ -195983,7 +195983,7 @@
       },
       "verifications": [
         {
-          "experiment_id": "fcd6fcc0f09c4cfc9c5426c98d23231f",
+          "experiment_id": "27a199ee0d794bf487e82c9eaa2792c8",
           "hypothesis_id": "H3",
           "intervention": "normalize_strain_rate",
           "matched_seeds_used": [
@@ -196023,19 +196023,19 @@
             "aa64d879d11deee543d9b9df"
           ],
           "statistics_label": "descriptive; 3 complete uncensored matched pairs; no population confidence claim",
-          "scientific_explanation": "Measured paired recovery -28.85%, paired SNR 7.86, CV 3.85%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+          "scientific_explanation": "Measured paired recovery -28.85%, paired SNR 7.86, CV 3.85%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
         }
       ],
       "identified_cause": null,
       "final_verdict_summary": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit.",
       "audit_log": [
         {
-          "timestamp": "2026-11-03T14:29:20.606874+00:00",
+          "timestamp": "2026-11-03T18:53:54.645582+00:00",
           "stage": "observe",
           "message": "Inspecting blind observed specimen"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.615113+00:00",
+          "timestamp": "2026-11-03T18:53:54.653712+00:00",
           "stage": "hypothesize",
           "message": "Competing hypotheses generated",
           "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
@@ -196053,22 +196053,22 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.618208+00:00",
+          "timestamp": "2026-11-03T18:53:54.656792+00:00",
           "stage": "plan",
           "message": "Candidate interventions ranked by information, cost and risk"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.618697+00:00",
+          "timestamp": "2026-11-03T18:53:54.657278+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_strain_rate",
-          "experiment_id": "fcd6fcc0f09c4cfc9c5426c98d23231f"
+          "experiment_id": "27a199ee0d794bf487e82c9eaa2792c8"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.620008+00:00",
+          "timestamp": "2026-11-03T18:53:54.658889+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "fcd6fcc0f09c4cfc9c5426c98d23231f",
+          "experiment_id": "27a199ee0d794bf487e82c9eaa2792c8",
           "trace": {
             "status": "APPLIED",
             "inferred_locations": [],
@@ -196079,7 +196079,7 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.621632+00:00",
+          "timestamp": "2026-11-03T18:53:54.660428+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -196091,7 +196091,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.622625+00:00",
+          "timestamp": "2026-11-03T18:53:54.661655+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 42",
           "seed": 42,
@@ -196103,7 +196103,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.623766+00:00",
+          "timestamp": "2026-11-03T18:53:54.662903+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -196115,7 +196115,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.624714+00:00",
+          "timestamp": "2026-11-03T18:53:54.664159+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 137",
           "seed": 137,
@@ -196127,7 +196127,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.625879+00:00",
+          "timestamp": "2026-11-03T18:53:54.665600+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -196139,7 +196139,7 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.626945+00:00",
+          "timestamp": "2026-11-03T18:53:54.666695+00:00",
           "stage": "simulation",
           "message": "Cached immutable replicate seed 271",
           "seed": 271,
@@ -196151,10 +196151,10 @@
           "error_code": null
         },
         {
-          "timestamp": "2026-11-03T14:29:20.645180+00:00",
+          "timestamp": "2026-11-03T18:53:54.684657+00:00",
           "stage": "experiment",
           "message": "Matched-seed counterfactual completed",
-          "experiment_id": "fcd6fcc0f09c4cfc9c5426c98d23231f",
+          "experiment_id": "27a199ee0d794bf487e82c9eaa2792c8",
           "raw_result_ids": [
             "3ad3f9717a0eb546575b4a90",
             "0cbeffeee3b145facf874445",
@@ -196162,11 +196162,11 @@
           ]
         },
         {
-          "timestamp": "2026-11-03T14:29:20.648442+00:00",
+          "timestamp": "2026-11-03T18:53:54.687583+00:00",
           "stage": "verify",
           "message": "Independent empirical verification completed",
           "verification": {
-            "experiment_id": "fcd6fcc0f09c4cfc9c5426c98d23231f",
+            "experiment_id": "27a199ee0d794bf487e82c9eaa2792c8",
             "hypothesis_id": "H3",
             "intervention": "normalize_strain_rate",
             "matched_seeds_used": [
@@ -196206,17 +196206,17 @@
               "aa64d879d11deee543d9b9df"
             ],
             "statistics_label": "descriptive; 3 complete uncensored matched pairs; no population confidence claim",
-            "scientific_explanation": "Measured paired recovery -28.85%, paired SNR 7.86, CV 3.85%. Three pairs provide descriptive evidence. Signs and censoring are preserved."
+            "scientific_explanation": "Measured paired recovery -28.85%, paired SNR 7.86, CV 3.85%. 3 pairs provide descriptive evidence. Signs and censoring are preserved."
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.657963+00:00",
+          "timestamp": "2026-11-03T18:53:54.696982+00:00",
           "stage": "belief_revision",
           "message": "Deterministic revision: use independent verification; retain PENDING when evidence is unavailable; consider remaining interventions.",
           "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
           "provenance": {
             "action": "revise_after_evidence",
-            "request_hash": "dd3166034d8c30714bcd4a028ec2f5135040967da21aa80b291873e38233b972",
+            "request_hash": "dad3beb5aa33f49a66af74fbdb1b1d52f9661cd0710abf0b894f4312550062ca",
             "telemetry": {
               "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
               "configured_model": "",
@@ -196228,17 +196228,17 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.659824+00:00",
+          "timestamp": "2026-11-03T18:53:54.698806+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "normalize_temperature",
-          "experiment_id": "484cbe5293e54d919741695049d818f3"
+          "experiment_id": "079d2d21c71e46cc8a5ede0abff14af4"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.662175+00:00",
+          "timestamp": "2026-11-03T18:53:54.701281+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "484cbe5293e54d919741695049d818f3",
+          "experiment_id": "079d2d21c71e46cc8a5ede0abff14af4",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -196249,23 +196249,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.663926+00:00",
+          "timestamp": "2026-11-03T18:53:54.702919+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "484cbe5293e54d919741695049d818f3"
+          "experiment_id": "079d2d21c71e46cc8a5ede0abff14af4"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.665635+00:00",
+          "timestamp": "2026-11-03T18:53:54.704559+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "heal_interior_vacancy",
-          "experiment_id": "d1161549db9847f5b6ff8285e143f0d8"
+          "experiment_id": "557d4b1ba5b34490b3b32890ac0311a0"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.668776+00:00",
+          "timestamp": "2026-11-03T18:53:54.707757+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "d1161549db9847f5b6ff8285e143f0d8",
+          "experiment_id": "557d4b1ba5b34490b3b32890ac0311a0",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -196276,23 +196276,23 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.670522+00:00",
+          "timestamp": "2026-11-03T18:53:54.709764+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "d1161549db9847f5b6ff8285e143f0d8"
+          "experiment_id": "557d4b1ba5b34490b3b32890ac0311a0"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.672221+00:00",
+          "timestamp": "2026-11-03T18:53:54.711404+00:00",
           "stage": "attempted",
           "message": "Selected bounded intervention",
           "intervention": "smooth_surface_notch",
-          "experiment_id": "09b03a84a47749f4abc63e042988129d"
+          "experiment_id": "1f954a46273b45a881df2026e21592c4"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.675360+00:00",
+          "timestamp": "2026-11-03T18:53:54.714556+00:00",
           "stage": "intervention",
           "message": "Geometric/protocol transformation validated",
-          "experiment_id": "09b03a84a47749f4abc63e042988129d",
+          "experiment_id": "1f954a46273b45a881df2026e21592c4",
           "trace": {
             "status": "NO_APPLICABLE_EDIT",
             "inferred_locations": [],
@@ -196303,18 +196303,18 @@
           }
         },
         {
-          "timestamp": "2026-11-03T14:29:20.677086+00:00",
+          "timestamp": "2026-11-03T18:53:54.716435+00:00",
           "stage": "data_availability",
           "message": "NO_APPLICABLE_EDIT: no imaginary repair performed",
-          "experiment_id": "09b03a84a47749f4abc63e042988129d"
+          "experiment_id": "1f954a46273b45a881df2026e21592c4"
         },
         {
-          "timestamp": "2026-11-03T14:29:20.678826+00:00",
+          "timestamp": "2026-11-03T18:53:54.718081+00:00",
           "stage": "conclude",
           "message": "No unique cause established. Censored, unavailable, noisy or competing evidence is retained in the audit."
         },
         {
-          "timestamp": "2026-11-03T14:29:20.680578+00:00",
+          "timestamp": "2026-11-03T18:53:54.719737+00:00",
           "stage": "complete",
           "message": "Investigation stopped; results persisted"
         }
@@ -196466,7 +196466,7 @@
         "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK"
       }
     ],
-    "wall_time_sec": 0.008368375012651086
+    "wall_time_sec": 0.00837099997443147
   },
   {
     "method": "One-shot",
@@ -196613,7 +196613,7 @@
         "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK"
       }
     ],
-    "wall_time_sec": 0.008435583993559703
+    "wall_time_sec": 0.008316332998219877
   },
   {
     "method": "One-shot",
@@ -196760,7 +196760,7 @@
         "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK"
       }
     ],
-    "wall_time_sec": 0.008338540996192023
+    "wall_time_sec": 0.008553250023396686
   },
   {
     "method": "One-shot",
@@ -196907,6 +196907,6 @@
         "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK"
       }
     ],
-    "wall_time_sec": 0.00674462498864159
+    "wall_time_sec": 0.006432542024413124
   }
 ]
