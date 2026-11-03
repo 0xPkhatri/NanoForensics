@@ -247,3 +247,32 @@ tests/test_investigation_loop.py::test_model_claimed_support_cannot_bypass_empir
 ```
 
 Diagnostic new seeds 101/202/303 ran real trajectories; repeat-only evidence cannot support a repair. Model-authored SUPPORTED statuses are reset to PENDING until independent empirical verification. Calibration refreshed; see CALIBRATION.json.
+
+## Corrected Phase 3 — PASS
+
+Command: `.venv/bin/python -m benchmarks.evaluate`
+```json
+{
+  "counts": {
+    "Fixed checklist": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "NO_DECISION": 4
+    },
+    "NanoForensics": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "NO_DECISION": 4
+    },
+    "One-shot": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "NO_DECISION": 4
+    }
+  },
+  "report": "/Users/prakash_mac/Desktop/code/x/docs/BENCHMARK_REPORT.md",
+  "raw": "/Users/prakash_mac/Desktop/code/x/docs/BENCHMARK_REPORT.json"
+}
+```
+
+Current BENCHMARK_REPORT.md / .json use solver sflj-1.1 and fixed inputs. Every method: 0 CORRECT, 0 INCORRECT, 4 NO_DECISION. Historical v1 records in archive remain invalid and are not used.

@@ -1,5 +1,5 @@
 # Handoff
 
-Scientific correction sflj-1.1 is implemented and Phase 1 now passes 14 tests with explicit LAMMPS z/vz checking. enforce2d runs after Langevin. Earlier report and DB preserved under docs/archive and runtime/archive-v1. All four cases regenerated, same input coordinates/protocols; outcomes are numerically unchanged in plane. Refreshed calibration in docs/CALIBRATION.json. New aggregation excludes failed empty trajectories, and fresh diagnostic seeds 101/202/303 actually run.
+Corrected solver sflj-1.1: Phase 1 PASS 14 tests; Phase 2 PASS 11 tests. Phase 3 evaluator PASS; all three methods 0 correct, 0 incorrect, 4 NO_DECISION. No thresholds or specimen protocols were tuned. Explicit planar validation is now active. Earlier invalid evidence retained in docs/archive and runtime/archive-v1.
 
-Current command: full corrected Phase 2 gate, including test rejecting model-authored scientific support before verification. Next rerun benchmarks.evaluate, frontend install/build and mandatory scripts/verify_e2e.sh in order. No owned servers running currently. No Muse credentials. Do not claim a successful discovery. Last verified checkpoint 87d2907.
+Next execute `cd frontend && npm install && npm run build`, then `bash scripts/verify_e2e.sh`. New E2E harness starts owned process groups, both servers, isolated SQLite and real worker tests including crash recovery. No servers currently running. No live Muse credentials available. Latest prior checkpoint a8428fb; this checkpoint records corrected Phase 3.
