@@ -1,0 +1,52 @@
+{
+  "calibrated_at": "2026-11-03T14:28:44.610992+00:00",
+  "host": {
+    "machine": "arm64",
+    "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "python": "3.13.3"
+  },
+  "solver_version": "sflj-1.1",
+  "atom_count": 144,
+  "lattice": [
+    12,
+    12
+  ],
+  "protocol": {
+    "dt": 0.002,
+    "temperature": 0.05,
+    "strain_rate": 0.05,
+    "max_strain": 0.65,
+    "sample_every": 25,
+    "warmup_steps": 2000,
+    "gamma": 2.0,
+    "nve_steps": 50,
+    "minimize_tolerance": 0.005
+  },
+  "complete_run_wall_time_sec": 1.6805453329870943,
+  "numpy_complete_run_wall_time_sec": 5.197161375021096,
+  "target_3_to_12_seconds_achieved": false,
+  "target_note": "Faster than target is acceptable; horizon retained at strain 0.65, not shortened for timing.",
+  "engine": {
+    "engine": "LAMMPS_BINARY",
+    "binary": "/opt/homebrew/bin/lmp_serial",
+    "style": "lj/smooth/linear",
+    "pair_validation": "PASS",
+    "pair_errors": {
+      "minimum_sampled_distance": 0.800013,
+      "energy_max_absolute_error": 2.948752353404416e-13,
+      "force_max_absolute_error": 5.6843418860808015e-12,
+      "energy_scale_relative_error": 6.854116518128098e-15,
+      "force_scale_relative_error": 7.4937775066776e-15
+    },
+    "version": [
+      "Large-scale Atomic/Molecular Massively Parallel Simulator - 30 Sep 2026",
+      ""
+    ]
+  },
+  "physical_loading_duration_lj": 13.0,
+  "observed_outcome": "FRACTURED",
+  "nve_drift": 4.676835271024029e-07,
+  "cross_engine_ensemble_comparison": "NOT_RUN; deterministic pair parity tested, ensemble trajectories not assumed equivalent",
+  "per_run_timeout_sec": 30,
+  "sample_every": 25
+}

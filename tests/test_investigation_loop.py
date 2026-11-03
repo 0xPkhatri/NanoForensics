@@ -135,3 +135,18 @@ def test_diagnostic_new_seeds_measure_variance_without_claiming_repair(store,mon
     assert len({r['seed'] for r in result.replicate_results})==6
     assert all(v.verdict not in ['SUPPORTED','REJECTED'] for v in state.verifications)
     print('Diagnostic actual seed outcomes:',[(r['seed'],r['outcome'],r['failure_strain']) for r in result.replicate_results])
+
+
+def test_model_claimed_support_cannot_bypass_empirical_verifier(store,monkeypatch):
+    import backend.agents.investigator as module
+    from backend.agents.hypothesis_engine import fallback_hypotheses
+    from backend.agents.muse_agent import telemetry
+    from backend.models.schemas import ModelDecision, HypothesisStatus
+    hypotheses=fallback_hypotheses(store.public('CASE_BETA'))
+    for h in hypotheses:h.status=HypothesisStatus.SUPPORTED
+    decision=ModelDecision(hypotheses=hypotheses,ranking=[h.proposed_intervention for h in hypotheses],revision='Controlled invalid scientific assertion fixture')
+    monkeypatch.setattr(module,'decide',lambda *args:(decision,telemetry(),{'test_fixture':True}))
+    trial=module.NanoForensicsInvestigator(store)
+    state=trial.hypothesize('CASE_BETA')
+    assert all(h.status=='PENDING' for h in state.hypotheses)
+    state.is_running=False;store.save_state(state)

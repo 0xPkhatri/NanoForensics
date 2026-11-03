@@ -63,7 +63,8 @@ def test_aggregate_excludes_failed_empty_trajectories_without_inventing_statisti
     from backend.analysis.comparison import aggregate
     good=run(42)
     bad=run(137,valid=False,stress=1000)
-    bad.outcome='EXECUTION_FAILED'
+    from backend.models.schemas import SimulationOutcome
+    bad.outcome=SimulationOutcome.EXECUTION_FAILED
     result=aggregate([good,bad])
     assert result.peak_stress==good.peak_stress
     assert result.outcome=='EXECUTION_FAILED' and result.failure_strain is None

@@ -1,5 +1,5 @@
-# Handoff — active scientific correction
+# Handoff
 
-Final regression exposed LAMMPS z/vz motion because enforce2d preceded Langevin. Do NOT use the earlier benchmark results as valid scientific evidence. Solver sflj-1.1 moves enforce2d after all force-changing fixes, checks dump z/vz, and invalidates old content-addressed caches by version. No thresholds, input geometry or physical protocol have been tuned.
+Scientific correction sflj-1.1 is implemented and Phase 1 now passes 14 tests with explicit LAMMPS z/vz checking. enforce2d runs after Langevin. Earlier report and DB preserved under docs/archive and runtime/archive-v1. All four cases regenerated, same input coordinates/protocols; outcomes are numerically unchanged in plane. Refreshed calibration in docs/CALIBRATION.json. New aggregation excludes failed empty trajectories, and fresh diagnostic seeds 101/202/303 actually run.
 
-Next: run Phase 1 gate, archive old runtime SQLite and benchmark reports with explicit INVALID status, regenerate all four cases, then repeat gates 2–5. Keep old Git checkpoints and raw evidence for audit. No live Muse credentials available. E2E harness with process cancellation/restarts implemented, but its first 9-test pass predates dimensionality check.
+Current command: full corrected Phase 2 gate, including test rejecting model-authored scientific support before verification. Next rerun benchmarks.evaluate, frontend install/build and mandatory scripts/verify_e2e.sh in order. No owned servers running currently. No Muse credentials. Do not claim a successful discovery. Last verified checkpoint 87d2907.

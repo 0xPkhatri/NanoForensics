@@ -75,7 +75,7 @@ def relax(q, mobile, tolerance=.005):
     return fixed, residual
 
 
-def step(q, v, mobile, dt, rng=None, temperature=0., gamma=0., grip_delta=None):
+def step(q, v, mobile, dt, rng=None, temperature=0., gamma=0., grip_delta=None, stats=None):
     # BAOAB: B half kick, A half drift, O exact OU, A half drift, B half kick.
     f, _, _ = forces(q)
     v[mobile] += .5*dt*f[mobile]
@@ -88,6 +88,8 @@ def step(q, v, mobile, dt, rng=None, temperature=0., gamma=0., grip_delta=None):
         q[~mobile] += grip_delta[~mobile]
     f, _, _ = forces(q)
     v[mobile] += .5*dt*f[mobile]
+    if stats is not None:
+        stats['max_force_all_steps']=max(stats.get('max_force_all_steps',0.),float(np.linalg.norm(f,axis=1).max()))
     return q, v
 
 
@@ -169,11 +171,13 @@ def run_numpy(specimen: SpecimenInput):
     frames = [(0, q.copy(), v.copy())]
     steps = int(np.ceil(p.max_strain/(p.strain_rate*p.dt)))
     maxdisp = 0.
+    stats={}
     for k in range(1, steps+1):
         old = q.copy()
-        step(q, v, mobile, p.dt, rng, p.temperature, p.gamma, delta)
+        step(q, v, mobile, p.dt, rng, p.temperature, p.gamma, delta, stats)
         maxdisp = max(maxdisp, float(np.linalg.norm(q-old, axis=1).max()))
         if k%p.sample_every == 0 or k == steps:
             frames.append((k, q.copy(), v.copy()))
+    diagnostics.update(stats)
     diagnostics['max_step_displacement'] = maxdisp
     return summarize(specimen, frames, mobile, bottom, top, diagnostics, started, 'NUMPY_VELOCITY_VERLET_2D')

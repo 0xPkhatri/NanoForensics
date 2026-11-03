@@ -2,7 +2,7 @@
 import time
 from datetime import datetime, timezone
 from backend.config import BUDGET, SEEDS, RUN_TIMEOUT
-from backend.models.schemas import InvestigationState, InterventionType, InterventionParameters
+from backend.models.schemas import InvestigationState, InterventionType, InterventionParameters, HypothesisStatus
 from backend.agents.muse_agent import decide, telemetry, FALLBACK
 from backend.agents.hypothesis_engine import fallback_hypotheses, update_from_verification
 from backend.agents.experiment_planner import plan
@@ -66,6 +66,8 @@ class NanoForensicsInvestigator:
         self.state.executed_experiments={}
         self.state.verifications=[]
         self.state.hypotheses=decision.hypotheses if decision else fallback_hypotheses(self.store.public(case_id),provenance)
+        for h in self.state.hypotheses:
+            h.status=HypothesisStatus.PENDING
         self.ranking=decision.ranking if decision else None
         self.state.status='HYPOTHESIZING'
         self._save('Competing hypotheses generated','hypothesize',ai_execution_mode=t.execution_mode,provenance=provenance)
