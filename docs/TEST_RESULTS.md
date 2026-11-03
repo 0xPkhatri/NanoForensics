@@ -38,3 +38,36 @@ tests/test_verifier.py::test_empirical_verdicts_censoring_failures_and_id_invari
 Calibration command: `.venv/bin/python -m benchmarks.calibrate_runtime`. Measured complete runs and native pair validation in [CALIBRATION.json](CALIBRATION.json). 12×12 retained, target strain 0.65, dt 0.002, 2000 BAOAB warmup and 50 unstrained NVE steps. Three-seed healing SNR is not inferred from the one-pair contract check; recovery is censored there.
 
 Initial failures fixed: pair_write uses lowercase `r`; table indices require integers; actual LAMMPS linear table interpolant required 20,000 points to meet absolute and relative bounds. No scientific assertion was relaxed. Cross-engine ensemble comparison NOT_RUN (P2); native two-body and actual table parity PASS.
+
+## Phase 2 — PASS
+
+Generation: `.venv/bin/python -m benchmarks.generate_cases` froze 4 cases, each with actual seeds 42/137/271 before observer runs. Baseline ALPHA has two invalid temperature-stability replicates (ratios 0.363 and 0.356 exceed 0.35); retained without tuning thresholds or hidden preparation.
+
+Command: `.venv/bin/pytest tests/test_investigation_loop.py -v -s`
+```text
+============================= test session starts ==============================
+platform darwin -- Python 3.13.3, pytest-9.2.0, pluggy-1.7.0 -- /Users/prakash_mac/Desktop/code/x/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/prakash_mac/Desktop/code/x
+configfile: pytest.ini
+plugins: anyio-4.16.0
+collecting ... collected 9 items
+
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_ALPHA] CASE_ALPHA INCONCLUSIVE verifications: [('heal_interior_vacancy', 'PENDING', 'EXECUTION_FAILED', None)]
+PASSED
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_BETA] CASE_BETA INCONCLUSIVE verifications: [('smooth_surface_notch', 'REJECTED', 'COMPLETE', -3.5714285714286564)]
+PASSED
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_GAMMA] CASE_GAMMA INCONCLUSIVE verifications: [('normalize_strain_rate', 'INCONCLUSIVE', 'COMPLETE', -28.846153846153793)]
+PASSED
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_DELTA] CASE_DELTA INCONCLUSIVE verifications: [('normalize_temperature', 'INCONCLUSIVE', 'COMPLETE', 7.766990291262283)]
+PASSED
+tests/test_investigation_loop.py::test_public_metadata_and_permuted_ids PASSED
+tests/test_investigation_loop.py::test_backend_has_no_privileged_reads PASSED
+tests/test_investigation_loop.py::test_missing_credentials_and_invalid_model_json PASSED
+tests/test_investigation_loop.py::test_sqlite_frozen_specimen_and_job_uniqueness PASSED
+tests/test_investigation_loop.py::test_live_provenance_requires_operation_schema_success PASSED
+
+============================== 9 passed in 4.82s ===============================
+```
+
+Phase 1 regression: 13 passed. Unchanged protocol edits now return NO_APPLICABLE_EDIT. Three-pair effects are descriptive. No live Muse credentials were available; provider-schema tests use clearly identified test fixtures, not real live-integration evidence.

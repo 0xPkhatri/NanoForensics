@@ -35,8 +35,8 @@ def aggregate(runs):
     out.wall_time_sec=sum(r.wall_time_sec for r in runs)
     out.diagnostics['aggregate_description']='Mean curve on first replicate strain grid; raw runs retained; snapshots belong to first replicate.'
     if any(r.outcome=='EXECUTION_FAILED' for r in runs):
-        out.outcome='EXECUTION_FAILED'
+        out.outcome=type(runs[0].outcome)('EXECUTION_FAILED')
         out.numerical_check.is_valid=False
     elif any(r.failure_strain is None for r in runs):
-        out.outcome='NOT_FRACTURED_WITHIN_HORIZON'
+        out.outcome=type(runs[0].outcome)('NOT_FRACTURED_WITHIN_HORIZON')
     return out

@@ -139,6 +139,7 @@ class SimulationSummary(BaseModel):
     engine_used: str                             # "LAMMPS_BINARY" or "NUMPY_VELOCITY_VERLET_2D"
 
 class Hypothesis(BaseModel):
+    model_config = {"extra": "forbid", "allow_inf_nan": False}
 
     id: str
 
@@ -248,6 +249,8 @@ class VerificationResult(BaseModel):
     scientific_explanation: str
 
 class FailureCasePublic(BaseModel):
+
+    observed_configuration: Dict[str, Any] = Field(default_factory=dict)
 
     case_id: str                                 # Opaque: CASE_ALPHA, CASE_BETA, CASE_GAMMA, CASE_DELTA
 

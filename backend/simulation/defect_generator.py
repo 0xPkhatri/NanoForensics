@@ -60,4 +60,6 @@ def transform(specimen: SpecimenInput, intervention: InterventionType, parameter
         out.protocol.strain_rate = params.target_strain_rate or .05
     elif intervention == InterventionType.NORMALIZE_TEMPERATURE:
         out.protocol.temperature = params.target_temperature or .05
+    if intervention != InterventionType.REPEAT_REPLICATE_SEEDS and out.model_dump() == specimen.model_dump():
+        trace['status'] = 'NO_APPLICABLE_EDIT'
     return out, trace

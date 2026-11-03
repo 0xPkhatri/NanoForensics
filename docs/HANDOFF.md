@@ -1,5 +1,7 @@
 # Handoff
 
-Phase 1 gate PASS: 13 tests. Physics is actual pairwise SFLJ. LAMMPS native verified with pair_write. Optional table verified at 20,000 points. 500-step NVE max drift 1.23e-6. Full-run calibration in CALIBRATION.json. Common NumPy preparation precedes either loader; thermostats differ during driven loading, so cross-engine ensembles NOT_RUN. Git checkpoint contains this state.
+Phase 2 PASS: 9 tests; Phase 1 regression 13 tests. Latest prior commit 4d464af. Current checkpoint contains Phase 2. Immutable inputs and cached raw runs in runtime/nanoforensics.db, not Git. `.venv/bin/python -m benchmarks.generate_cases` generates when empty and refuses silent replacement. Backend never reads privileged benchmark preparation. The investigator uses bounded worker processes for fresh replicas, same seeds and geometric edits from observed coordinates.
 
-Next: implement Phase 2. Live modules must never read privileged benchmark preparation data. Immutable visible input must suffice for all geometric edits. Use `.venv/bin/python`, `.venv/bin/pytest`.
+No scientific diagnosis is forced. ALPHA baseline has 2 temperature-stability failures; BETA notch repair -3.57% failure-strain recovery is REJECTED; GAMMA normalization -28.85% remains INCONCLUSIVE; DELTA cooling +7.77% remains INCONCLUSIVE. Unchanged control interventions are no-ops.
+
+Next implement Phase 3 endpoints and process supervisor, then python -m benchmarks.evaluate. No live Muse key configured. Keep mode OFFLINE_HEURISTIC_FALLBACK.
