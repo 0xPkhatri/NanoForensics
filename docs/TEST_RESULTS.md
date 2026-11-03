@@ -102,3 +102,36 @@ Command: `.venv/bin/python -m benchmarks.evaluate`
 All three methods yielded 0 correct / 0 incorrect / 4 NO_DECISION. This is an honest inconclusive benchmark, not evidence of discovery or superiority. Full immutable-trial evidence: BENCHMARK_REPORT.json; readable comparison: BENCHMARK_REPORT.md.
 
 Live backend smoke check: health HTTP 200; four cases; simultaneous duplicate auto-investigation returned [202,409]; real isolated job with 0.05-second deadline reached TIMED_OUT and was terminated/reaped.
+
+## Phase 4 — PASS
+
+Command: `cd frontend && npm install && npm run build`
+
+Next.js 16.4.4 (meets 14+ requirement), React 19, Tailwind 3, Plotly. npm audit: 0 vulnerabilities. Production compilation, TypeScript and static-page generation passed.
+```text
+
+> nanoforensics-workbench@1.0.0 build
+> next build
+
+▲ Next.js 16.4.4 (Turbopack)
+✓ Running next.config.mjs took 6ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 381ms
+  Running TypeScript ...
+  Finished TypeScript in 738ms ...
+  Collecting page data using 4 workers ...
+  Generating static pages using 4 workers (0/3) ...
+✓ Generating static pages using 4 workers (3/3) in 127ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+
+```
+
+Local preview launched after build; visual/interactive QA continues with mandatory Phase 5. Counterfactual API execution now defaults to fresh computation; audit distinguishes cache reuse.

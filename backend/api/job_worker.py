@@ -17,7 +17,7 @@ def run(store,job_id):
         store.update_job(job_id,result={'report':'docs/BENCHMARK_REPORT.md','message':'Separate scorer completed; ground-truth data are not API payloads.'})
         return
     else:
-        state=investigator.investigate(job['case_id'],only_proposal=payload.get('proposal_id'),intervention=payload.get('intervention'),parameters=payload.get('parameters'),max_experiments=payload.get('max_experiments',4))
+        state=investigator.investigate(job['case_id'],only_proposal=payload.get('proposal_id'),intervention=payload.get('intervention'),parameters=payload.get('parameters'),max_experiments=payload.get('max_experiments',4),force_recompute=payload.get('force_recompute',True))
     store.update_job(job_id,result={'case_id':state.case_id,'status':state.status,'ai_execution_mode':state.ai_execution_mode,'verifications':len(state.verifications),'budget_used_sec':state.budget_used_sec})
 
 

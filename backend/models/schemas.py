@@ -355,6 +355,7 @@ class InterventionParameters(StrictModel):
     target_strain_rate: Optional[float] = Field(default=None, ge=0.01, le=0.2)
 
 class ExperimentRequest(StrictModel):
+    force_recompute: bool = True
     proposal_id: Optional[str] = Field(default=None, max_length=100)
     intervention: Optional[InterventionType] = None
     parameters: InterventionParameters = Field(default_factory=InterventionParameters)
@@ -371,5 +372,6 @@ class ModelDecision(StrictModel):
 
 
 class InvestigationRequest(StrictModel):
+    force_recompute: bool = True
     max_experiments: int = Field(default=4, ge=1, le=5)
     timeout_sec: Optional[float] = Field(default=None, ge=0.05, le=1800)

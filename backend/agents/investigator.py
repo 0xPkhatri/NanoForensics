@@ -30,6 +30,7 @@ class NanoForensicsInvestigator:
         self.provenance={}
         self.edit_inputs={}
         self.baseline_runs={}
+        self.force_recompute=False
 
     def inspect_case(self,case_id):
         return self.store.public(case_id).model_dump(mode='json')
@@ -102,10 +103,10 @@ class NanoForensicsInvestigator:
         self._save('Geometric/protocol transformation validated','intervention',experiment_id=experiment_id,trace=trace)
         return trace
 
-    def _run(self,specimen):
+    def _run(self,specimen,fresh=False):
         remaining=self._budget()
         key=content_hash({'input':specimen.model_dump(),'solver_version':'sflj-1.0','engine':engine_capabilities()})
-        result=self.store.cached(key)
+        result=None if fresh else self.store.cached(key)
         cached=result is not None
         if result is None:
             result=run_bounded(specimen,timeout=min(RUN_TIMEOUT,remaining))
@@ -122,7 +123,7 @@ class NanoForensicsInvestigator:
         for seed in p.matched_seeds:
             b=original.model_copy(deep=True);b.protocol.seed=seed
             c=edited.model_copy(deep=True);c.protocol.seed=seed
-            baseline.append(self._run(b));counter.append(self._run(c))
+            baseline.append(self._run(b));counter.append(self._run(c,fresh=self.force_recompute))
         self.baseline_runs[experiment_id]=baseline
         summary=aggregate(counter)
         self.state.executed_experiments[experiment_id]=summary
@@ -178,7 +179,8 @@ class NanoForensicsInvestigator:
         self._save(self.state.final_verdict_summary,'conclude')
         return self.state
 
-    def investigate(self,case_id,only_proposal=None,intervention=None,parameters=None,max_experiments=4):
+    def investigate(self,case_id,only_proposal=None,intervention=None,parameters=None,max_experiments=4,force_recompute=False):
+        self.force_recompute=force_recompute
         self.started=time.perf_counter()
         old=self.store.state(case_id);self.previous_used=old.budget_used_sec if old else 0.
         try:
