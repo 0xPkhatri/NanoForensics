@@ -4,7 +4,7 @@
 [x] Benchmark inputs regenerated with identical geometry/protocol, corrected solver and versioned cache.
 [x] Corrected Phase 2: 11 tests PASS, including diagnostic new seeds and verifier authority.
 [x] Corrected Phase 3 evaluation PASS; all methods NO_DECISION on all cases.
-[~] Corrected Phase 4 build next.
-[ ] Corrected Phase 5 live E2E rerun.
+[x] Corrected Phase 4 production build PASS.
+[~] Corrected Phase 5 live E2E rerun next.
 
-Last verified Git checkpoint: a8428fb (dimensionality correction and explicit invalidation). Original phase commits are historical; docs/archive contains INVALID earlier trajectory reports. No acceptance thresholds or specimen preparations were tuned.
+Last verified Git checkpoint: 55f35b1 (dimensionality correction and explicit invalidation). Original phase commits are historical; docs/archive contains INVALID earlier trajectory reports. No acceptance thresholds or specimen preparations were tuned.

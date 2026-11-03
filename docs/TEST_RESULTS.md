@@ -276,3 +276,34 @@ Command: `.venv/bin/python -m benchmarks.evaluate`
 ```
 
 Current BENCHMARK_REPORT.md / .json use solver sflj-1.1 and fixed inputs. Every method: 0 CORRECT, 0 INCORRECT, 4 NO_DECISION. Historical v1 records in archive remain invalid and are not used.
+
+## Corrected Phase 4 — PASS
+
+Command: `cd frontend && npm install && npm run build`
+
+0 npm vulnerabilities. Updated first-valid-replicate and excluded-failed-envelope wording.
+```text
+
+> nanoforensics-workbench@1.0.0 build
+> next build
+
+▲ Next.js 16.4.4 (Turbopack)
+✓ Running next.config.mjs took 7ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 505ms
+  Running TypeScript ...
+  Finished TypeScript in 749ms ...
+  Collecting page data using 4 workers ...
+  Generating static pages using 4 workers (0/3) ...
+✓ Generating static pages using 4 workers (3/3) in 125ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+
+```
