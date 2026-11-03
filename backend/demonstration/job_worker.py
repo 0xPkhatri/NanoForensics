@@ -1,5 +1,5 @@
 import sys
-from backend.storage.db import Store
+from backend.demonstration.storage import DemonstrationStore as Store
 from backend.demonstration.investigator import DemonstrationInvestigator
 
 

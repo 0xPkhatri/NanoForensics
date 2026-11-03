@@ -2,7 +2,7 @@
 import {useEffect,useRef,useState} from 'react';
 import type {Data,Layout} from 'plotly.js';
 import {Simulation,outcomeLabel} from '@/lib/api';
-export default function StressStrainPlot({baseline,counterfactual}:{baseline:Simulation;counterfactual?:Simulation}){
+export default function StressStrainPlot({baseline,counterfactual,deterministic=false}:{baseline:Simulation;counterfactual?:Simulation;deterministic?:boolean}){
  const ref=useRef<HTMLDivElement>(null);const [error,setError]=useState('');
  useEffect(()=>{let stopped=false;let purge:(()=>void)|undefined;
   import('plotly.js-dist-min').then(Plotly=>{
@@ -22,5 +22,5 @@ export default function StressStrainPlot({baseline,counterfactual}:{baseline:Sim
   }).catch(e=>setError(String(e)));
   return()=>{stopped=true;purge?.()};
  },[baseline,counterfactual]);
- return <section className="panel" id="observe"><div className="panelhead"><h2><span className="muted mono">01 / </span>Mechanical response</h2><span className="badge">ACTUAL MD · ±1σ</span></div>{error?<p className="error">Chart failed: {error}</p>:<div ref={ref} style={{minHeight:350}}/>}<div className="panelbody"><p className="caption">{outcomeLabel(baseline)} · {baseline.replicate_seeds.length||1} baseline seeds · {baseline.stress_strain_curve.length} measured strain samples</p><p className="caption">Tensile-positive virial, mobile atoms only; nominal width × current gauge and unit thickness. Shading is standard deviation across numerically valid replicates. Numerical failures are excluded from causal comparisons.</p></div></section>
+ return <section className="panel" id="observe"><div className="panelhead"><h2><span className="muted mono">01 / </span>Mechanical response</h2><span className="badge">{deterministic?'ACTUAL MD · EXACT REPLAYS':'ACTUAL MD · ±1σ'}</span></div>{error?<p className="error">Chart failed: {error}</p>:<div ref={ref} style={{minHeight:350}}/>}<div className="panelbody"><p className="caption">{outcomeLabel(baseline)} · {baseline.replicate_seeds.length||1} baseline {deterministic?'replay labels':'seeds'} · {baseline.stress_strain_curve.length} measured strain samples</p><p className="caption">Tensile-positive virial, mobile atoms only; nominal width × current gauge and unit thickness. {deterministic?'Any envelope is replay spread, not a population uncertainty band.':'Shading is standard deviation across numerically valid replicates.'} Numerical failures are excluded from causal comparisons.</p></div></section>
 }

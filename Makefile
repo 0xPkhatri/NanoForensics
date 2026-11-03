@@ -16,8 +16,14 @@ frontend:
 build:
 	cd frontend && npm run build
 test:
-	$(PYTEST) tests/test_physics_and_defects.py tests/test_verifier.py tests/test_investigation_loop.py tests/test_scientific_audit.py -v
+	$(PYTEST) tests/test_physics_and_defects.py tests/test_verifier.py tests/test_investigation_loop.py tests/test_scientific_audit.py tests/test_demonstration.py -v
 evaluate:
 	$(PYTHON) -m benchmarks.evaluate
 e2e:
 	bash scripts/verify_e2e.sh
+
+.PHONY: demonstration-data demonstration-evaluate
+demonstration-data:
+	$(PYTHON) -m demonstrations.generate --partition development
+demonstration-evaluate:
+	$(PYTHON) -m demonstrations.evaluate --partition development

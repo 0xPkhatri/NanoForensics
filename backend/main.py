@@ -11,12 +11,13 @@ from backend.api.jobs import JobManager
 from backend.api.routes import router
 from backend.demonstration.routes import router as demonstration_router
 from backend.demonstration.registration import STUDY_DB
+from backend.demonstration.storage import DemonstrationStore
 
 
 @asynccontextmanager
 async def lifespan(app):
     app.state.store=Store()
-    app.state.demonstration_store=Store(STUDY_DB)
+    app.state.demonstration_store=DemonstrationStore(STUDY_DB)
     app.state.telemetry=await asyncio.to_thread(verify_llm_connection)
     app.state.capabilities=await asyncio.to_thread(engine_capabilities)
     calibration=ROOT/'runtime/calibration.json'

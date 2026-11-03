@@ -1,0 +1,42 @@
+{
+  "partition": "development",
+  "registration_hash": "7d87eea832b65b65550879f453c53e7546ced33a3439953995bb5c74f7347a49",
+  "validation_status": "DEVELOPMENT_CRITERIA_MET",
+  "rows": [
+    {
+      "case_id": "DEMO_401",
+      "numeric_complete_uncensored": true,
+      "exact_replays": true,
+      "timestep_convergence": null,
+      "identified_cause": null,
+      "scientific_state": "INCONCLUSIVE",
+      "scoring": "CORRECT_NEGATIVE_CONTROL",
+      "passed": true,
+      "convergence_status": "NOT_RUN_DEVELOPMENT"
+    },
+    {
+      "case_id": "DEMO_402",
+      "numeric_complete_uncensored": true,
+      "exact_replays": true,
+      "timestep_convergence": null,
+      "identified_cause": "interior_vacancy",
+      "scientific_state": "CONCLUDED",
+      "scoring": "CORRECT_DISTINCTION",
+      "passed": true,
+      "convergence_status": "NOT_RUN_DEVELOPMENT"
+    },
+    {
+      "case_id": "DEMO_403",
+      "numeric_complete_uncensored": true,
+      "exact_replays": true,
+      "timestep_convergence": null,
+      "identified_cause": "surface_notch",
+      "scientific_state": "CONCLUDED",
+      "scoring": "CORRECT_DISTINCTION",
+      "passed": true,
+      "convergence_status": "NOT_RUN_DEVELOPMENT"
+    }
+  ],
+  "limitations": "Educational athermal finite-rate 2D SFLJ open-slot counterfactual reference. Validates only the held-out registered geometry shift and solver timestep convergence; not thermal robustness, population inference, broad shape generalization or real-material prediction. V1/V2 negative development findings and original four benchmark results remain unchanged.",
+  "all_outcomes_disclosed": true
+}

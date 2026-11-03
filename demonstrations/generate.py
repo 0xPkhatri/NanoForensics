@@ -8,14 +8,14 @@ import time
 from pathlib import Path
 import numpy as np
 from backend.config import ROOT
-from backend.storage.db import Store
+from backend.demonstration.storage import DemonstrationStore as Store
 from backend.models.schemas import Protocol,SpecimenInput,FailureCasePublic
 from backend.simulation.defect_generator import hex_lattice
 from backend.simulation.worker import run_bounded
 from backend.simulation.numpy_md_fallback import content_hash
 from backend.simulation.lammps_runner import engine_capabilities
 from backend.analysis.comparison import aggregate
-from backend.demonstration.registration import registration,STUDY_DB
+from backend.demonstration.registration import registration,STUDY_DB,STUDY_DIR,DESIGN_DIR
 
 
 def key(specimen):
@@ -23,13 +23,13 @@ def key(specimen):
 
 
 def generate(partition):
-    design,digest=registration();root=ROOT/'runtime/demonstration';store=Store(STUDY_DB)
+    design,digest=registration();root=STUDY_DIR;store=Store(STUDY_DB)
     lock=root/f'{partition}.generation.lock';root.mkdir(parents=True,exist_ok=True)
     if partition=='held_out':
-        development_lock=ROOT/'demonstrations/development-lock.json'
+        development_lock=DESIGN_DIR/'development-lock.json'
         if not development_lock.exists():raise RuntimeError('Development analysis/prediction lock required before held-out generation')
-        fixed=json.loads(development_lock.read_text())
-        if fixed['registration_hash']!=digest:raise RuntimeError('Development lock does not match registration')
+        from demonstrations.lock_development import verify_lock
+        verify_lock()
     fd=os.open(lock,os.O_CREAT|os.O_EXCL|os.O_WRONLY,0o600);os.close(fd)
     target=design[partition]
     truth_file=root/'private'/partition/'ground_truth.json';truth_file.parent.mkdir(parents=True,exist_ok=True)
@@ -42,10 +42,10 @@ def generate(partition):
             if case_id in store.case_ids():continue
             nx,ny=design['lattice']['nx'],design['lattice']['ny'];q=hex_lattice(nx,ny);row=target['gap_row']
             if family==0:
-                removed=[row*nx+i for i in range(5,11)]+[row*nx]
+                removed=[r*nx+i for r in range(row,row+(2 if design['version']>=2 else 1)) for i in range(5,11)]+[row*nx]
                 cause='interior_vacancy'
             elif family==1:
-                removed=[row*nx+i for i in range(6)]+[row*nx+11]
+                removed=[r*nx+i for r in range(row,row+(2 if design['version']>=2 else 1)) for i in range(6)]+[row*nx+11]
                 cause='surface_notch'
             else:removed=[];cause=None
             coordinates=np.delete(q,removed,axis=0)
@@ -55,6 +55,8 @@ def generate(partition):
                 if time.perf_counter()-started>design['budgets']['whole_study_sec']:raise TimeoutError('Registered study generation budget exceeded')
                 s=inp.model_copy(deep=True);s.protocol.seed=seed
                 result=run_bounded(s,timeout=design['budgets']['per_run_sec'])
+                from backend.demonstration.validation import validate_study_run
+                result=validate_study_run(s,result)
                 store.save_result(key(s),result);records.append(result)
                 print(partition,case_id,seed,result.outcome.value,result.wall_time_sec,flush=True)
             summary=aggregate(records)

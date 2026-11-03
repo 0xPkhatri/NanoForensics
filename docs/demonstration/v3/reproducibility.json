@@ -1,0 +1,10 @@
+{
+  "registration_hash": "7d87eea832b65b65550879f453c53e7546ced33a3439953995bb5c74f7347a49",
+  "case_id": "DEMO_401",
+  "seed": 5801,
+  "exact_numeric_reproduction": true,
+  "physical_record_sha256": "0134c86da43b95d5b1b8d0881406a9831ef2472af3df2ad89ac58edbbbe5a32a",
+  "excluded": "walltime, worker PID and process telemetry",
+  "engine": "LAMMPS_BINARY",
+  "fresh_wall_time_sec": 15.856921208993299
+}

@@ -1,0 +1,33 @@
+{
+  "partition": "development",
+  "registration_hash": "e8c9481b6698c3e52ffc75af36c08a981ee5f26fa2f1e45117ce1920d4202b8d",
+  "validation_status": "NOT_VALIDATED",
+  "rows": [
+    {
+      "case_id": "DEMO_201",
+      "numeric_complete_uncensored": true,
+      "identified_cause": null,
+      "scientific_state": "INCONCLUSIVE",
+      "scoring": "CORRECT_NEGATIVE_CONTROL",
+      "passed": true
+    },
+    {
+      "case_id": "DEMO_202",
+      "numeric_complete_uncensored": false,
+      "identified_cause": null,
+      "scientific_state": "INCONCLUSIVE",
+      "scoring": "NO_DECISION",
+      "passed": false
+    },
+    {
+      "case_id": "DEMO_203",
+      "numeric_complete_uncensored": false,
+      "identified_cause": null,
+      "scientific_state": "INCONCLUSIVE",
+      "scoring": "NO_DECISION",
+      "passed": false
+    }
+  ],
+  "limitations": "Separate prospectively registered low-temperature 2D SFLJ open-slot demonstration. Held-out thermal seeds and one-row location shift only; not real-material prediction or broad geometry generalization. V1 remains NOT_VALIDATED on development. Original CASE_ALPHA..DELTA unchanged.",
+  "all_outcomes_disclosed": true
+}

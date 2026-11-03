@@ -26,3 +26,8 @@ Original immutable database fingerprint: runtime/demonstration/original-fingerpr
 [x] Separate study generator, geometric tools, analysis and namespace implemented; registration unchanged.
 [x] Development baselines generated with real MD; target runtime exceeded honestly (~15 s/run).
 [~] Development competing-arm outcomes and prospective held-out lock pending.
+
+[x] V1 and V2 negative development results retained; no held-out labels opened.
+[x] V3 final athermal development passes dominant-repair criteria; deterministic replay semantics explicit.
+[x] Backend 46 tests and frontend production build PASS before holdout.
+[~] Commit scientific source and hash-lock V3 development analysis, then generate untouched geometries and perform dt refinement.

@@ -15,6 +15,18 @@ RUN_DIR=$(mktemp -d "$PWD/runtime/e2e-XXXXXX")
 export NANO_E2E_DIR="$RUN_DIR"
 export NANO_DB="$RUN_DIR/test.db"
 export NANO_BACKEND_URL=http://127.0.0.1:8000
+# Keep study jobs/results isolated from the published preregistered dataset.
+DEMONSTRATION_SOURCE_DB="${NANO_DEMONSTRATION_DB:-$PWD/runtime/demonstration/v3/study.db}"
+if [[ -f "$DEMONSTRATION_SOURCE_DB" ]]; then
+  "$PY" - "$DEMONSTRATION_SOURCE_DB" "$RUN_DIR/demonstration.db" <<'PYCLONE'
+import sqlite3,sys
+with sqlite3.connect(sys.argv[1]) as source,sqlite3.connect(sys.argv[2]) as target:
+    source.backup(target)
+    target.execute('DELETE FROM jobs')
+    target.execute('DELETE FROM states')
+PYCLONE
+fi
+export NANO_DEMONSTRATION_DB="$RUN_DIR/demonstration.db"
 export NANO_E2E_LIVE=1
 export META_MUSE_API_KEY=""
 export NANO_ADMIN_TOKEN=""

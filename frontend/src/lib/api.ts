@@ -23,4 +23,4 @@ export const terminal=(status:string)=>!['QUEUED','RUNNING'].includes(status);
 export const outcomeLabel=(s:Simulation)=>s.outcome==='NOT_FRACTURED_WITHIN_HORIZON'?'NO_FRACTURE_OBSERVED · right-censored':s.outcome;
 export const pct=(value:number|null|undefined)=>value==null?'—':`${value.toFixed(2)}%`;
 
-export interface DemonstrationStudy {study_id:string;registration_hash:string;validation_status:string;partition_evaluated?:string;development_result?:string;scope:string;counts?:Record<string,number>}
+export interface DemonstrationStudy {version:number;study_id:string;registration_hash:string;validation_status:string;partition_evaluated?:string;development_result?:string;scope:string;counts?:Record<string,number>}

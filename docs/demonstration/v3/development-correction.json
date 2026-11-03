@@ -1,0 +1,8 @@
+{
+  "reason": "Initial implementation incorrectly required exactly one supported repair. Registration instead specifies a uniquely larger repair effect with fixed recovery, SNR and competing-margin criteria. Both repairs may be beneficial. Corrected before any held-out data; no thresholds, hypotheses, protocols or MD results changed.",
+  "initial_decisions_sha256": "fb7a00defdb8fbcfe848e240a04b76b82e74391e047be6794b9f7d7f30798c49",
+  "corrected_decisions_sha256": "f73e1af16c87994ac9b07144ea481577fb42a5663d64a645575bda595e0a93c6",
+  "md_results_and_verifications_identical": true,
+  "new_md_runs": 0,
+  "timing_interpretation": "Corrected transcript wall_time_sec is analysis time only; raw MD walltimes remain in immutable replicate results."
+}

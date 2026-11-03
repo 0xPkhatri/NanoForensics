@@ -4,7 +4,7 @@ from scipy.spatial import cKDTree
 from backend.models.schemas import InterventionType
 
 
-def missing_components(coordinates):
+def missing_components(coordinates,minimum_neighbors=3):
     q=np.asarray(coordinates,float)
     tree=cKDTree(q)
     a=float(np.median(tree.query(q,k=2)[0][:,1]))
@@ -20,7 +20,7 @@ def missing_components(coordinates):
             p=np.array([origin+index*a,float(np.median(pts[:,1]))])
             if not lo[0]-.05*a<=p[0]<=hi[0]+.05*a:continue
             if tree.query(p)[0]<.55*a:continue
-            if len(tree.query_ball_point(p,1.4*a))>=3:candidates.append(p)
+            if len(tree.query_ball_point(p,1.4*a))>=minimum_neighbors:candidates.append(p)
     if not candidates:return []
     sites=np.array(candidates)
     graph=np.linalg.norm(sites[:,None]-sites[None,:],axis=2)<1.35*a
@@ -36,12 +36,18 @@ def missing_components(coordinates):
     return components
 
 
+def study_components(coordinates):
+    from backend.demonstration.registration import registration
+    design,_=registration()
+    return missing_components(coordinates,2 if design.get('geometry_algorithm')=='observable-component-fit-v2' else 3)
+
+
 def reconstruct(specimen,intervention):
     out=specimen.model_copy(deep=True)
     boundary=intervention==InterventionType.SMOOTH_SURFACE_NOTCH
     if intervention not in [InterventionType.HEAL_INTERIOR_VACANCY,InterventionType.SMOOTH_SURFACE_NOTCH]:raise ValueError('Study permits only registered geometric interventions')
-    components=[c for c in missing_components(out.coordinates) if c['boundary_connected']==boundary]
+    components=[c for c in study_components(out.coordinates) if c['boundary_connected']==boundary]
     positions=[p for c in components for p in c['sites']]
     ids=list(range(max(out.atom_ids)+1,max(out.atom_ids)+1+len(positions)))
     out.coordinates.extend(positions);out.atom_ids.extend(ids)
-    return out,{'status':'APPLIED' if positions else 'NO_APPLICABLE_EDIT','components':components,'inferred_locations':positions,'inserted_atom_ids':ids,'removed_atom_ids':[],'geometry_algorithm':'observable-component-fit-v1'}
+    return out,{'status':'APPLIED' if positions else 'NO_APPLICABLE_EDIT','components':components,'inferred_locations':positions,'inserted_atom_ids':ids,'removed_atom_ids':[],'geometry_algorithm':'observable-component-fit-v2' if any(len(c['sites'])>6 for c in components) else 'observable-component-fit'}

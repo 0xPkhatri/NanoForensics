@@ -201,3 +201,46 @@ def test_server_crash_recovers_orphaned_worker_and_unlocks_case(client):
     assert not (Path('runtime/job_tmp')/job_id).exists()
     assert client.post('/cases/CASE_ALPHA/reset').status_code==200
     print('Crash recovery:',job['status'],'worker descendants terminated; durable case lock released')
+
+
+def test_separate_demonstration_routes_and_real_counterfactual(client):
+    """Runs in an isolated copy of the demonstration DB; no published data changes."""
+    demo=BASE+'/demonstrations'
+    study=httpx.get(demo+'/study',timeout=10)
+    assert study.status_code==200 and study.json()['registration_hash']
+    all_cases=httpx.get(demo+'/cases',timeout=15).json()
+    if not all_cases:
+        pytest.fail('Generate the registered demonstration before its integration acceptance gate')
+    selected=next(c for c in all_cases if c['observed_configuration']['study_partition']=='development' and c['atom_count']<320)
+    case_id=selected['case_id']
+    assert client.get('/cases/'+case_id).status_code==404
+    assert httpx.get(demo+'/cases/CASE_ALPHA').status_code==404
+    assert httpx.post(demo+'/cases/'+case_id+'/experiment',json={'intervention':'normalize_strain_rate'}).status_code==422
+    response=httpx.post(demo+'/cases/'+case_id+'/hypothesize',timeout=15)
+    assert response.status_code==202
+    def wait_demo(job_id,limit=240):
+        deadline=time.monotonic()+limit
+        while time.monotonic()<deadline:
+            job=httpx.get(demo+'/jobs/'+job_id,timeout=15).json()
+            if job['status'] not in ['QUEUED','RUNNING']:return job
+            assert client.get('/health').status_code==200
+            time.sleep(.5)
+        pytest.fail('Demo job timed out in test')
+    assert wait_demo(response.json()['job_id'])['status']=='COMPLETE'
+    state=httpx.get(demo+'/cases/'+case_id,timeout=15).json()['investigation']
+    proposal=state['proposed_experiments'][0]
+    response=httpx.post(demo+'/cases/'+case_id+'/experiment',json={'proposal_id':proposal['experiment_id'],'force_recompute':True},timeout=15)
+    assert response.status_code==202
+    job_id=response.json()['job_id']
+    assert client.get('/jobs/'+job_id).status_code==404
+    assert httpx.post(demo+'/cases/'+case_id+'/reset').status_code==409
+    assert wait_demo(job_id)['status']=='COMPLETE'
+    state=httpx.get(demo+'/cases/'+case_id,timeout=15).json()['investigation']
+    result=state['executed_experiments'][proposal['experiment_id']]
+    assert result['replicate_seeds']==[5801,5802,5803]
+    assert len(result['replicate_results'])==3
+    assert any(e.get('cached') is False for e in state['audit_log'] if e['stage']=='simulation')
+    assert state['ai_execution_mode']=='OFFLINE_HEURISTIC_FALLBACK'
+    proxy=httpx.get('http://127.0.0.1:3000/api/demonstrations/study',timeout=15)
+    assert proxy.status_code==200 and proxy.json()['registration_hash']==study.json()['registration_hash']
+    print('Separate demonstration real MD:',case_id,len(result['replicate_results']),'fresh counterfactual seeds; original namespace unaffected')

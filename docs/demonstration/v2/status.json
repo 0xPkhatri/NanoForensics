@@ -1,0 +1,14 @@
+{
+  "validation_status": "NOT_VALIDATED",
+  "partition_evaluated": "development",
+  "registration_hash": "e8c9481b6698c3e52ffc75af36c08a981ee5f26fa2f1e45117ce1920d4202b8d",
+  "development_result": "NOT_VALIDATED",
+  "case_count": 3,
+  "counts": {
+    "CORRECT_DISTINCTION": 0,
+    "CORRECT_NEGATIVE_CONTROL": 1,
+    "NO_DECISION": 2,
+    "INCORRECT": 0
+  },
+  "limitations": "Separate prospectively registered low-temperature 2D SFLJ open-slot demonstration. Held-out thermal seeds and one-row location shift only; not real-material prediction or broad geometry generalization. V1 remains NOT_VALIDATED on development. Original CASE_ALPHA..DELTA unchanged."
+}

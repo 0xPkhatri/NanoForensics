@@ -8,7 +8,7 @@ from backend.models.schemas import SpecimenInput,InterventionType
 
 
 def test_preregistration_hash_and_original_thresholds_are_locked():
-    design,digest=registration()
+    design,digest=registration('v1')
     assert digest=='09f0c37f89155e4d60af658b7e1c538cb8aaf026ab0c44e9ef85f44e1322aa6a'
     assert design['physical_validation']['raw_temperature_error_lt']==.35
     assert design['scientific_validation']['failure_recovery_pct_min']==18
@@ -91,3 +91,86 @@ def test_dataset_api_routes_are_isolated_and_protocol_edits_rejected(tmp_path):
         assert client.get('/api/jobs/'+job['id']).status_code==404
         assert client.post('/api/demonstrations/cases/DEMO_999/reset').status_code==409
         temporary.update_job(job['id'],status='CANCELLED')
+
+
+def test_v2_registration_and_two_row_geometry_are_locked():
+    design,digest=registration('v2')
+    assert digest=='e8c9481b6698c3e52ffc75af36c08a981ee5f26fa2f1e45117ce1920d4202b8d'
+    assert design['physical_validation']['true_temperature_relative_error_lt']==.35
+    assert design['physical_validation']['open_slot_bank_separation_gt']==2.5
+    q=hex_lattice(16,20);row=9
+    q=np.delete(q,[r*16+i for r in [row,row+1] for i in range(5,11)]+[row*16],axis=0)
+    parts=missing_components(q,minimum_neighbors=2)
+    assert sorted((c['boundary_connected'],len(c['sites'])) for c in parts)==[(False,12),(True,1)]
+    s=SpecimenInput(coordinates=q.tolist(),atom_ids=list(range(len(q))))
+    edited,trace=reconstruct(s,InterventionType.HEAL_INTERIOR_VACANCY)
+    assert len(edited.coordinates)==len(q)+12
+
+
+def test_supplemental_checks_cannot_turn_an_invalid_run_into_valid():
+    from tests.test_verifier import run
+    from backend.demonstration.validation import validate_study_run
+    q=hex_lattice(6,6);s=SpecimenInput(coordinates=q.tolist(),atom_ids=list(range(len(q))))
+    invalid=run(42,valid=False)
+    assert not validate_study_run(s,invalid).numerical_check.is_valid
+
+
+def test_failed_study_runs_are_frozen_and_not_silently_retried(tmp_path):
+    from backend.demonstration.storage import DemonstrationStore
+    from tests.test_verifier import run
+    from backend.models.schemas import SimulationOutcome
+    store=DemonstrationStore(tmp_path/'failed-evidence.db')
+    first=run(42,valid=False);first.outcome=SimulationOutcome.EXECUTION_FAILED
+    store.save_result('registered-input',first)
+    store.save_result('registered-input',run(42,valid=True))
+    assert store.cached('registered-input').outcome=='EXECUTION_FAILED'
+
+
+def test_v2_true_temperature_guard_is_stricter_than_denominator_floor():
+    from tests.test_verifier import run
+    from backend.models.schemas import Protocol,AtomSnapshot
+    from backend.demonstration.validation import validate_study_run
+    q=hex_lattice(6,6)
+    specimen=SpecimenInput(coordinates=q.tolist(),atom_ids=list(range(len(q))),protocol=Protocol(temperature=.005))
+    # Controlled guard fixture only; no generated scientific curve or benchmark result.
+    controlled=run(42)
+    controlled.snapshots=[AtomSnapshot(timestep=0,strain=0,stress_yy=0,potential_energy=0,kinetic_energy=0,atoms=[])]
+    controlled.reference_geometry={'reference_coordinates':q.tolist()}
+    controlled.diagnostics={'thermal_diagnostics':{'means':{'laboratory':.007}}}
+    assert abs(.007-.005)/.01<.35
+    guarded=validate_study_run(specimen,controlled,version=2)
+    assert guarded.outcome=='EXECUTION_FAILED' and guarded.failure_strain is None
+    assert not guarded.diagnostics['registered_study_checks']['checks']['temperature_without_floor']['passed']
+
+
+def test_athermal_registration_and_inference_do_not_invent_independent_samples():
+    from tests.test_verifier import run
+    from backend.demonstration.analysis import discriminating_contrast
+    design,digest=registration('v3')
+    assert digest=='7d87eea832b65b65550879f453c53e7546ced33a3439953995bb5c74f7347a49'
+    assert design['protocol']['temperature']==0
+    assert design['physical_validation']['heldout_timestep_refinement']['required']
+    seeds=[1,2,3];baseline=[run(s,.08) for s in seeds];winner=[run(s,.15) for s in seeds];other=[run(s,.081) for s in seeds]
+    contrast=discriminating_contrast(baseline,winner,other,deterministic=True)
+    assert contrast['is_distinguishable'] and contrast['independent_thermal_samples']==0
+    assert contrast['mean_contrast_t_interval95'] is None
+    winner[0].failure_strain=.16
+    assert not discriminating_contrast(baseline,winner,other,deterministic=True)['is_distinguishable']
+
+
+def test_refinement_winner_is_actual_finite_difference_not_case_assignment():
+    from tests.test_verifier import run
+    from backend.demonstration.convergence import deterministic_winner
+    b=run(1,.08)
+    assert deterministic_winner(b,{'A':run(1,.15),'B':run(1,.081)})=='A'
+    assert deterministic_winner(b,{'A':run(1,.081),'B':run(1,.15)})=='B'
+    assert deterministic_winner(b,{'A':run(1,.15),'B':run(1,.15)}) is None
+    assert deterministic_winner(b,{}) is None
+
+
+def test_registered_dominance_can_distinguish_two_beneficial_repairs():
+    from tests.test_verifier import run
+    from backend.demonstration.convergence import deterministic_winner
+    # Both interventions exceed recovery 18%; the registered contrast is what matters.
+    assert deterministic_winner(run(1,.08),{'X':run(1,.15),'Y':run(1,.11)})=='X'
+    assert deterministic_winner(run(1,.08),{'X':run(1,.11),'Y':run(1,.15)})=='Y'
