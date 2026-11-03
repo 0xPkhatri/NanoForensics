@@ -16,3 +16,9 @@ Measured findings and limitations: SCIENTIFIC_FINDINGS.md. ALPHA's original fail
 Remaining limitations: small finite lattice, three-seed control pilots, non-equivalent atomwise stochastic noise when atom count/order changes, rate-sensitive failure timing, and lack of validated profile-unbiased thermostat parity. No live-model demonstration is claimed; this audit used deterministic tools with model calls disabled.
 
 User changes preserved: original TEST_RESULTS.md formatting and next-env.d.ts edits remain unstaged; repomix-output.xml remains untracked. No secret was printed or committed. Local demo ownership: runtime/demo PID/log files. Stop only the owned demo with `.venv/bin/python scripts/e2e_servers.py stop runtime/demo`.
+
+## Prospective demonstration active
+
+[~] V1 preregistration committed before any new trajectories; original checkpoint f4fbbca preserved.
+[ ] Independent development, analysis lock, held-out generation/scoring and isolated dashboard integration.
+Original immutable database fingerprint: runtime/demonstration/original-fingerprint.json. User edits retained.

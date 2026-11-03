@@ -16,3 +16,7 @@ Evidence: docs/science-audit/measurements.json, raw-runs.jsonl.gz (159 captures,
 Demo restored on localhost:3000 / :8000 using runtime/demo PID/log records, without resetting original investigation state. Stop only these owned processes with `.venv/bin/python scripts/e2e_servers.py stop runtime/demo` before running the live E2E script. User's pre-existing TEST_RESULTS formatting and next-env.d.ts edits remain unstaged; repomix-output.xml remains untracked. Preserve them. New TEST_RESULTS sections were staged separately from the user's formatting changes.
 
 No required audit work remains. Useful future research: larger predeclared independent ensembles, same-protocol spatially indexed noise coupling, validated flow-aware thermostatting in both engines, and finite-size/rate studies on newly registered datasets. These must not retroactively tune the frozen held-out cases.
+
+## New active task: prospective demonstration V1
+
+Read demonstrations/registration.json and PREREGISTRATION.md. No new trajectories generated at this checkpoint. One design, no post-outcome tuning. Original DB snapshotted/fingerprinted in runtime/demonstration. Separate database/API namespace required. Preserve existing user edits. Stage new sections of TEST_RESULTS separately from its pre-existing formatting changes.

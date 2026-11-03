@@ -1,0 +1,25 @@
+{
+  "study_id": "NF-DEMO-2026-11-04-V1",
+  "version": 1,
+  "design_basis": "Prior audit found that small defects did not control rupture and laboratory-frame Langevin drag contaminated rapid loading. Larger transverse missing-site slits provide a testable stress-concentration contrast; slower loading limits flow contamination. Predictions are hypotheses, not guaranteed outcomes.",
+  "source_checkpoint": "f4fbbca",
+  "lattice": {"nx":16,"ny":20,"spacing":"2^(1/6)","orientation":"horizontal close-packed rows; y loading"},
+  "protocol": {"dt":0.002,"temperature":0.02,"strain_rate":0.005,"max_strain":0.35,"sample_every":50,"warmup_steps":4000,"gamma":2.0,"nve_steps":500,"minimize_tolerance":0.005},
+  "families": [
+    {"name":"interior-dominant hypothesis","large_gap":"six adjacent sites in one transverse row, centered in x","secondary_gap":"one left boundary site in same row","hypothesis":"interior reconstruction increases failure strain more than edge reconstruction"},
+    {"name":"boundary-dominant hypothesis","large_gap":"six adjacent sites starting on left boundary in one transverse row","secondary_gap":"one interior site at column 11 in same row","hypothesis":"edge reconstruction increases failure strain more than interior reconstruction"},
+    {"name":"negative control","large_gap":"none","secondary_gap":"none","hypothesis":"no supported geometric repair; no applicable edit is not evidence of causal rejection"}
+  ],
+  "development": {"seeds":[1701,1702,1703],"gap_row":9,"case_ids":["DEMO_001","DEMO_002","DEMO_003"]},
+  "held_out": {"seeds":[2801,2802,2803,2804,2805,2806,2807,2808,2809],"gap_row":10,"case_ids":["DEMO_101","DEMO_102","DEMO_103"],"access":"not generated until development predictions/analysis code are locked; case-family assignments private and independently permuted"},
+  "interventions":["heal_interior_vacancy","smooth_surface_notch"],
+  "geometric_edit_rule":"Infer row spacing and circular row phase from observed coordinates; identify missing supported lattice sites; classify entire reference-adjacent missing-site components by whether they touch the observable external boundary. Reinsert only supported sites. No pristine site IDs or preparation labels.",
+  "physical_validation":{"nve_drift_lt":0.001,"max_force_lt":10000,"max_step_displacement_lt":0.1,"raw_temperature_error_lt":0.35,"positive_peak_required":true,"fracture_rule":"unchanged post-global-peak 0.65 load drop plus reference-bond-loss cluster >=4 persisting three samples; null strain if censored","planarity":"z=vz=0 verified in LAMMPS","reproducibility":"one development replicate rerun fresh; same engine/version numeric outputs equal; ignore walltime/PIDs"},
+  "scientific_validation":{"failure_recovery_pct_min":18,"paired_snr_min":2.5,"cohort_cv_pct_max":12,"winner_contrast_recovery_percentage_points_min":10,"winner_contrast_snr_min":2.5,"heldout_contrast_t_interval_lower_gt":0,"complete_valid_uncensored_cohort_required":true,"negative_control":"no supported repair"},
+  "holdout_policy":"No changes to protocol, geometry, thresholds, hypotheses, allowed tools or seed set after any development result. All development outcomes reported. Held-out generation runs once after a Git lock of development predictions and analysis code. All held-out arms/seed results frozen before privileged scoring. No dropped seeds, cherry-picked cases or reruns chosen by outcome. Failure yields NOT_VALIDATED; no attempt to rescue V1 by changing its criteria.",
+  "selection_policy":"Single registered design; no parameter search. Development numeric failure stops validation and is reported. Development scientific failure may still be evaluated on the untouched held-out design, without amendments; it must remain disclosed.",
+  "budgets":{"per_run_sec":90,"whole_study_sec":1800,"interactive_job_sec":900,"loading_horizon_must_not_be_shortened":true,"runtime_target_sec":[3,12],"over_target_reported":true},
+  "inference":{"modes":"offline deterministic registered tools initially; live inference only with successful per-action JSON provenance","public_observations":"identical measured geometry, protocol, curves and snapshots available to every comparator","hidden":"ID-family map and original lattice site identifiers only in separate private generator/scorer files"},
+  "scope":"Educational 2D reduced-unit SFLJ intervention demonstration; held-out seed and one-row location shift. Not real-material fracture validation or generalization beyond these preparations. Original CASE_ALPHA..DELTA unchanged.",
+  "dashboard_policy":"Always separate original frozen benchmark from this study. Show registration hash, development vs held-out, validation state, cached vs fresh, seed counts, failed/censored states and model mode. Never describe NOT_VALIDATED data as a successful discovery. Preserve all arms and all seeds."
+}

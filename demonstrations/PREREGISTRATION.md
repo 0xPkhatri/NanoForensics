@@ -1,0 +1,15 @@
+# Prospective counterfactual demonstration V1
+
+The machine-readable registration is registration.json. Its Git commit and SHA-256 must be recorded before generating any new trajectory. It is an exploratory, deliberately simpler **separate dataset**, informed by the prior audit; it is not an improvement claim for the original held-out benchmark.
+
+Use a 16×20 triangular crystal, fixed 2D SFLJ potential and existing grips, dt 0.002, T*=0.02, physical engineering strain rate 0.005, strain horizon 0.35, samples every 50 steps, 4000 BAOAB warmup steps and 500 unstrained NVE steps. Loading lasts 70 LJ time units. The registered warmup and horizon must not be shortened to meet runtime targets. Both engines retain their documented thermostat algorithms; no trajectory parity is assumed.
+
+Two positive families contain both an interior missing-site component and a boundary-connected component, so both competing interventions physically edit something. One component is a six-site transverse slit and the other is a single site. A pristine negative control detects inappropriate repair claims. All three receive identical protocol and measurement access. Family-to-opaque-ID assignments are private and independently shuffled for development and held-out stages.
+
+Development uses three fixed seeds and gap row 9. Held-out uses nine new seeds and row 10. Every baseline and both counterfactuals are computed with the same registered seed labels; added atoms do not imply atomwise identical Langevin noise. Geometric edits must infer missing sites from public coordinates, including component connectivity to the outer boundary. A no-op is data unavailability, never a scientific rejection.
+
+Existing numerical bounds, fracture definition, ≥18% recovery, SNR≥2.5 and CV≤12% are unchanged. A uniquely distinguishable mechanism also requires ≥10 percentage-point improvement over the competing repair, contrast SNR≥2.5 and a positive lower paired Student-t contrast interval on held-out seeds (normality assumption disclosed). All arms must be valid and uncensored; no seed may be discarded. The negative control must remain without a supported repair.
+
+There is one registered design and no outcome-based parameter selection. Development failures and all raw outcomes will be published. Analysis, predictions and any implementation fixes must be checkpointed before held-out generation. Scientific or numerical failure is an acceptable V1 outcome; the dashboard must say NOT_VALIDATED. Claims of a validated demonstration require the prespecified held-out criteria. No changes after results may rescue V1.
+
+Preservation: the original four specimen/public-baseline rows and all pre-existing immutable result rows are fingerprinted and snapshotted before work. New cases, jobs and cached runs use a separate database and API namespace. Original ground-truth data are not modified. Original live agents cannot access the private new family mapping. The changed dataset namespace is an explicit extension requested by the user; original IDs, contracts and endpoints remain compatible.
