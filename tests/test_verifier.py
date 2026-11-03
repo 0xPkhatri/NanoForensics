@@ -69,3 +69,27 @@ def test_aggregate_excludes_failed_empty_trajectories_without_inventing_statisti
     assert result.peak_stress==good.peak_stress
     assert result.outcome=='EXECUTION_FAILED' and result.failure_strain is None
     assert len(result.replicate_results)==2 and result.diagnostics['failed_replicate_count']==1
+
+
+def test_partial_censoring_does_not_select_only_convenient_complete_pairs():
+    from backend.analysis.comparison import paired_statistics
+    seeds=[42,137,271,101]
+    baseline=[run(s,.2) for s in seeds]
+    baseline[-1].failure_strain=None
+    baseline[-1].outcome='NOT_FRACTURED_WITHIN_HORIZON'
+    counter=[run(s,.3) for s in seeds]
+    p=proposal();p.matched_seeds=seeds
+    stats=paired_statistics(baseline,counter)
+    assert stats.get('baseline_mean') is None
+    assert stats.get('recovery') is None
+    result=verify(p,baseline,counter)
+    assert result.verdict=='PENDING' and result.strain_recovery_pct is None
+    assert result.execution_status=='INSUFFICIENT_UNCENSORED_PAIRS'
+
+
+def test_duplicate_or_unmatched_seed_labels_are_not_independent_evidence():
+    for seeds in [[42,42,42],[42,137,999]]:
+        result=verify(proposal(),[run(s,.2) for s in seeds],[run(s,.3) for s in seeds])
+        assert result.verdict=='PENDING'
+        assert result.execution_status=='MATCHED_SEED_VALIDATION_FAILED'
+        assert result.strain_recovery_pct is None

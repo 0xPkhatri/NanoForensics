@@ -43,3 +43,37 @@ def test_deterministic_nve_refinement_uses_identical_initial_microstate():
     _,_,fine,_=nve_window(q.copy(),v.copy(),mobile,dt=.001,steps=1000)
     assert coarse<1e-3 and fine<1e-3
     assert fine<coarse*.4,(coarse,fine)
+
+
+def test_full_pair_virial_equals_grip_and_mobile_force_moments():
+    from backend.analysis.force_balance import force_moment_balance
+    q=hex_lattice(8,8);bottom,top,mobile=grip_masks(q)
+    q[:,1]*=1.08;q[27]+=[.04,-.07]
+    f,_,vir=forces(q);v=np.zeros_like(q)
+    v[mobile,1]=.03*q[mobile,1]
+    result=force_moment_balance(q,v,f,vir,mobile,bottom,top,float(np.ptp(q[:,0])*np.ptp(q[:,1])))
+    assert abs(result['identity_residual'])<1e-12
+    from backend.analysis.stress_strain import virial_stress
+    assert np.isclose(result['reported_mobile_stress'],virial_stress(v,vir,mobile,np.ptp(q[:,0])*np.ptp(q[:,1]))[1,1])
+    # Non-equilibrium mobile force moments cannot be silently assumed zero.
+    assert abs(result['mobile_force_moment'])>1e-3
+
+
+def test_lammps_records_real_thermostat_and_internal_force_moments():
+    import pytest
+    from backend.simulation.lammps_runner import binary,run_simulation
+    from backend.models.schemas import Protocol
+    if not binary():pytest.skip('LAMMPS unavailable; realized force split NOT_RUN')
+    q=hex_lattice(6,6)
+    s=SpecimenInput(coordinates=q.tolist(),atom_ids=list(range(len(q))),protocol=Protocol(max_strain=.05,warmup_steps=500))
+    result=run_simulation(s)
+    gates=result.diagnostics['validity_gates']
+    assert gates['driven_laboratory_temperature']['upper_bound']==.35
+    assert gates['preload_nve_drift']['upper_bound']==1e-3
+    assert result.numerical_check.is_valid==all(gate['passed'] for gate in gates.values())
+    balance=result.diagnostics['force_balance']
+    assert result.engine_used=='LAMMPS_BINARY'
+    assert balance['max_identity_residual']<1e-10
+    assert all(row['realized_mobile_force_moment'] is not None for row in balance['series'])
+    assert max(abs(row['thermostat_force_moment']) for row in balance['series'])>1e-3
+    assert all(np.isclose(row['mobile_force_moment'],row['realized_mobile_force_moment']-row['thermostat_force_moment']) for row in balance['series'])

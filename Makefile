@@ -16,7 +16,7 @@ frontend:
 build:
 	cd frontend && npm run build
 test:
-	$(PYTEST) tests/test_physics_and_defects.py tests/test_verifier.py tests/test_investigation_loop.py -v
+	$(PYTEST) tests/test_physics_and_defects.py tests/test_verifier.py tests/test_investigation_loop.py tests/test_scientific_audit.py -v
 evaluate:
 	$(PYTHON) -m benchmarks.evaluate
 e2e:

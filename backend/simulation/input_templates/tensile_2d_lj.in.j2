@@ -25,10 +25,10 @@ variable ds atom sqrt(vx*vx+vy*vy)*{{ dt }}+0.5*v_fn*{{ dt }}*{{ dt }}
 compute fmax all reduce max v_fn
 compute dmax all reduce max v_ds
 fix bounds all ave/time 1 1 1 c_fmax c_dmax file bounds.dat
-dump trajectory all custom {{ sample }} trajectory.dump id x y vx vy z vz
+dump trajectory all custom {{ sample }} trajectory.dump id x y vx vy z vz fx fy
 dump_modify trajectory sort id format float %.17g
 thermo {{ sample }}
 thermo_modify lost error
 run {{ steps }}
 # Last non-cadence step must be retained.
-write_dump all custom last.dump id x y vx vy z vz modify sort id
+write_dump all custom last.dump id x y vx vy z vz fx fy modify sort id

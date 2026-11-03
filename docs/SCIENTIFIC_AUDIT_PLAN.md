@@ -11,3 +11,7 @@ Predeclared tests, before new outcomes:
 5. Preserve unavailable evidence as unavailable. Add invariant-based regression tests for any proven implementation defects, then rerun all tests, evaluator, frontend build and live E2E.
 
 Initial measurement: geometry reconstruction error <=1.8e-15; relaxed Hausdorff distance <=1.4e-14; both repaired structures share pristine minimized SFLJ energy -371.99870992023034. This validates edit geometry, not a predicted increase in ductility. ALPHA baseline raw temperature error is 0.3575 / 0.2672 / 0.3559; its NVE drift is 2.5e-7 to 1.0e-6, below unchanged 1e-3 bound.
+
+## Sequential follow-up chosen from measured force gradients
+
+The original/damping controls show large grip-vs-virial gaps, increasing with damping. Before interpreting this as a normalization error, verify the exact full-system virial identity: configurational stress equals the sum of boundary-force and mobile-force moments. Retain the prescribed mobile-only virial and all original thresholds. Separately test rate 0.01 for every frozen input, with matched geometric repair when applicable, to examine whether slower loading reduces body-force gradients without stronger Langevin drag. These are explicitly new protocols; no outcomes are substituted into frozen records or claimed as held-out benchmark wins.

@@ -132,13 +132,13 @@ def run_simulation(specimen, force_numpy=False):
                 data = data[np.argsort(data[:, 0])]
                 if np.any(abs(data[:, 5:7]) > 1e-12):
                     raise ValueError(f'LAMMPS violated 2D z/vz constraint: {np.max(abs(data[:,5:7]))}')
-                frames.append((k, data[:, 1:3], data[:, 3:5]))
+                frames.append((k, data[:, 1:3], data[:, 3:5], data[:,7:9]))
         if frames[-1][0] != nsteps:
             data = np.loadtxt(root/'last.dump', skiprows=9, ndmin=2)
             data = data[np.argsort(data[:,0])]
             if np.any(abs(data[:,5:7]) > 1e-12):
                 raise ValueError(f'LAMMPS violated 2D z/vz constraint: {np.max(abs(data[:,5:7]))}')
-            frames.append((nsteps, data[:,1:3], data[:,3:5]))
+            frames.append((nsteps, data[:,1:3], data[:,3:5], data[:,7:9]))
         bounds = np.loadtxt(root/'bounds.dat', comments='#', ndmin=2)
         diagnostics.update(max_step_displacement=float(bounds[:,2].max()), max_force_all_steps=float(bounds[:,1].max()), verified_planar_z_vz=True, displacement_check='conservative per-step speed*dt + half force*dt² bound, measured every step', engine_selection=caps)
     return summarize(specimen, frames, mobile, bottom, top, diagnostics, started, 'LAMMPS_BINARY')

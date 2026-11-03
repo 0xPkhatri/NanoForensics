@@ -57,3 +57,5 @@ make e2e
 ```
 
 The E2E script starts both real servers, runs HTTP and dashboard checks while they are alive, and cleans up launched process groups. [AGENTS.md](AGENTS.md) is authoritative. [Project state](docs/PROJECT_STATE.md), [handoff](docs/HANDOFF.md), [plan](docs/IMPLEMENTATION_PLAN.md) and [executed results](docs/TEST_RESULTS.md) record ordered phase gates and Git checkpoints.
+
+The follow-up [scientific audit](docs/SCIENTIFIC_FINDINGS.md) explains the failed diagnoses using measured temperature, force-balance, seed and rate controls. It preserves the frozen benchmark and reports protocol improvements separately from held-out results.

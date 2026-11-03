@@ -23,3 +23,7 @@ Local demo running: http://127.0.0.1:3000 and http://127.0.0.1:8000, owned PID/l
 [ ] Fix only evidence-demonstrated defects; rerun all gates and document measurements.
 
 See SCIENTIFIC_AUDIT_PLAN.md. Original build checkpoint 00c4375 remains available.
+
+[x] Scientific controls and nine-seed repair audit measured; no frozen input/baseline/result mutation.
+[x] 32 backend tests PASS; censoring/seed-integrity defects fixed conservatively.
+[~] Evaluator, frontend build and live E2E reruns pending. Current results: SCIENTIFIC_FINDINGS.md and docs/science-audit. Last verified audit checkpoint 81e0a1c.

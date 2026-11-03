@@ -10,7 +10,8 @@ def paired_statistics(baseline, counterfactual):
     usable = [s for s in seeds if b[s].outcome != 'EXECUTION_FAILED' and c[s].outcome != 'EXECUTION_FAILED' and b[s].numerical_check.is_valid and c[s].numerical_check.is_valid]
     uncensored = [s for s in usable if b[s].failure_strain is not None and c[s].failure_strain is not None]
     stats = {'seeds':seeds, 'valid_seeds':usable, 'uncensored_seeds':uncensored, 'baseline_censored':sum(b[s].failure_strain is None for s in usable), 'counterfactual_censored':sum(c[s].failure_strain is None for s in usable)}
-    if len(uncensored) >= 3:
+    complete=(len(baseline)==len(b) and len(counterfactual)==len(c) and b.keys()==c.keys() and len(usable)==len(seeds) and len(uncensored)==len(seeds))
+    if len(uncensored) >= 3 and complete:
         x=np.array([b[s].failure_strain for s in uncensored]); y=np.array([c[s].failure_strain for s in uncensored]); d=y-x
         std=float(d.std(ddof=1)); pooled=float(np.sqrt(x.var(ddof=1)+y.var(ddof=1)+.004**2))
         stats.update(baseline_mean=float(x.mean()), counterfactual_mean=float(y.mean()), shift=float(d.mean()), paired_std=std, recovery=float(100*d.mean()/x.mean()), snr=float(abs(d.mean())/np.sqrt(std**2+.004**2)), unpaired_snr=float(abs(d.mean())/pooled), cv=float(100*max(x.std(ddof=1)/x.mean(), y.std(ddof=1)/y.mean())), std_pct=float(100*std/x.mean()))
