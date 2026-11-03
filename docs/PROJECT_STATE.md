@@ -1,6 +1,6 @@
 # Project state — demonstration evaluation complete (2026-11-04)
 
-Latest tested integration checkpoint: 21324d6 on science/predeclared-demonstration. Scientific evidence checkpoint:872833f. Original audit source checkpoint:1dd84cf on science/root-cause-audit. Original working build remains available at 00c4375; initial build checkpoints and archived evidence are retained. A documentation-only acceptance checkpoint follows the source commit.
+Latest tested integration checkpoint: b4d68ea (final hardening/evidence checkpoint follows) on science/predeclared-demonstration. Scientific evidence checkpoint:872833f. Original audit source checkpoint:1dd84cf on science/root-cause-audit. Original working build remains available at 00c4375; initial build checkpoints and archived evidence are retained. A documentation-only acceptance checkpoint follows the source commit.
 
 [x] Frozen inputs and baseline summaries preserved byte-for-byte; all 29 pre-existing immutable result records unchanged.
 [x] Actual force/NVE, raw/flow temperature, damping, rate, sampling, geometry, stochastic-ordering and expanded-seed controls measured.
@@ -41,4 +41,7 @@ Evidence: docs/demonstration/v3/STUDY_REPORT.md and raw public archives. Runtime
 [x] Isolated /api/live-muse AI workspace; unchanged deterministic registered MD tools/verifier and study source lock.
 [x] Real Muse Spark1.3 hypotheses + separate planning + two evidence-based revisions succeeded on DEMO_501 with6 fresh MD replay executions. 121.95s loop; all4 operation receipts LIVE. Full study remains NOT_VALIDATED.
 [x]55 backend tests pass16.09s; production frontend build passes; original evaluator rerun to separate output (every method4 NO_DECISION). All original/study table rows and frozen files unchanged.
-[~] Final11-test live HTTP gate, browser inspection, polished walkthrough documentation and handoff/checkpoint completion.
+[x] Final11-test live HTTP gatePASS83.19s; final56-test regressionPASS13.28s, build/typecheck/evaluatorPASS. Genuine additional HTTP-worker hypotheses/planningPASS; browser inspected live receipts and frozen no-model mode.
+[x] Polished six-step dashboard guide and four-minute presenter walkthrough complete; all model limitations and fullNOT_VALIDATED explicit.
+[x] Initial model localization error and subsequent mixed/fallback rehearsal retained. Coordinate-derived grounding and completed-evidence citation enum added; final actual-provider rehearsal all4 callsLIVE with explicit immutable MD reuse. No scientific results/thresholds changed.
+[x] Final all-table original/study and frozen-file/source-lock preservationPASS; preview restored, user edits preserved; no required implementation work remains.

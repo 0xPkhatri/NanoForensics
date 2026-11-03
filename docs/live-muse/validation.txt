@@ -1,0 +1,644 @@
+NanoForensics live Muse integration verification
+Full scientific study remains NOT_VALIDATED.
+Provider fixtures are contract tests, not live acceptance.
+
+Final56-test regression (all physics, original loop, study and AI contracts)
+.venv/bin/pytest tests/test_physics_and_defects.py tests/test_verifier.py tests/test_investigation_loop.py tests/test_scientific_audit.py tests/test_demonstration.py tests/test_demonstration_public.py tests/test_live_muse.py -v
+============================= test session starts ==============================
+platform darwin -- Python 3.13.3, pytest-9.2.0, pluggy-1.7.0 -- /Users/prakash_mac/Desktop/code/x/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/prakash_mac/Desktop/code/x
+configfile: pytest.ini
+plugins: anyio-4.16.0
+collecting ... collected 56 items
+
+tests/test_physics_and_defects.py::test_sflj_derivative_cutoff_and_near_limit PASSED [  1%]
+tests/test_physics_and_defects.py::test_arbitrary_coordinates_force_virial_against_independent_reference PASSED [  3%]
+tests/test_physics_and_defects.py::test_tension_sign_and_grip_reaction_elastic PASSED [  5%]
+tests/test_physics_and_defects.py::test_nve_500_step_total_energy_conservation PASSED [  7%]
+tests/test_physics_and_defects.py::test_offgrid_table_and_real_lammps_output PASSED [  8%]
+tests/test_physics_and_defects.py::test_native_lammps_pair_parity PASSED [ 10%]
+tests/test_physics_and_defects.py::test_geometric_healing_changes_force_and_measured_response PASSED [ 12%]
+tests/test_physics_and_defects.py::test_driven_numpy_valid_reproducible_and_censored PASSED [ 14%]
+tests/test_physics_and_defects.py::test_worker_timeout_terminates_process PASSED [ 16%]
+tests/test_verifier.py::test_free_surface_and_notch_not_initial_fracture PASSED [ 17%]
+tests/test_verifier.py::test_severed_reference_bonds_are_separate_from_coordination PASSED [ 19%]
+tests/test_verifier.py::test_persistent_cluster_and_retrospective_peak PASSED [ 21%]
+tests/test_verifier.py::test_empirical_verdicts_censoring_failures_and_id_invariance PASSED [ 23%]
+tests/test_verifier.py::test_aggregate_excludes_failed_empty_trajectories_without_inventing_statistics PASSED [ 25%]
+tests/test_verifier.py::test_partial_censoring_does_not_select_only_convenient_complete_pairs PASSED [ 26%]
+tests/test_verifier.py::test_duplicate_or_unmatched_seed_labels_are_not_independent_evidence PASSED [ 28%]
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_ALPHA] PASSED [ 30%]
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_BETA] PASSED [ 32%]
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_GAMMA] PASSED [ 33%]
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_DELTA] PASSED [ 35%]
+tests/test_investigation_loop.py::test_public_metadata_and_permuted_ids PASSED [ 37%]
+tests/test_investigation_loop.py::test_backend_has_no_privileged_reads PASSED [ 39%]
+tests/test_investigation_loop.py::test_missing_credentials_and_invalid_model_json PASSED [ 41%]
+tests/test_investigation_loop.py::test_sqlite_frozen_specimen_and_job_uniqueness PASSED [ 42%]
+tests/test_investigation_loop.py::test_live_provenance_requires_operation_schema_success PASSED [ 44%]
+tests/test_investigation_loop.py::test_diagnostic_new_seeds_measure_variance_without_claiming_repair PASSED [ 46%]
+tests/test_investigation_loop.py::test_model_claimed_support_cannot_bypass_empirical_verifier PASSED [ 48%]
+tests/test_scientific_audit.py::test_streaming_diagnostics_decompose_kinetic_energy_without_changing_gate PASSED [ 50%]
+tests/test_scientific_audit.py::test_reconstruction_recovers_observable_geometry_and_relaxed_energy PASSED [ 51%]
+tests/test_scientific_audit.py::test_deterministic_nve_refinement_uses_identical_initial_microstate PASSED [ 53%]
+tests/test_scientific_audit.py::test_full_pair_virial_equals_grip_and_mobile_force_moments PASSED [ 55%]
+tests/test_scientific_audit.py::test_lammps_records_real_thermostat_and_internal_force_moments PASSED [ 57%]
+tests/test_demonstration.py::test_preregistration_hash_and_original_thresholds_are_locked PASSED [ 58%]
+tests/test_demonstration.py::test_boundary_connected_component_is_not_misclassified_as_interior PASSED [ 60%]
+tests/test_demonstration.py::test_pristine_negative_control_is_a_noop_for_both_repairs PASSED [ 62%]
+tests/test_demonstration.py::test_interior_component_and_secondary_edge_are_distinct_edits PASSED [ 64%]
+tests/test_demonstration.py::test_contrast_uses_observations_only_and_rejects_censoring PASSED [ 66%]
+tests/test_demonstration.py::test_live_demo_helpers_have_no_private_preparation_access PASSED [ 67%]
+tests/test_demonstration.py::test_dataset_api_routes_are_isolated_and_protocol_edits_rejected PASSED [ 69%]
+tests/test_demonstration.py::test_v2_registration_and_two_row_geometry_are_locked PASSED [ 71%]
+tests/test_demonstration.py::test_supplemental_checks_cannot_turn_an_invalid_run_into_valid PASSED [ 73%]
+tests/test_demonstration.py::test_failed_study_runs_are_frozen_and_not_silently_retried PASSED [ 75%]
+tests/test_demonstration.py::test_v2_true_temperature_guard_is_stricter_than_denominator_floor PASSED [ 76%]
+tests/test_demonstration.py::test_athermal_registration_and_inference_do_not_invent_independent_samples PASSED [ 78%]
+tests/test_demonstration.py::test_refinement_winner_is_actual_finite_difference_not_case_assignment PASSED [ 80%]
+tests/test_demonstration.py::test_registered_dominance_can_distinguish_two_beneficial_repairs PASSED [ 82%]
+tests/test_demonstration_public.py::test_public_bundle_restores_both_partitions_without_private_labels PASSED [ 83%]
+tests/test_demonstration_public.py::test_corrupted_archive_is_rejected_before_any_records_are_written PASSED [ 85%]
+tests/test_live_muse.py::test_transport_rejects_incomplete_wrong_model_or_invalid_json[length-None-muse-spark-1.3-incomplete] PASSED [ 87%]
+tests/test_live_muse.py::test_transport_rejects_incomplete_wrong_model_or_invalid_json[stop-{"ok":true}-different-model-different] PASSED [ 89%]
+tests/test_live_muse.py::test_transport_rejects_incomplete_wrong_model_or_invalid_json[stop-not JSON-muse-spark-1.3-JSONDecodeError] PASSED [ 91%]
+tests/test_live_muse.py::test_action_contracts_reject_duplicates_and_unregistered_parameters PASSED [ 92%]
+tests/test_live_muse.py::test_invalid_revision_evidence_falls_back_despite_schema_success PASSED [ 94%]
+tests/test_live_muse.py::test_live_overlay_uses_real_cached_md_and_model_cannot_change_verdicts PASSED [ 96%]
+tests/test_live_muse.py::test_live_failure_is_visible_and_observations_exclude_published_decisions PASSED [ 98%]
+tests/test_live_muse.py::test_revision_request_schema_limits_citations_to_actual_completed_ids PASSED [100%]
+
+=============================== warnings summary ===============================
+tests/test_demonstration.py::test_dataset_api_routes_are_isolated_and_protocol_edits_rejected
+  /Users/prakash_mac/Desktop/code/x/.venv/lib/python3.13/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.
+    from starlette.testclient import TestClient as TestClient  # noqa
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+======================== 56 passed, 1 warning in 13.28s ========================
+
+Production frontend build
+
+> nanoforensics-workbench@1.0.0 build
+> next build
+
+▲ Next.js 16.4.4 (Turbopack)
+✓ Running next.config.mjs took 6ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 349ms
+  Running TypeScript ...
+  Finished TypeScript in 822ms ...
+  Collecting page data using 4 workers ...
+  Generating static pages using 4 workers (0/3) ...
+✓ Generating static pages using 4 workers (3/3) in 130ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+
+
+TypeScript with user next-env restored
+
+> nanoforensics-workbench@1.0.0 typecheck
+> tsc --noEmit
+
+
+Original evaluator with separate output paths
+{
+  "counts": {
+    "Fixed checklist": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "NO_DECISION": 4
+    },
+    "NanoForensics": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "NO_DECISION": 4
+    },
+    "One-shot": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "NO_DECISION": 4
+    }
+  },
+  "report": "runtime/live-muse/original-regression-report.md",
+  "raw": "runtime/live-muse/original-regression-report.json"
+}
+
+Live full-stack11-test gate (both servers running; provider disabled to verify fallback)
+{
+  "status": "EXISTING_FROZEN_INPUTS",
+  "cases": [
+    "CASE_ALPHA",
+    "CASE_BETA",
+    "CASE_DELTA",
+    "CASE_GAMMA"
+  ]
+}
+Both real servers are ready; running live E2E acceptance tests.
+============================= test session starts ==============================
+platform darwin -- Python 3.13.3, pytest-9.2.0, pluggy-1.7.0 -- /Users/prakash_mac/Desktop/code/x/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/prakash_mac/Desktop/code/x
+configfile: pytest.ini
+plugins: anyio-4.16.0
+collecting ... collected 11 items
+
+tests/test_e2e_fullstack.py::test_health_cors_dashboard_and_blind_metadata PASSED
+tests/test_e2e_fullstack.py::test_request_validation_and_admin_guard PASSED
+tests/test_e2e_fullstack.py::test_conflict_reset_and_real_worker_cancellation Real worker cancellation: 79502 [79517]
+PASSED
+tests/test_e2e_fullstack.py::test_real_job_and_replicate_deadlines Actual replicate timeout: RUN_TIMEOUT 0.5080805420002434
+PASSED
+tests/test_e2e_fullstack.py::test_full_closed_loop_http_investigation_and_sqlite_persistence[CASE_ALPHA] CASE_ALPHA INCONCLUSIVE [('heal_interior_vacancy', 'PENDING', 'EXECUTION_FAILED')]
+PASSED
+tests/test_e2e_fullstack.py::test_full_closed_loop_http_investigation_and_sqlite_persistence[CASE_DELTA] CASE_DELTA INCONCLUSIVE [('normalize_temperature', 'INCONCLUSIVE', 'COMPLETE')]
+PASSED
+tests/test_e2e_fullstack.py::test_proposal_execution_and_immutable_result_http PASSED
+tests/test_e2e_fullstack.py::test_server_restart_preserves_durable_state PASSED
+tests/test_e2e_fullstack.py::test_server_crash_recovers_orphaned_worker_and_unlocks_case Crash recovery: INTERRUPTED worker descendants terminated; durable case lock released
+PASSED
+tests/test_e2e_fullstack.py::test_separate_demonstration_routes_and_real_counterfactual Separate demonstration real MD: DEMO_402 3 fresh counterfactual seeds; original namespace unaffected
+PASSED
+tests/test_e2e_fullstack.py::test_live_muse_workspace_fallback_provenance_and_frozen_study_isolation Live workspace fallback receipts, cached genuine MD and frozen-study isolation verified
+PASSED
+
+======================== 11 passed in 83.19s (0:01:23) =========================
+E2E process logs and isolated SQLite database: /Users/prakash_mac/Desktop/code/x/runtime/e2e-QwVNHW
+
+First actual provider acceptance (six fresh MD executions)
+{
+  "integration_status": "VERIFIED_LIVE",
+  "case_id": "DEMO_501",
+  "full_study_validation_status": "NOT_VALIDATED",
+  "post_study_rehearsal": true,
+  "physics_mode": "FRESH_COUNTERFACTUAL_MD",
+  "probe": {
+    "execution_mode": "LIVE_MUSE_SPARK_API",
+    "configured_model": "muse-spark-1.3",
+    "base_url": "https://api.meta.ai/v1",
+    "api_key_present": true,
+    "last_call_latency_ms": 2253.3746249973774,
+    "prompt_tokens": 17,
+    "completion_tokens": 30,
+    "response_id": "chatcmpl-01a1a307-1bba-75bc-863d-b953b9d63d46"
+  },
+  "actions": [
+    {
+      "action": "hypothesize",
+      "timestamp": "2026-11-03T20:08:43.698082+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "ebc0c41d8df6cf085517a2e697ad1a607077500e60775f179a8b48805733d22e",
+      "response_hash": "39078d567b492d2c17529cc1ac5e82c7aed9a17baaa2101a5cb2cce506cb370d",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 8917.030624987092,
+        "prompt_tokens": 32241,
+        "completion_tokens": 604,
+        "response_id": "chatcmpl-01a1a307-3f0e-7754-92a6-a062e8e62145"
+      },
+      "belief_changes": null
+    },
+    {
+      "action": "plan_experiments",
+      "timestamp": "2026-11-03T20:08:48.842266+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "157a97c4e96ea677499345cc518bbf0335cc2aeef5a78056f62f55b9cb246a8c",
+      "response_hash": "708f0a5fdc2183703cb047d537315a49c8d493bedae21d7458028de02e40dacd",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 5099.5661670167465,
+        "prompt_tokens": 32203,
+        "completion_tokens": 317,
+        "response_id": "chatcmpl-01a1a307-51f5-7712-ad4e-cff02c00379a"
+      },
+      "belief_changes": null
+    },
+    {
+      "action": "revise_after_evidence",
+      "timestamp": "2026-11-03T20:09:41.186309+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "c42096ef4f6b756d43222848de60a127d560f3c082e7a6de6947376b3c4c7e6d",
+      "response_hash": "65d79215c1921f12e5ab4ab51bb44ff088bdbfc21d2d8c7ca05ac71fe3fe9b90",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 7459.094541991362,
+        "prompt_tokens": 32728,
+        "completion_tokens": 585,
+        "response_id": "chatcmpl-01a1a308-1f98-71fc-941b-d2ab57d1aec6"
+      },
+      "belief_changes": [
+        {
+          "hypothesis_id": "H1",
+          "before": 0.38,
+          "after": 0.35,
+          "verifier_status": "PENDING"
+        },
+        {
+          "hypothesis_id": "H2",
+          "before": 0.62,
+          "after": 0.15,
+          "verifier_status": "REJECTED"
+        }
+      ]
+    },
+    {
+      "action": "revise_after_evidence",
+      "timestamp": "2026-11-03T20:10:36.477720+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "4cb10820d71e4c235289bfe609200d990dd2cc0b8310dc33b629fd6d0137e67e",
+      "response_hash": "4482150ebb29650ba79dd4a77516847f037821a00b7ad8e58d04d2dc0e08b8bc",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 6715.772208990529,
+        "prompt_tokens": 33198,
+        "completion_tokens": 629,
+        "response_id": "chatcmpl-01a1a308-f7aa-773d-a720-43808b0133d4"
+      },
+      "belief_changes": [
+        {
+          "hypothesis_id": "H1",
+          "before": 0.35,
+          "after": 0.92,
+          "verifier_status": "SUPPORTED"
+        },
+        {
+          "hypothesis_id": "H2",
+          "before": 0.15,
+          "after": 0.2,
+          "verifier_status": "REJECTED"
+        }
+      ]
+    }
+  ],
+  "revision_count": 2,
+  "verification_count": 2,
+  "scientific_state": "CONCLUDED",
+  "identified_larger_effect": "interior_vacancy",
+  "budget_used_sec": 121.95429283299018,
+  "limitations": "Post-study rehearsal on a known published case. No new blinded discovery, full-study validation, thermal robustness or calibrated confidence is established."
+}
+
+Retained mixed position-grounded provider failure
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/prakash_mac/Desktop/code/x/scripts/verify_live_muse.py", line 44, in <module>
+    verify(args.case,not args.reuse_md)
+    ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/prakash_mac/Desktop/code/x/scripts/verify_live_muse.py", line 38, in verify
+    if summary['integration_status']!='VERIFIED_LIVE':raise RuntimeError('One or more required real-provider operations failed')
+                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: One or more required real-provider operations failed
+{
+  "integration_status": "NOT_VERIFIED",
+  "case_id": "DEMO_501",
+  "full_study_validation_status": "NOT_VALIDATED",
+  "post_study_rehearsal": true,
+  "physics_mode": "EXPLICIT_IMMUTABLE_MD_CACHE_REUSE",
+  "probe": {
+    "execution_mode": "LIVE_MUSE_SPARK_API",
+    "configured_model": "muse-spark-1.3",
+    "base_url": "https://api.meta.ai/v1",
+    "api_key_present": true,
+    "last_call_latency_ms": 3380.5038339924067,
+    "prompt_tokens": 17,
+    "completion_tokens": 30,
+    "response_id": "chatcmpl-01a1a30b-df61-70dd-8ee6-41d8aa600294"
+  },
+  "actions": [
+    {
+      "action": "hypothesize",
+      "timestamp": "2026-11-03T20:13:54.508386+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "deb593331064e052751c637fe0d117e9df1ad24e4f6d1040751e2fa748826709",
+      "response_hash": "68fb4f0f2517ac53cc33e976b28d5e63b3354c1c108eb698ece10c4250474a68",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 7093.868374999147,
+        "prompt_tokens": 32375,
+        "completion_tokens": 534,
+        "response_id": "chatcmpl-01a1a30b-fd43-7598-a5c9-62fd36220628"
+      },
+      "belief_changes": null
+    },
+    {
+      "action": "plan_experiments",
+      "timestamp": "2026-11-03T20:13:58.989591+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "3ca850b4171f6cf56730929bf94ff6a59e5b7fdb24c72fc23fdf9e8bd0c9b858",
+      "response_hash": "8add577d40cd424706f1b5f481e75e9426de4d8f7217e1977c34da98a498f149",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 4439.462500013178,
+        "prompt_tokens": 32331,
+        "completion_tokens": 400,
+        "response_id": "chatcmpl-01a1a30c-0eb6-748f-b031-5d0ac68a6415"
+      },
+      "belief_changes": null
+    },
+    {
+      "action": "revise_after_evidence",
+      "timestamp": "2026-11-03T20:14:15.440259+00:00",
+      "ai_execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
+      "request_hash": "1d472f3e5b36b21408ff5224ac312e19aaf23f4f21853cf3d0c1a4b6c032f80e",
+      "response_hash": null,
+      "telemetry": {
+        "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 6856.107333995169,
+        "last_error": "Provider JSON failed bounded action/evidence validation",
+        "prompt_tokens": 32886,
+        "completion_tokens": 517,
+        "response_id": "chatcmpl-01a1a30c-4ee2-7627-9701-89c4d23e74b0"
+      },
+      "belief_changes": [
+        {
+          "hypothesis_id": "H1",
+          "before": 0.55,
+          "after": 0.7,
+          "verifier_status": "SUPPORTED"
+        },
+        {
+          "hypothesis_id": "H2",
+          "before": 0.4,
+          "after": 0.25,
+          "verifier_status": "PENDING"
+        }
+      ]
+    },
+    {
+      "action": "revise_after_evidence",
+      "timestamp": "2026-11-03T20:14:22.428576+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "54f4ea9d6518b6c1c8bdc6fb5a9d98a46c6f24221baa75e99195ee795b6c5e54",
+      "response_hash": "ba72e2b1795e1e300771eaa1fe08e20fc9e9b753657a047348b1f129ce2a5405",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 6535.654958017403,
+        "prompt_tokens": 33332,
+        "completion_tokens": 450,
+        "response_id": "chatcmpl-01a1a30c-6a2f-7557-92e5-9d1b282eb09a"
+      },
+      "belief_changes": [
+        {
+          "hypothesis_id": "H1",
+          "before": 0.7,
+          "after": 0.85,
+          "verifier_status": "SUPPORTED"
+        },
+        {
+          "hypothesis_id": "H2",
+          "before": 0.25,
+          "after": 0.15,
+          "verifier_status": "REJECTED"
+        }
+      ]
+    }
+  ],
+  "revision_count": 2,
+  "verification_count": 2,
+  "scientific_state": "CONCLUDED",
+  "identified_larger_effect": "interior_vacancy",
+  "budget_used_sec": 157.22888991597574,
+  "limitations": "Post-study rehearsal on a known published case. No new blinded discovery, full-study validation, thermal robustness or calibrated confidence is established."
+}
+
+Final grounded actual provider acceptance (explicit immutable MD reuse)
+{
+  "integration_status": "VERIFIED_LIVE",
+  "case_id": "DEMO_501",
+  "full_study_validation_status": "NOT_VALIDATED",
+  "post_study_rehearsal": true,
+  "physics_mode": "EXPLICIT_IMMUTABLE_MD_CACHE_REUSE",
+  "probe": {
+    "execution_mode": "LIVE_MUSE_SPARK_API",
+    "configured_model": "muse-spark-1.3",
+    "base_url": "https://api.meta.ai/v1",
+    "api_key_present": true,
+    "last_call_latency_ms": 2090.8767500077374,
+    "prompt_tokens": 17,
+    "completion_tokens": 30,
+    "response_id": "chatcmpl-01a1a30d-ccd0-719f-9cc0-0842a24ee55f"
+  },
+  "actions": [
+    {
+      "action": "hypothesize",
+      "timestamp": "2026-11-03T20:16:03.689242+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "deb593331064e052751c637fe0d117e9df1ad24e4f6d1040751e2fa748826709",
+      "response_hash": "30eb921a3035b5958628f929f572afb1a5651f57931a98c929d34751a7ae94c6",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 10390.433541004313,
+        "prompt_tokens": 32375,
+        "completion_tokens": 738,
+        "response_id": "chatcmpl-01a1a30d-f5fd-7661-976a-95d43df7958e"
+      },
+      "belief_changes": null
+    },
+    {
+      "action": "plan_experiments",
+      "timestamp": "2026-11-03T20:16:09.004352+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "3132c8f6d9e483f795bc19a32cf4386a9ebaae8d49a20294902c93f9962c8674",
+      "response_hash": "d1a8bfdf20d10e392dcae15255f3fe2c25e36ab5580727786b6f2382a8107be0",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 5270.151292002993,
+        "prompt_tokens": 32348,
+        "completion_tokens": 383,
+        "response_id": "chatcmpl-01a1a30e-0a9c-71ee-b1a3-41272161b8c1"
+      },
+      "belief_changes": null
+    },
+    {
+      "action": "revise_after_evidence",
+      "timestamp": "2026-11-03T20:16:16.946428+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "6e3dd87e3feb6edf1ddad947b2162e8237a66ab7059c02b0cac3dd5cc757ced0",
+      "response_hash": "d26d56c0cb6732c887129e9d27fce9a0a5ac8a2c5f94d0637e570b2eb7c61b97",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 7701.605625014054,
+        "prompt_tokens": 32882,
+        "completion_tokens": 701,
+        "response_id": "chatcmpl-01a1a30e-298c-761c-b987-2f665890af98"
+      },
+      "belief_changes": [
+        {
+          "hypothesis_id": "H1",
+          "before": 0.55,
+          "after": 0.72,
+          "verifier_status": "SUPPORTED"
+        },
+        {
+          "hypothesis_id": "H2",
+          "before": 0.35,
+          "after": 0.3,
+          "verifier_status": "PENDING"
+        }
+      ]
+    },
+    {
+      "action": "revise_after_evidence",
+      "timestamp": "2026-11-03T20:16:21.969033+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "9b5382391ebc1a340197548411a9049f0d0762191f808ff9f32a818bd28dc052",
+      "response_hash": "8a7826cbcbeabaaf39fa9f39f3d5df2e38ba2e960b84190e6aefc7f6792d00f4",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 4621.927500003949,
+        "prompt_tokens": 33366,
+        "completion_tokens": 363,
+        "response_id": "chatcmpl-01a1a30e-3d60-70f0-a5bb-590a51df0bcd"
+      },
+      "belief_changes": [
+        {
+          "hypothesis_id": "H1",
+          "before": 0.72,
+          "after": 0.75,
+          "verifier_status": "SUPPORTED"
+        },
+        {
+          "hypothesis_id": "H2",
+          "before": 0.3,
+          "after": 0.2,
+          "verifier_status": "REJECTED"
+        }
+      ]
+    }
+  ],
+  "revision_count": 2,
+  "verification_count": 2,
+  "scientific_state": "CONCLUDED",
+  "identified_larger_effect": "interior_vacancy",
+  "budget_used_sec": 186.19397091597784,
+  "limitations": "Post-study rehearsal on a known published case. No new blinded discovery, full-study validation, thermal robustness or calibrated confidence is established."
+}
+
+Actual HTTP worker live hypotheses/planning
+{
+  "status": "PASS",
+  "case_id": "DEMO_401",
+  "job_id": "c53ebe27dc574edeb08367e0bf938a05",
+  "operation": "actual HTTP worker hypothesis and planning generation",
+  "md_execution": "No new MD requested in this check",
+  "actions": [
+    {
+      "action": "hypothesize",
+      "request_hash": "a9f34e2284c433b985362334181fa6665a1b2f35de489b13ba0355476566b071",
+      "response_hash": "f1ed590e1d22bf3cbaf662cea8943920850b0b69802721345e8c3a7938005bfb",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 6978.608333010925,
+        "prompt_tokens": 32842,
+        "completion_tokens": 529,
+        "response_id": "chatcmpl-01a1a310-1bfc-7448-a29b-46ed33aa761d"
+      }
+    },
+    {
+      "action": "plan_experiments",
+      "request_hash": "b63503f9d7dcf57627c304fb7b0b0c96e4afd01a1eda7524b3d5228b9478d8b3",
+      "response_hash": "ca32e7d08b2ac2ca73fce5050af74c4ed27fdb8bdd4d29f75545ec64f645fb21",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 19923.033250001026,
+        "prompt_tokens": 32792,
+        "completion_tokens": 426,
+        "response_id": "chatcmpl-01a1a310-69fd-70db-be3d-310d4d56584b"
+      }
+    }
+  ]
+}
+
+Final complete frozen-record/file preservation
+{
+  "status": "PASS",
+  "scientific_lock_source": "f551d9d998bf59c4097acc2dd54c7a59602c8e04",
+  "frozen_git_evidence_checkpoint": "71779ef",
+  "frozen_study_files_unchanged": true,
+  "database_tables": {
+    "original.specimens": {
+      "unchanged_rows": 4,
+      "sha256": "67780b6917d287db77dc7bfedf102f30ccf49fdaed431453708403e0b579383b"
+    },
+    "original.results": {
+      "unchanged_rows": 29,
+      "sha256": "6e1bf53dfabb1dfd6cc50a1e2e34e9ac82c3b93ed958ad2c7c5cd5fdff06c600"
+    },
+    "original.states": {
+      "unchanged_rows": 4,
+      "sha256": "62c8133d5fbe8d642059ecfb72eca1f1d038da1f623c5cecff571ada6d804cd8"
+    },
+    "original.jobs": {
+      "unchanged_rows": 10,
+      "sha256": "876e43ab8c612000d4c7f5386682ddfcb46a4fd6615d6f2ca9d6a0f61f4fa8d5"
+    },
+    "study.specimens": {
+      "unchanged_rows": 6,
+      "sha256": "c45e298ba2fd31ce10d3c8d31186055ecdfa83eb6745d154ad4e8678972840aa"
+    },
+    "study.results": {
+      "unchanged_rows": 56,
+      "sha256": "4c8361e70659d84fa74e2971769dcd4436ca013aafb4f1bcc5c28c09492dfe7b"
+    },
+    "study.states": {
+      "unchanged_rows": 6,
+      "sha256": "0c9592ec09fa1df36042b43f0e73087808a5857a6ddad923d2b4665b3e68526c"
+    },
+    "study.jobs": {
+      "unchanged_rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  }
+}
+
+Browser QA: third dataset, genuine stored live receipts/model/host/usage/hashes, grounded left-edge vs right-crack description, subjective belief changes, actual Plotly/atom views, frozen-study no-model header, fullNOT_VALIDATED and six-step DEMO_501 guide inspected. Fresh HTTP worker model receipts inspected on DEMO_401. Preview restoredlocalhost:3000/API:8000. User next-env restored.

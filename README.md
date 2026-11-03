@@ -94,3 +94,18 @@ NANO_DEMONSTRATION_DB="$PWD/runtime/reproduction/study.db" .venv/bin/python -m d
 ```
 
 Exact physical replay was measured with the installed LAMMPS version; other versions/engines may differ. Three athermal replay labels are not independent thermal replicates. Raw runs took 14.41–15.99 seconds, exceeding the 3–12 second target without shortening the loading horizon.
+
+## Live Muse Spark hackathon rehearsal
+
+Select **Live Muse Spark rehearsal** for an isolated AI workspace; the original benchmark and frozen study stay unchanged. It requests actual hypotheses, a separate structured experiment plan, and evidence-citing revisions while reusing the unchanged registered physical tools and independent verifier. Per-action receipts display actual model/host, latency, provider usage and hashes. A startup connection probe alone does not earn a live investigation badge. Fallback and historical receipts remain explicit.
+
+A real `muse-spark-1.3` loop against the documented Meta endpoint succeeded with six fresh counterfactual MD replay executions. This verifies integration, not new blind discovery. The full scientific study remains **NOT_VALIDATED**. The initial model narrative also contained a localization error, retained in the transcript; explicit coordinate-derived positions now help ground its observations.
+
+```sh
+make verify-live-muse                             # Actual provider calls + fresh counterfactual MD
+.venv/bin/python -m scripts.verify_live_muse --reuse-md  # New provider calls; explicitly reuse real MD
+```
+
+Use a separate `NANO_LIVE_MUSE_DB` to retain an existing rehearsal while testing another run. Do not run CLI and HTTP investigations concurrently against the same rehearsal database. Settings: `META_MUSE_BASE_URL=https://api.meta.ai/v1`, `META_MUSE_MODEL=muse-spark-1.3`, existing secret `META_MUSE_API_KEY`; optional `META_MUSE_TIMEOUT_SEC` defaults to30 and is capped at60 seconds. These settings are documented by [Meta](https://dev.meta.ai/docs/overview). No key is committed.
+
+[Four-minute DEMO_501 walkthrough](docs/live-muse/DEMO_501_WALKTHROUGH.md) · [Live integration evidence](docs/live-muse/INTEGRATION_REPORT.md)

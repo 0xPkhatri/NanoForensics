@@ -1,0 +1,39 @@
+{
+  "status": "PASS",
+  "case_id": "DEMO_401",
+  "job_id": "c53ebe27dc574edeb08367e0bf938a05",
+  "operation": "actual HTTP worker hypothesis and planning generation",
+  "md_execution": "No new MD requested in this check",
+  "actions": [
+    {
+      "action": "hypothesize",
+      "request_hash": "a9f34e2284c433b985362334181fa6665a1b2f35de489b13ba0355476566b071",
+      "response_hash": "f1ed590e1d22bf3cbaf662cea8943920850b0b69802721345e8c3a7938005bfb",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 6978.608333010925,
+        "prompt_tokens": 32842,
+        "completion_tokens": 529,
+        "response_id": "chatcmpl-01a1a310-1bfc-7448-a29b-46ed33aa761d"
+      }
+    },
+    {
+      "action": "plan_experiments",
+      "request_hash": "b63503f9d7dcf57627c304fb7b0b0c96e4afd01a1eda7524b3d5228b9478d8b3",
+      "response_hash": "ca32e7d08b2ac2ca73fce5050af74c4ed27fdb8bdd4d29f75545ec64f645fb21",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 19923.033250001026,
+        "prompt_tokens": 32792,
+        "completion_tokens": 426,
+        "response_id": "chatcmpl-01a1a310-69fd-70db-be3d-310d4d56584b"
+      }
+    }
+  ]
+}

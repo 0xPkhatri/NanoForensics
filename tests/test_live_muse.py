@@ -48,6 +48,8 @@ def test_invalid_revision_evidence_falls_back_despite_schema_success(monkeypatch
         if any(set(b.evidence_ids)-{'actual-result'} for b in r.beliefs):raise ValueError('Unavailable evidence')
     result,t,receipt=infer('revise_after_evidence',{},Revision,validate)
     assert result is None and t.execution_mode==muse_agent.FALLBACK and len(receipt['attempts'])==2
+    assert receipt['request_hash']==muse_agent.digest(receipt['request_messages'])
+    assert receipt['attempts'][0]['request_hash']!=receipt['attempts'][1]['request_hash']
 
 
 def test_live_overlay_uses_real_cached_md_and_model_cannot_change_verdicts(store,monkeypatch):
@@ -84,7 +86,22 @@ def test_live_failure_is_visible_and_observations_exclude_published_decisions(st
     assert all(h.ai_execution_mode==muse_agent.FALLBACK for h in state.hypotheses)
     assert all(p.ai_execution_mode==muse_agent.FALLBACK for p in state.proposed_experiments)
     visible=trial.observations('DEMO_501');text=json.dumps(visible)
+    edge=next(c for c in visible['observed_missing_components'] if c['boundary_connected'])
+    assert edge['measured_side']=='surface_left' and edge['relative_x_in_specimen']<.2
     for forbidden in ['identified_cause','verification','ground_truth','removed_original_site_ids','held_out_evaluation']:
         assert forbidden not in text
     assert state.ai_telemetry.last_error=='META_MUSE_API_KEY not configured'
     state.is_running=False;store.save_state(state)
+
+
+def test_revision_request_schema_limits_citations_to_actual_completed_ids(monkeypatch):
+    import backend.live_muse.inference as inference
+    captured=[]
+    def request(messages,max_tokens,schema=None):
+        captured.append(schema)
+        return None,muse_agent.telemetry()
+    monkeypatch.setattr(inference,'_request',request)
+    result,t,receipt=inference.infer('revise_after_evidence',{'completed_evidence':[{'experiment_id':'actual-completed-result'}]},Revision)
+    assert result is None
+    assert captured[0]['$defs']['Belief']['properties']['evidence_ids']['items']['enum']==['actual-completed-result']
+    assert receipt['attempts'][0]['parsed_json'] is None

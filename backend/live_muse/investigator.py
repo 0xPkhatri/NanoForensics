@@ -1,4 +1,5 @@
 """Live AI overlay using unchanged registered deterministic physical tools/verifier."""
+import numpy as np
 from backend.demonstration.investigator import DemonstrationInvestigator
 from backend.demonstration.geometry import study_components
 from backend.agents.muse_agent import LIVE,FALLBACK
@@ -10,9 +11,16 @@ class LiveMuseInvestigator(DemonstrationInvestigator):
     def observations(self,case_id):
         public=self.store.public(case_id);b=public.baseline_simulation
         components=study_components(public.observed_configuration['coordinates'])
+        q=np.asarray(public.observed_configuration['coordinates']);xmin=float(q[:,0].min());width=float(np.ptp(q[:,0]))
+        measured=[]
+        for component in components:
+            sites=np.asarray(component['sites']);centroid=sites.mean(axis=0);relative_x=float((centroid[0]-xmin)/width)
+            measured.append({'site_count':len(sites),'boundary_connected':component['boundary_connected'],
+                'inferred_missing_site_centroid_xy':centroid.tolist(),'relative_x_in_specimen':relative_x,
+                'measured_side':('surface_left' if relative_x<.2 else 'surface_right' if relative_x>.8 else 'interior')})
         return {'case_id':public.case_id,'scope':'Post-study AI rehearsal, not new held-out scoring; full study NOT_VALIDATED',
             'protocol':public.observed_configuration['public_protocol'],'coordinates':public.observed_configuration['coordinates'],
-            'observed_missing_components':[{'site_count':len(c['sites']),'boundary_connected':c['boundary_connected']} for c in components],
+            'observed_missing_components':measured,
             'baseline':{'outcome':b.outcome.value,'failure_strain':b.failure_strain,'peak_stress':b.peak_stress,
                 'crack_region':b.crack_initiation_region,'numerically_valid':b.numerical_check.is_valid,
                 'curve':b.stress_strain_curve,'replicate_result_ids':[r['sim_id'] for r in b.replicate_results]},
