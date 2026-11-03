@@ -1,0 +1,164 @@
+Backend regression (including new audit tests)
+============================= test session starts ==============================
+platform darwin -- Python 3.13.3, pytest-9.2.0, pluggy-1.7.0 -- /Users/prakash_mac/Desktop/code/x/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/prakash_mac/Desktop/code/x
+configfile: pytest.ini
+plugins: anyio-4.16.0
+collecting ... collected 32 items
+
+tests/test_physics_and_defects.py::test_sflj_derivative_cutoff_and_near_limit PASSED [  3%]
+tests/test_physics_and_defects.py::test_arbitrary_coordinates_force_virial_against_independent_reference PASSED [  6%]
+tests/test_physics_and_defects.py::test_tension_sign_and_grip_reaction_elastic PASSED [  9%]
+tests/test_physics_and_defects.py::test_nve_500_step_total_energy_conservation PASSED [ 12%]
+tests/test_physics_and_defects.py::test_offgrid_table_and_real_lammps_output PASSED [ 15%]
+tests/test_physics_and_defects.py::test_native_lammps_pair_parity PASSED [ 18%]
+tests/test_physics_and_defects.py::test_geometric_healing_changes_force_and_measured_response PASSED [ 21%]
+tests/test_physics_and_defects.py::test_driven_numpy_valid_reproducible_and_censored PASSED [ 25%]
+tests/test_physics_and_defects.py::test_worker_timeout_terminates_process PASSED [ 28%]
+tests/test_verifier.py::test_free_surface_and_notch_not_initial_fracture PASSED [ 31%]
+tests/test_verifier.py::test_severed_reference_bonds_are_separate_from_coordination PASSED [ 34%]
+tests/test_verifier.py::test_persistent_cluster_and_retrospective_peak PASSED [ 37%]
+tests/test_verifier.py::test_empirical_verdicts_censoring_failures_and_id_invariance PASSED [ 40%]
+tests/test_verifier.py::test_aggregate_excludes_failed_empty_trajectories_without_inventing_statistics PASSED [ 43%]
+tests/test_verifier.py::test_partial_censoring_does_not_select_only_convenient_complete_pairs PASSED [ 46%]
+tests/test_verifier.py::test_duplicate_or_unmatched_seed_labels_are_not_independent_evidence PASSED [ 50%]
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_ALPHA] PASSED [ 53%]
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_BETA] PASSED [ 56%]
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_GAMMA] PASSED [ 59%]
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_DELTA] PASSED [ 62%]
+tests/test_investigation_loop.py::test_public_metadata_and_permuted_ids PASSED [ 65%]
+tests/test_investigation_loop.py::test_backend_has_no_privileged_reads PASSED [ 68%]
+tests/test_investigation_loop.py::test_missing_credentials_and_invalid_model_json PASSED [ 71%]
+tests/test_investigation_loop.py::test_sqlite_frozen_specimen_and_job_uniqueness PASSED [ 75%]
+tests/test_investigation_loop.py::test_live_provenance_requires_operation_schema_success PASSED [ 78%]
+tests/test_investigation_loop.py::test_diagnostic_new_seeds_measure_variance_without_claiming_repair PASSED [ 81%]
+tests/test_investigation_loop.py::test_model_claimed_support_cannot_bypass_empirical_verifier PASSED [ 84%]
+tests/test_scientific_audit.py::test_streaming_diagnostics_decompose_kinetic_energy_without_changing_gate PASSED [ 87%]
+tests/test_scientific_audit.py::test_reconstruction_recovers_observable_geometry_and_relaxed_energy PASSED [ 90%]
+tests/test_scientific_audit.py::test_deterministic_nve_refinement_uses_identical_initial_microstate PASSED [ 93%]
+tests/test_scientific_audit.py::test_full_pair_virial_equals_grip_and_mobile_force_moments PASSED [ 96%]
+tests/test_scientific_audit.py::test_lammps_records_real_thermostat_and_internal_force_moments PASSED [100%]
+
+============================== 32 passed in 6.55s ==============================
+
+
+Frozen benchmark evaluation
+{
+  "counts": {
+    "Fixed checklist": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "NO_DECISION": 4
+    },
+    "NanoForensics": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "NO_DECISION": 4
+    },
+    "One-shot": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "NO_DECISION": 4
+    }
+  },
+  "report": "/Users/prakash_mac/Desktop/code/x/docs/BENCHMARK_REPORT.md",
+  "raw": "/Users/prakash_mac/Desktop/code/x/docs/BENCHMARK_REPORT.json"
+}
+
+
+Production frontend build
+
+> nanoforensics-workbench@1.0.0 build
+> next build
+
+▲ Next.js 16.4.4 (Turbopack)
+✓ Running next.config.mjs took 7ms
+
+  Creating an optimized production build ...
+✓ Compiled successfully in 217ms
+  Running TypeScript ...
+  Finished TypeScript in 881ms ...
+  Collecting page data using 4 workers ...
+  Generating static pages using 4 workers (0/3) ...
+✓ Generating static pages using 4 workers (3/3) in 127ms
+  Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+└ ○ /_not-found
+
+
+○  (Static)  prerendered as static content
+
+
+
+TypeScript check after restoring pre-existing next-env.d.ts
+
+> nanoforensics-workbench@1.0.0 typecheck
+> tsc --noEmit
+
+
+
+Live full-stack gate
+{
+  "status": "EXISTING_FROZEN_INPUTS",
+  "cases": [
+    "CASE_ALPHA",
+    "CASE_BETA",
+    "CASE_DELTA",
+    "CASE_GAMMA"
+  ]
+}
+Both real servers are ready; running live E2E acceptance tests.
+============================= test session starts ==============================
+platform darwin -- Python 3.13.3, pytest-9.2.0, pluggy-1.7.0 -- /Users/prakash_mac/Desktop/code/x/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/prakash_mac/Desktop/code/x
+configfile: pytest.ini
+plugins: anyio-4.16.0
+collecting ... collected 9 items
+
+tests/test_e2e_fullstack.py::test_health_cors_dashboard_and_blind_metadata PASSED
+tests/test_e2e_fullstack.py::test_request_validation_and_admin_guard PASSED
+tests/test_e2e_fullstack.py::test_conflict_reset_and_real_worker_cancellation Real worker cancellation: 42674 [42677]
+PASSED
+tests/test_e2e_fullstack.py::test_real_job_and_replicate_deadlines Actual replicate timeout: RUN_TIMEOUT 0.5096545420237817
+PASSED
+tests/test_e2e_fullstack.py::test_full_closed_loop_http_investigation_and_sqlite_persistence[CASE_ALPHA] CASE_ALPHA INCONCLUSIVE [('heal_interior_vacancy', 'PENDING', 'EXECUTION_FAILED')]
+PASSED
+tests/test_e2e_fullstack.py::test_full_closed_loop_http_investigation_and_sqlite_persistence[CASE_DELTA] CASE_DELTA INCONCLUSIVE [('normalize_temperature', 'INCONCLUSIVE', 'COMPLETE')]
+PASSED
+tests/test_e2e_fullstack.py::test_proposal_execution_and_immutable_result_http PASSED
+tests/test_e2e_fullstack.py::test_server_restart_preserves_durable_state PASSED
+tests/test_e2e_fullstack.py::test_server_crash_recovers_orphaned_worker_and_unlocks_case Crash recovery: INTERRUPTED worker descendants terminated; durable case lock released
+PASSED
+
+============================== 9 passed in 29.79s ==============================
+E2E process logs and isolated SQLite database: /Users/prakash_mac/Desktop/code/x/runtime/e2e-OsUawK
+
+
+Immutable-record validation
+{
+  "status": "POST_BENCHMARK_SENSITIVITY_AUDIT",
+  "source_checkpoint": "00c4375",
+  "frozen_specimens_and_public_baselines_unchanged": true,
+  "frozen_specimen_sha256": "06c6553d2d4d6bde43d7714d18586b30d931e12151f7f186fecaabd11f77f10c",
+  "existing_immutable_results_checked": 29,
+  "unique_recorded_run_artifacts": 159,
+  "distinct_input_engine_result_ids": 111,
+  "nve_same_microstate_refinement": {
+    "coarse_dt": 0.002,
+    "fine_dt": 0.001,
+    "physical_duration": 1.0,
+    "coarse_max_total_energy_drift": 7.12313933230613e-07,
+    "fine_max_total_energy_drift": 1.7809132950176258e-07,
+    "fine_to_coarse_ratio": 0.25001803445575055
+  },
+  "limitations": [
+    "Protocols examined after seeing original failures: sensitivity studies, not new held-out benchmark wins.",
+    "No acceptance thresholds changed. Raw temperature gate remains laboratory kinetic error <0.35.",
+    "Nine seed pairs are descriptive; added-atom Langevin streams are not atomwise identical across topology changes.",
+    "All raw temperatures and force moments remain accessible; supplemental flow subtraction cannot retroactively make a failed baseline valid."
+  ]
+}

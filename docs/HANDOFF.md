@@ -11,7 +11,7 @@ Force audit: full pair virial equals boundary plus mobile force moments to ~1e-1
 
 Statistical fixes: incomplete/censored cohorts cannot be reduced to convenient complete-pair means; duplicate/missing/unexpected seed labels cannot yield support. New red/green tests reproduced the prior defects. Existing gates retain identical bounds. Fresh result audits identify each failing gate numerically.
 
-Evidence: docs/science-audit/measurements.json, raw-runs.jsonl.gz (159 captures, 111 distinct input-engine IDs; diagnostic repeats not independent), validation.log. Research commands in SCIENTIFIC_FINDINGS.md reproduce cached measurements without changing the app DB. Deterministic physics studies disabled model calls intentionally; the saved API key was not exposed or changed. Actual live Muse inference remains unverified.
+Evidence: docs/science-audit/measurements.json, raw-runs.jsonl.gz (159 captures, 111 distinct input-engine IDs; diagnostic repeats not independent), validation.txt. Research commands in SCIENTIFIC_FINDINGS.md reproduce cached measurements without changing the app DB. Deterministic physics studies disabled model calls intentionally; the saved API key was not exposed or changed. Actual live Muse inference remains unverified.
 
 Demo restored on localhost:3000 / :8000 using runtime/demo PID/log records, without resetting original investigation state. Stop only these owned processes with `.venv/bin/python scripts/e2e_servers.py stop runtime/demo` before running the live E2E script. User's pre-existing TEST_RESULTS formatting and next-env.d.ts edits remain unstaged; repomix-output.xml remains untracked. Preserve them. New TEST_RESULTS sections were staged separately from the user's formatting changes.
 
