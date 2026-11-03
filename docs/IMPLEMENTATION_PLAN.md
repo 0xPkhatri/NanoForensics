@@ -29,3 +29,11 @@ Never infer success from expected benchmark labels. Commit each passed phase; pr
 [x] Final live evidence-route acceptance10/10, preview inspection and Git/handoff completion.
 
 Software gates can pass while the scientific study remains NOT_VALIDATED. No further outcome-selected design search is authorized by this plan.
+
+## Live model integration and hackathon rehearsal
+
+[x] Preserve frozen scientific evidence/source and snapshot source DB tables.
+[x] Verify real per-action hypotheses, planning and evidence revision on documented Meta endpoint.
+[x] Isolate AI rehearsal, typed actions/evidence citations, immutable verifier authority and failure provenance.
+[x] Add dashboard action receipts and guided DEMO_501 walkthrough; explicitly retain fullNOT_VALIDATED.
+[~] Finish all regression/build/evaluator/E2E gates, browser QA and continuity checkpoints.

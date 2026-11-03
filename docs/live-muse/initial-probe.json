@@ -1,0 +1,11 @@
+{
+  "execution_mode": "OFFLINE_HEURISTIC_FALLBACK",
+  "configured_model": "muse-spark-1.3",
+  "base_url": "https://api.meta.ai/v1",
+  "api_key_present": true,
+  "last_call_latency_ms": 2904.7481660090853,
+  "last_error": "Structured inference failed: TypeError",
+  "prompt_tokens": null,
+  "completion_tokens": null,
+  "response_id": null
+}

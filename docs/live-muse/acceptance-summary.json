@@ -1,0 +1,123 @@
+{
+  "integration_status": "VERIFIED_LIVE",
+  "case_id": "DEMO_501",
+  "full_study_validation_status": "NOT_VALIDATED",
+  "post_study_rehearsal": true,
+  "physics_mode": "FRESH_COUNTERFACTUAL_MD",
+  "probe": {
+    "execution_mode": "LIVE_MUSE_SPARK_API",
+    "configured_model": "muse-spark-1.3",
+    "base_url": "https://api.meta.ai/v1",
+    "api_key_present": true,
+    "last_call_latency_ms": 2253.3746249973774,
+    "prompt_tokens": 17,
+    "completion_tokens": 30,
+    "response_id": "chatcmpl-01a1a307-1bba-75bc-863d-b953b9d63d46"
+  },
+  "actions": [
+    {
+      "action": "hypothesize",
+      "timestamp": "2026-11-03T20:08:43.698082+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "ebc0c41d8df6cf085517a2e697ad1a607077500e60775f179a8b48805733d22e",
+      "response_hash": "39078d567b492d2c17529cc1ac5e82c7aed9a17baaa2101a5cb2cce506cb370d",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 8917.030624987092,
+        "prompt_tokens": 32241,
+        "completion_tokens": 604,
+        "response_id": "chatcmpl-01a1a307-3f0e-7754-92a6-a062e8e62145"
+      },
+      "belief_changes": null
+    },
+    {
+      "action": "plan_experiments",
+      "timestamp": "2026-11-03T20:08:48.842266+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "157a97c4e96ea677499345cc518bbf0335cc2aeef5a78056f62f55b9cb246a8c",
+      "response_hash": "708f0a5fdc2183703cb047d537315a49c8d493bedae21d7458028de02e40dacd",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 5099.5661670167465,
+        "prompt_tokens": 32203,
+        "completion_tokens": 317,
+        "response_id": "chatcmpl-01a1a307-51f5-7712-ad4e-cff02c00379a"
+      },
+      "belief_changes": null
+    },
+    {
+      "action": "revise_after_evidence",
+      "timestamp": "2026-11-03T20:09:41.186309+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "c42096ef4f6b756d43222848de60a127d560f3c082e7a6de6947376b3c4c7e6d",
+      "response_hash": "65d79215c1921f12e5ab4ab51bb44ff088bdbfc21d2d8c7ca05ac71fe3fe9b90",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 7459.094541991362,
+        "prompt_tokens": 32728,
+        "completion_tokens": 585,
+        "response_id": "chatcmpl-01a1a308-1f98-71fc-941b-d2ab57d1aec6"
+      },
+      "belief_changes": [
+        {
+          "hypothesis_id": "H1",
+          "before": 0.38,
+          "after": 0.35,
+          "verifier_status": "PENDING"
+        },
+        {
+          "hypothesis_id": "H2",
+          "before": 0.62,
+          "after": 0.15,
+          "verifier_status": "REJECTED"
+        }
+      ]
+    },
+    {
+      "action": "revise_after_evidence",
+      "timestamp": "2026-11-03T20:10:36.477720+00:00",
+      "ai_execution_mode": "LIVE_MUSE_SPARK_API",
+      "request_hash": "4cb10820d71e4c235289bfe609200d990dd2cc0b8310dc33b629fd6d0137e67e",
+      "response_hash": "4482150ebb29650ba79dd4a77516847f037821a00b7ad8e58d04d2dc0e08b8bc",
+      "telemetry": {
+        "execution_mode": "LIVE_MUSE_SPARK_API",
+        "configured_model": "muse-spark-1.3",
+        "base_url": "https://api.meta.ai/v1",
+        "api_key_present": true,
+        "last_call_latency_ms": 6715.772208990529,
+        "prompt_tokens": 33198,
+        "completion_tokens": 629,
+        "response_id": "chatcmpl-01a1a308-f7aa-773d-a720-43808b0133d4"
+      },
+      "belief_changes": [
+        {
+          "hypothesis_id": "H1",
+          "before": 0.35,
+          "after": 0.92,
+          "verifier_status": "SUPPORTED"
+        },
+        {
+          "hypothesis_id": "H2",
+          "before": 0.15,
+          "after": 0.2,
+          "verifier_status": "REJECTED"
+        }
+      ]
+    }
+  ],
+  "revision_count": 2,
+  "verification_count": 2,
+  "scientific_state": "CONCLUDED",
+  "identified_larger_effect": "interior_vacancy",
+  "budget_used_sec": 121.95429283299018,
+  "limitations": "Post-study rehearsal on a known published case. No new blinded discovery, full-study validation, thermal robustness or calibrated confidence is established."
+}

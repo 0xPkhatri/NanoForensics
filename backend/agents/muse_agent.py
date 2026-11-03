@@ -22,7 +22,7 @@ def digest(obj):
     return hashlib.sha256(json.dumps(obj,sort_keys=True,default=str).encode()).hexdigest()
 
 
-def _request(messages,max_tokens):
+def _request(messages,max_tokens,schema=None):
     t=telemetry()
     started=time.perf_counter()
     if not t.api_key_present:
@@ -32,26 +32,33 @@ def _request(messages,max_tokens):
         t.last_error='META_MUSE_BASE_URL and META_MUSE_MODEL must be configured'
         return None,t
     try:
-        response=httpx.post(t.base_url.rstrip('/')+'/chat/completions',headers={'Authorization':'Bearer '+os.environ['META_MUSE_API_KEY']},json={'model':t.configured_model,'messages':messages,'response_format':{'type':'json_object'},'max_tokens':max_tokens,'temperature':0},timeout=8.)
+        response=httpx.post(t.base_url.rstrip('/')+'/chat/completions',headers={'Authorization':'Bearer '+os.environ['META_MUSE_API_KEY']},json={'model':t.configured_model,'messages':messages,'response_format':({'type':'json_schema','json_schema':{'name':'scientific_action','schema':schema,'strict':True}} if schema else {'type':'json_object'}),'max_completion_tokens':max_tokens,'reasoning_effort':'minimal','temperature':0},timeout=min(60.,max(1.,float(os.getenv('META_MUSE_TIMEOUT_SEC','30')))))
         response.raise_for_status()
         data=response.json()
-        parsed=json.loads(data['choices'][0]['message']['content'])
-        if not isinstance(parsed,dict): raise ValueError('JSON object required')
         t.last_call_latency_ms=(time.perf_counter()-started)*1000
         t.response_id=data.get('id')
         usage=data.get('usage') or {}
         t.prompt_tokens=usage.get('prompt_tokens');t.completion_tokens=usage.get('completion_tokens')
+        if data.get('model') != t.configured_model:
+            t.last_error='Provider returned a different or missing model identity'
+            return None,t
+        choice=data['choices'][0]
+        if choice.get('finish_reason')!='stop':
+            t.last_error='Provider response incomplete or refused (finish_reason='+str(choice.get('finish_reason'))+')'
+            return None,t
+        parsed=json.loads(choice['message']['content'])
+        if not isinstance(parsed,dict): raise ValueError('JSON object required')
         return parsed,t
     except Exception as exc:
         # Do not echo URLs, headers, credentials or provider bodies into public logs.
         t.last_call_latency_ms=(time.perf_counter()-started)*1000
-        t.last_error=f'Structured inference failed: {type(exc).__name__}'
+        t.last_error=f'Structured inference failed: {type(exc).__name__}'+(f' HTTP {exc.response.status_code}' if isinstance(exc,httpx.HTTPStatusError) else '')
         return None,t
 
 
 def verify_llm_connection():
-    parsed,t=_request([{'role':'user','content':'Return JSON only: {"ok": true}'}],32)
-    if parsed=={'ok':True}: t.execution_mode=LIVE
+    parsed,t=_request([{'role':'user','content':'Return JSON only: {"ok": true}'}],256)
+    if parsed=={'ok':True} and type(parsed['ok']) is bool: t.execution_mode=LIVE
     elif parsed is not None: t.last_error='Structured health response did not match required object'
     return t
 

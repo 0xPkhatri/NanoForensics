@@ -441,3 +441,9 @@ V1 preregistration b879104 failed to discriminate in development; its held-out s
 - Evidence checkpoint872833f; tested integration21324d6; final continuity checkpoint follows. Full report and validation transcript:docs/demonstration/v3/STUDY_REPORT.md and validation.txt. No further design search or frozen-data changes.
 
 User-owned TEST_RESULTS formatting, next-env edits and repomix-output.xml are preserved; credentials remain ignored.
+
+## Live Muse milestone — actual provider loop (2026-11-04)
+
+Real API acceptance: documented api.meta.ai/v1, muse-spark-1.3. Startup probe and all4 required operation calls succeeded (hypothesize, plan_experiments, two revise_after_evidence calls). Six fresh real MD counterfactual replays;121.954s total loop. Provider latencies8.917s/5.100s/7.459s/6.716s; actual usage and response IDs retained. Model cited negative competing-repair recovery and positive interior recovery; subjective interior score0.35→0.92. This is post-study integration on known DEMO_501, not a new blinded scientific discovery. Full study remains NOT_VALIDATED.
+
+55 regression testsPASS16.09s (one dependency warning); new7 contract tests include invalid/truncated/wrong-model responses, invented evidence citations and verifier authority using actual MD cache. Production buildPASS after adding typed response IDs. Original evaluator rerun to separate output retains4 NO_DECISION for each method. Full original/study database table and frozen-file preservationPASS. E2E11/browser QA/final walkthrough acceptance pending. Evidence:docs/live-muse.

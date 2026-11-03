@@ -13,6 +13,8 @@ from backend.api.routes import router
 from backend.demonstration.routes import router as demonstration_router
 from backend.demonstration.registration import STUDY_DB
 from backend.demonstration.storage import DemonstrationStore
+from backend.live_muse.storage import LIVE_DB,initialize
+from backend.live_muse.routes import router as live_muse_router
 
 
 @asynccontextmanager
@@ -22,6 +24,8 @@ async def lifespan(app):
     if not app.state.demonstration_store.case_ids():
         from demonstrations.restore import restore_public
         await asyncio.to_thread(restore_public,store=app.state.demonstration_store)
+    app.state.live_muse_store=DemonstrationStore(LIVE_DB)
+    await asyncio.to_thread(initialize,app.state.live_muse_store)
     app.state.telemetry=await asyncio.to_thread(verify_llm_connection)
     app.state.capabilities=await asyncio.to_thread(engine_capabilities)
     calibration=ROOT/'runtime/calibration.json'
@@ -32,7 +36,9 @@ async def lifespan(app):
     else: app.state.calibration=json.loads(calibration.read_text())
     app.state.jobs=JobManager(app.state.store);app.state.jobs.start()
     app.state.demonstration_jobs=JobManager(app.state.demonstration_store,worker_module='backend.demonstration.job_worker');app.state.demonstration_jobs.start()
+    app.state.live_muse_jobs=JobManager(app.state.live_muse_store,worker_module='backend.live_muse.job_worker');app.state.live_muse_jobs.start()
     yield
+    app.state.live_muse_jobs.close()
     app.state.demonstration_jobs.close()
     app.state.jobs.close()
 
@@ -42,5 +48,6 @@ app.add_middleware(CORSMiddleware,allow_origins=['http://localhost:3000','http:/
 app.include_router(router)
 
 app.include_router(demonstration_router)
+app.include_router(live_muse_router)
 
 app.mount('/study-evidence',StaticFiles(directory=ROOT/'docs/demonstration'),name='study_evidence')

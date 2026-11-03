@@ -27,6 +27,7 @@ with sqlite3.connect(sys.argv[1]) as source,sqlite3.connect(sys.argv[2]) as targ
 PYCLONE
 fi
 export NANO_DEMONSTRATION_DB="$RUN_DIR/demonstration.db"
+export NANO_LIVE_MUSE_DB="$RUN_DIR/live-muse.db"
 export NANO_E2E_LIVE=1
 export META_MUSE_API_KEY=""
 export NANO_ADMIN_TOKEN=""

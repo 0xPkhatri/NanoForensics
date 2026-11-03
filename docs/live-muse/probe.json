@@ -1,0 +1,11 @@
+{
+  "execution_mode": "LIVE_MUSE_SPARK_API",
+  "configured_model": "muse-spark-1.3",
+  "base_url": "https://api.meta.ai/v1",
+  "api_key_present": true,
+  "last_call_latency_ms": 2253.3746249973774,
+  "last_error": null,
+  "prompt_tokens": 17,
+  "completion_tokens": 30,
+  "response_id": "chatcmpl-01a1a307-1bba-75bc-863d-b953b9d63d46"
+}

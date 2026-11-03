@@ -259,3 +259,39 @@ def test_separate_demonstration_routes_and_real_counterfactual(client):
     proxy=httpx.get('http://127.0.0.1:3000/api/demonstrations/study',timeout=15)
     assert proxy.status_code==200 and proxy.json()['registration_hash']==study.json()['registration_hash']
     print('Separate demonstration real MD:',case_id,len(result['replicate_results']),'fresh counterfactual seeds; original namespace unaffected')
+
+
+def test_live_muse_workspace_fallback_provenance_and_frozen_study_isolation(client):
+    """Real HTTP worker and genuine immutable MD cache; no provider call is faked."""
+    base=BASE+'/live-muse';case_id='DEMO_501'
+    frozen_before=httpx.get(BASE+'/demonstrations/cases/'+case_id,timeout=15).json()
+    assert httpx.get(base+'/study').json()['validation_status']=='NOT_VALIDATED'
+    assert httpx.get(base+'/cases/'+case_id).json()['investigation']['status']=='OBSERVING'
+    assert httpx.post(base+'/cases/'+case_id+'/experiment',json={'intervention':'normalize_temperature'}).status_code==422
+    def wait_live(job_id):
+        deadline=time.monotonic()+60
+        while time.monotonic()<deadline:
+            job=httpx.get(base+'/jobs/'+job_id,timeout=15).json()
+            if job['status'] not in ['QUEUED','RUNNING']:return job
+            time.sleep(.2)
+        pytest.fail('Live workspace worker did not complete')
+    r=httpx.post(base+'/cases/'+case_id+'/hypothesize',timeout=15)
+    assert r.status_code==202 and wait_live(r.json()['job_id'])['status']=='COMPLETE'
+    state=httpx.get(base+'/cases/'+case_id,timeout=15).json()['investigation']
+    assert state['ai_execution_mode']=='OFFLINE_HEURISTIC_FALLBACK'
+    assert all(h['ai_execution_mode']=='OFFLINE_HEURISTIC_FALLBACK' for h in state['hypotheses'])
+    r=httpx.post(base+'/cases/'+case_id+'/experiment',json={'proposal_id':state['proposed_experiments'][0]['experiment_id'],'force_recompute':False},timeout=15)
+    assert r.status_code==202
+    job_id=r.json()['job_id'];assert client.get('/jobs/'+job_id).status_code==404
+    assert httpx.get(BASE+'/demonstrations/jobs/'+job_id).status_code==404
+    assert wait_live(job_id)['status']=='COMPLETE'
+    state=httpx.get(base+'/cases/'+case_id,timeout=15).json()['investigation']
+    actions=[a['provenance'] for a in state['audit_log'] if a.get('provenance',{}).get('action') in ['hypothesize','plan_experiments','revise_after_evidence']]
+    assert {a['action'] for a in actions}=={'hypothesize','plan_experiments','revise_after_evidence'}
+    assert all(a['telemetry']['execution_mode']=='OFFLINE_HEURISTIC_FALLBACK' and a['telemetry']['last_error']=='META_MUSE_API_KEY not configured' for a in actions)
+    assert len(state['verifications'])==1
+    assert httpx.get(BASE+'/demonstrations/cases/'+case_id,timeout=15).json()==frozen_before
+    proxy=httpx.get('http://127.0.0.1:3000/api/live-muse/study',timeout=15)
+    assert proxy.status_code==200 and proxy.json()['rehearsal']
+    assert 'Live Muse Spark rehearsal' in httpx.get('http://127.0.0.1:3000',timeout=15).text
+    print('Live workspace fallback receipts, cached genuine MD and frozen-study isolation verified')

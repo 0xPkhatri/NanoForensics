@@ -1,6 +1,6 @@
 export type AIMode='LIVE_MUSE_SPARK_API'|'OFFLINE_HEURISTIC_FALLBACK';
 export type Verdict='PENDING'|'SUPPORTED'|'REJECTED'|'INCONCLUSIVE';
-export interface Telemetry {execution_mode:AIMode;configured_model:string;base_url:string;api_key_present:boolean;last_call_latency_ms?:number;last_error?:string;prompt_tokens?:number;completion_tokens?:number}
+export interface Telemetry {execution_mode:AIMode;configured_model:string;base_url:string;api_key_present:boolean;last_call_latency_ms?:number;last_error?:string;prompt_tokens?:number;completion_tokens?:number;response_id?:string}
 export interface Snapshot {timestep:number;strain:number;stress_yy:number;potential_energy:number;kinetic_energy:number;atoms:number[][]}
 export interface NumericalCheck {is_valid:boolean;energy_drift_ratio:number;max_force_norm:number;max_step_displacement:number;thermostat_temperature_error_ratio:number;notes:string}
 export interface Simulation {sim_id:string;seed:number;replicate_seeds:number[];replicate_results:Simulation[];peak_stress:number;peak_stress_std:number;failure_strain:number|null;failure_strain_std:number;max_observed_strain:number;outcome:'FRACTURED'|'NOT_FRACTURED_WITHIN_HORIZON'|'EXECUTION_FAILED';stress_strain_curve:{strain:number;stress:number;stress_std:number}[];snapshots:Snapshot[];numerical_check:NumericalCheck;engine_used:string;wall_time_sec:number;protocol_hash:string;initial_configuration_hash:string;crack_initiation_region:string;units:string;solver_version:string;error_code:string|null;error_message:string|null}

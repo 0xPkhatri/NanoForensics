@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "scientific_lock_source": "f551d9d998bf59c4097acc2dd54c7a59602c8e04",
+  "frozen_git_evidence_checkpoint": "71779ef",
+  "frozen_study_files_unchanged": true,
+  "database_tables": {
+    "original.specimens": {
+      "unchanged_rows": 4,
+      "sha256": "67780b6917d287db77dc7bfedf102f30ccf49fdaed431453708403e0b579383b"
+    },
+    "original.results": {
+      "unchanged_rows": 29,
+      "sha256": "6e1bf53dfabb1dfd6cc50a1e2e34e9ac82c3b93ed958ad2c7c5cd5fdff06c600"
+    },
+    "original.states": {
+      "unchanged_rows": 4,
+      "sha256": "62c8133d5fbe8d642059ecfb72eca1f1d038da1f623c5cecff571ada6d804cd8"
+    },
+    "original.jobs": {
+      "unchanged_rows": 10,
+      "sha256": "876e43ab8c612000d4c7f5386682ddfcb46a4fd6615d6f2ca9d6a0f61f4fa8d5"
+    },
+    "study.specimens": {
+      "unchanged_rows": 6,
+      "sha256": "c45e298ba2fd31ce10d3c8d31186055ecdfa83eb6745d154ad4e8678972840aa"
+    },
+    "study.results": {
+      "unchanged_rows": 56,
+      "sha256": "4c8361e70659d84fa74e2971769dcd4436ca013aafb4f1bcc5c28c09492dfe7b"
+    },
+    "study.states": {
+      "unchanged_rows": 6,
+      "sha256": "0c9592ec09fa1df36042b43f0e73087808a5857a6ddad923d2b4665b3e68526c"
+    },
+    "study.jobs": {
+      "unchanged_rows": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  }
+}

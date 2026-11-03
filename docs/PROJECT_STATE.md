@@ -32,3 +32,13 @@ User changes preserved: original TEST_RESULTS.md formatting and next-env.d.ts ed
 Evidence: docs/demonstration/v3/STUDY_REPORT.md and raw public archives. Runtime14.41–15.99s exceeds3–12s target; horizon preserved. Partial case-level evidence must not be relabeled full-study validation. All active scientific files remain hash-locked. User TEST_RESULTS formatting, next-env edits and repomix file preserved. Live-model inference remains unverified; study runs registered deterministic tools.
 
 [x] Original and study preview restored; browser inspection verified DEMO_501 stored conclusion/curves, DEMO_502 failed-repair badge, all6 study IDs, original4-case selector and explicit no-model mode. Archived run provenance is labeled stored MD, with timestamped fresh/cache detail. No required implementation task remains; full-study scientific failure remains disclosed.
+
+## Live Muse integration — verified provider loop (2026-11-04)
+
+[x] Snapshot original/study databases and frozen evidence before new work; retain prior user edits.
+[x] Verified official Meta endpoint/model from primary documentation; saved missing URL/model settings in ignored .env without exposing the existing key.
+[x] Identified truncated reasoning-only probe responses; request minimal reasoning, adequate bounded tokens, explicit completion/model identity checks and preserve provider usage on failure.
+[x] Isolated /api/live-muse AI workspace; unchanged deterministic registered MD tools/verifier and study source lock.
+[x] Real Muse Spark1.3 hypotheses + separate planning + two evidence-based revisions succeeded on DEMO_501 with6 fresh MD replay executions. 121.95s loop; all4 operation receipts LIVE. Full study remains NOT_VALIDATED.
+[x]55 backend tests pass16.09s; production frontend build passes; original evaluator rerun to separate output (every method4 NO_DECISION). All original/study table rows and frozen files unchanged.
+[~] Final11-test live HTTP gate, browser inspection, polished walkthrough documentation and handoff/checkpoint completion.
