@@ -1,0 +1,12 @@
+{
+  "registration_hash": "7d87eea832b65b65550879f453c53e7546ced33a3439953995bb5c74f7347a49",
+  "case_count": 6,
+  "immutable_result_count": 56,
+  "per_run_wall_time_sec": {
+    "min": 14.408657541003777,
+    "max": 15.992141459020786,
+    "target_3_to_12_sec_met_for_all": false
+  },
+  "archive": "docs/demonstration/v3/public-evidence.json.gz",
+  "private_preparations_included": false
+}

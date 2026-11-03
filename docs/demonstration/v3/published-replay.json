@@ -1,0 +1,10 @@
+{
+  "case_id": "DEMO_501",
+  "seed_label": 6801,
+  "registration_hash": "7d87eea832b65b65550879f453c53e7546ced33a3439953995bb5c74f7347a49",
+  "exact_numeric_reproduction": true,
+  "engine": "LAMMPS_BINARY",
+  "interpretation": "same-engine numerical replay, not an independent thermal sample",
+  "private_preparation_access": false,
+  "wall_time_sec": 15.074936874996638
+}

@@ -17,17 +17,16 @@ Remaining limitations: small finite lattice, three-seed control pilots, non-equi
 
 User changes preserved: original TEST_RESULTS.md formatting and next-env.d.ts edits remain unstaged; repomix-output.xml remains untracked. No secret was printed or committed. Local demo ownership: runtime/demo PID/log files. Stop only the owned demo with `.venv/bin/python scripts/e2e_servers.py stop runtime/demo`.
 
-## Prospective demonstration active
+## Separate prospective demonstration — evaluated (2026-11-04)
 
-[~] V1 preregistration committed before any new trajectories; original checkpoint f4fbbca preserved.
-[ ] Independent development, analysis lock, held-out generation/scoring and isolated dashboard integration.
-Original immutable database fingerprint: runtime/demonstration/original-fingerprint.json. User edits retained.
+[x] V1 preregistered before trajectories; negative development retained; holdout unopened.
+[x] V2 independently preregistered before trajectories; negative physical validation retained; holdout unopened.
+[x] Final V3 athermal registration e17fc8b; scientific source f551d9d; prospective analysis/prediction lock a6e2a68 before held-out generation.
+[x] Frozen blind held-out decisions, private scoring and seven actual finer-dt MD runs completed without changing locked scientific source.
+[x] Complete study NOT_VALIDATED: DEMO_501 correctly distinguished interior repair (+47.85% vs −0.61%); DEMO_502 inconclusive (+10.79% boundary recovery below fixed18%); DEMO_503 correct no-cause negative control. No incorrect diagnoses. No further design search.
+[x] All held-out applicable cohorts valid, uncensored, exact deterministic replays; timestep convergence passes. No independent thermal samples or population intervals claimed.
+[x] Fresh published held-out baseline replay exactly matches physical record without private preparation access.
+[x] Separate dashboard/API/jobs and checksummed public bundle restore preserve existing data. Six specimens / 56 immutable result entries. Original four cases and29 result rows exact; original reports unchanged from f4fbbca.
+[x] Backend/public-data regression48 passed; frontend production build/typecheck PASS. Final evidence-proxy E2E rerun underway at this checkpoint (previous complete run10 passed83.01s).
 
-[x] Separate study generator, geometric tools, analysis and namespace implemented; registration unchanged.
-[x] Development baselines generated with real MD; target runtime exceeded honestly (~15 s/run).
-[~] Development competing-arm outcomes and prospective held-out lock pending.
-
-[x] V1 and V2 negative development results retained; no held-out labels opened.
-[x] V3 final athermal development passes dominant-repair criteria; deterministic replay semantics explicit.
-[x] Backend 46 tests and frontend production build PASS before holdout.
-[~] Commit scientific source and hash-lock V3 development analysis, then generate untouched geometries and perform dt refinement.
+Evidence: docs/demonstration/v3/STUDY_REPORT.md and raw public archives. Runtime14.41–15.99s exceeds3–12s target; horizon preserved. Partial case-level evidence must not be relabeled full-study validation. All active scientific files remain hash-locked. User TEST_RESULTS formatting, next-env edits and repomix file preserved. Live-model inference remains unverified; study runs registered deterministic tools.

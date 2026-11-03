@@ -17,10 +17,19 @@ Demo restored on localhost:3000 / :8000 using runtime/demo PID/log records, with
 
 No required audit work remains. Useful future research: larger predeclared independent ensembles, same-protocol spatially indexed noise coupling, validated flow-aware thermostatting in both engines, and finite-size/rate studies on newly registered datasets. These must not retroactively tune the frozen held-out cases.
 
-## New active task: prospective demonstration V1
+## Prospective demonstration handoff — held-out scoring complete
 
-Read demonstrations/registration.json and PREREGISTRATION.md. No new trajectories generated at this checkpoint. One design, no post-outcome tuning. Original DB snapshotted/fingerprinted in runtime/demonstration. Separate database/API namespace required. Preserve existing user edits. Stage new sections of TEST_RESULTS separately from its pre-existing formatting changes.
+Branch science/predeclared-demonstration. Latest prospective lock a6e2a68 seals scientific source f551d9d and V3 development predictions. Never edit locked scientific files or rerun the design search. V1/V2 negative development studies remain archived with unopened holdouts. V3 final full-study status is NOT_VALIDATED; one held-out interior geometry passed all checks (+47.85% vs −0.61% competing recovery), boundary geometry failed recovery18% (+10.79%), pristine control correctly yielded no cause. All numerical, exact replay and finer-dt checks passed. Read docs/demonstration/v3/STUDY_REPORT.md before interpreting results. This is deterministic athermal MD, not three independent thermal observations.
 
-V1 development baseline generation complete (9 real MD runs, ~140 s total); numerical gates pass so far. Development counterfactual evaluation running; do not generate held-out data until predictions and analysis code are locked in Git. The registered design/thresholds must remain unchanged even if development findings fail. Backend/API isolation and component geometry have 7 passing new tests. Original regression 35 passed before additional new tests.
+Public bundles include no private preparation maps; restore on empty study DB is automatic, existing records preserved. Separate namespace /api/demonstrations and dataset dropdown retain all original cases. Report/evaluation links pass through /study-evidence. Actual UI actions request new MD unless cache reuse is explicitly selected. No live Muse inference claimed. Fresh published DEMO_501 baseline replay passed exact physical equality with LAMMPS; scripts need no hidden assignments.
 
-V1/V2 were negative development studies; held-out partitions remain ungenerated. Active study V3 is athermal, with exact replay checks and required held-out dt convergence. V3 development now meets the registered dominant-effect contrast; prior erroneous exclusivity check was corrected before holdout, without changing thresholds or any MD results. Raw initial and corrected transcripts retained. 46 backend tests and frontend build pass. Next: commit all scientific source, run demonstrations.lock_development, commit its JSON, generate/evaluate held_out. Do not modify locked code afterward. Original data fingerprint remains unchanged.
+Current verification:48 backend/public-data tests passed; production build and restored-next-env typecheck passed. Previous live E2E10 passed83.01s; final rerun includes evidence links through port3000. After it finishes, capture validation.txt, checkpoint accepted evidence/software, restore owned runtime/demo preview, perform browser QA and record final results. Scientific lock verification and original report/table comparisons PASS. Original snapshot/fingerprints in runtime/demonstration; no regeneration or overwrite allowed.
+
+Useful read-only/replay commands:
+- make test
+- .venv/bin/python -m demonstrations.verify_preservation
+- .venv/bin/python -c 'from demonstrations.lock_development import verify_lock; verify_lock()'
+- .venv/bin/python -m demonstrations.replay_published
+- NANO_DEMONSTRATION_DB="$PWD/runtime/reproduction/study.db" .venv/bin/python -m demonstrations.restore
+
+Stop only owned preview before E2E: .venv/bin/python scripts/e2e_servers.py stop runtime/demo. E2E clones both original and study DBs and cleans launched processes. Restore afterwards with .venv/bin/python scripts/e2e_servers.py start runtime/demo. User next-env saved at runtime/demonstration/next-env.d.ts.original must be restored after build; user's TEST_RESULTS formatting must remain unstaged (stage own appended sections via index blob only). repomix-output.xml is user-owned and untracked. Do not expose .env credentials. None of the scientific failures justify changing thresholds, frozen data or the source lock.

@@ -17,3 +17,15 @@ Never infer success from expected benchmark labels. Commit each passed phase; pr
 [x] Late dimensionality failure preserved, corrected and independently checked; all affected evidence regenerated.
 [x] Actual live two-server cancellation, deadline, persistence, crash recovery and fresh investigations passed.
 [x] Benchmark NO_DECISION counts and absent live-provider credentials disclosed.
+
+## Prospective demonstration extension (2026-11-04)
+
+[x] Register separate studies before trajectories; archive negative development outcomes.
+[x] Isolate observable geometry, private scoring, database/API/jobs and dashboard dataset.
+[x] Seal V3 scientific source and development predictions before unseen geometry generation.
+[x] Freeze blind decisions, run registered dt refinement and score all held-out outcomes.
+[x] Publish raw MD evidence, exact replay procedure and full NOT_VALIDATED status with one case-level successful distinction.
+[x] Preserve original four specimens, baseline/result records and original benchmark reports.
+[~] Final live evidence-route acceptance, preview inspection and Git/handoff completion.
+
+Software gates can pass while the scientific study remains NOT_VALIDATED. No further outcome-selected design search is authorized by this plan.

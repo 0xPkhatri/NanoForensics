@@ -1,0 +1,42 @@
+{
+  "partition": "held_out",
+  "registration_hash": "7d87eea832b65b65550879f453c53e7546ced33a3439953995bb5c74f7347a49",
+  "validation_status": "NOT_VALIDATED",
+  "rows": [
+    {
+      "case_id": "DEMO_501",
+      "numeric_complete_uncensored": true,
+      "exact_replays": true,
+      "timestep_convergence": true,
+      "convergence_status": "PASS",
+      "identified_cause": "interior_vacancy",
+      "scientific_state": "CONCLUDED",
+      "scoring": "CORRECT_DISTINCTION",
+      "passed": true
+    },
+    {
+      "case_id": "DEMO_502",
+      "numeric_complete_uncensored": true,
+      "exact_replays": true,
+      "timestep_convergence": true,
+      "convergence_status": "PASS",
+      "identified_cause": null,
+      "scientific_state": "INCONCLUSIVE",
+      "scoring": "NO_DECISION",
+      "passed": false
+    },
+    {
+      "case_id": "DEMO_503",
+      "numeric_complete_uncensored": true,
+      "exact_replays": true,
+      "timestep_convergence": true,
+      "convergence_status": "PASS",
+      "identified_cause": null,
+      "scientific_state": "INCONCLUSIVE",
+      "scoring": "CORRECT_NEGATIVE_CONTROL",
+      "passed": true
+    }
+  ],
+  "limitations": "Educational athermal finite-rate 2D SFLJ open-slot counterfactual reference. Validates only the held-out registered geometry shift and solver timestep convergence; not thermal robustness, population inference, broad shape generalization or real-material prediction. V1/V2 negative development findings and original four benchmark results remain unchanged.",
+  "all_outcomes_disclosed": true
+}
