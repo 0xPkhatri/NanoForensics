@@ -402,3 +402,7 @@ tests/test_investigation_loop.py::test_model_claimed_support_cannot_bypass_empir
 ## Independent cross-engine experiment — DESCRIPTIVE_LOW_SAMPLE
 
 Command: `.venv/bin/python -m benchmarks.validate_engines`. Six actual, bounded runs on a pristine 12×12 lattice, seeds 42/137/271 per engine; same preparation/protocol. LAMMPS peak mean 2.87739, NumPy 2.85946 (0.6271% relative difference). All six fractured; crack-region agreement 2/3. Student-t uncertainty intervals, assumptions and all raw results are in ENGINE_COMPARISON.json. n=3 does not establish population equivalence or parity for all benchmark conditions.
+
+## Final browser QA — PASS
+
+Compiled production frontend, actual backend, corrected solver sflj-1.1. Used the Browser skill to select BETA, generate hypotheses, observe action disabling/progress, click the registered surface-repair paired test, wait for terminal state and open/close the scientific audit dialog. API audit confirms three freshly computed counterfactual replicates. Mechanical result: -3.5714% paired recovery; tested mechanism REJECTED, final investigation INCONCLUSIVE. Canvas and Plotly rendered actual data; no browser console errors. Local demo left running with owned process records in runtime/demo.

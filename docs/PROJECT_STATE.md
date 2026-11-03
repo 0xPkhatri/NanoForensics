@@ -10,6 +10,8 @@
 
 Solver version: sflj-1.1. Original phase checkpoints are retained. An explicit z/vz audit invalidated earlier LAMMPS trajectory records; corrected datasets and every gate were rerun. No acceptance thresholds, specimen geometry or physical preparation protocols were tuned. Historical invalid reports are under docs/archive; old runtime DB under runtime/archive-v1.
 
-Latest prior verified Git checkpoint: 2608c53. The next checkpoint includes all final accepted source and logs; see `git log -1` for its exact SHA. Runtime artifacts are excluded from Git; regenerate frozen inputs with `make data` on a clean checkout.
+Latest tested source checkpoint: 965eaef (all final accepted source, physics, application and gate logs). A subsequent documentation-only checkpoint records the browser handoff; `git log -1` gives the current documentation checkpoint. Runtime artifacts are excluded from Git; regenerate frozen inputs with `make data` on a clean checkout.
 
 Scientific/environment limits: Meta Muse credentials unavailable, so actual operations are OFFLINE_HEURISTIC_FALLBACK. Two ALPHA baseline replicas violate temperature stability, so they supply no causal verdict. All current benchmark investigations are INCONCLUSIVE. Live Meta inference is still required for a judging demo that requires live model use. This is a small 2D LJ testbed, not validated engineering-material fracture prediction.
+
+Local demo running: http://127.0.0.1:3000 and http://127.0.0.1:8000, owned PID/log records in runtime/demo. Final browser check generated hypotheses and ran three freshly computed BETA counterfactual replicates via the UI; audit dialog opened correctly, no browser console errors. Stop the owned demo with `.venv/bin/python scripts/e2e_servers.py stop runtime/demo`.

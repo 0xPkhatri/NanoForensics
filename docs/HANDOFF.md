@@ -10,4 +10,8 @@ No live Muse credentials were available; application uses honest OFFLINE_HEURIST
 
 For local use: `make backend` and in another terminal `make frontend` (or `cd frontend && npm start` for the compiled UI). Visit http://127.0.0.1:3000. Use `.venv/bin/python` (Python 3.13 installed) and `.venv/bin/pytest`. To reverify: `make test`, `make evaluate`, `make build`, `make e2e`. Recreate ignored data with `make data` on a new checkout; never silently replace a frozen held-out dataset.
 
-Read AGENTS.md and docs before changing this project. Latest prior source checkpoint 2608c53; final acceptance checkpoint is the next Git commit. No required work remains for the local fallback-mode application; live Meta-provider demonstration requires external credentials.
+Read AGENTS.md and docs before changing this project. Latest tested source checkpoint 965eaef; final documentation-only checkpoint follows it. No required work remains for the local fallback-mode application; live Meta-provider demonstration requires external credentials.
+
+## Final browser handoff
+
+The local compiled demo is now left running at http://127.0.0.1:3000 (API :8000). PID/log files: runtime/demo/{api,ui}.{pid,log}. Stop only these owned processes with `.venv/bin/python scripts/e2e_servers.py stop runtime/demo`. A Chrome dashboard tab is left open on BETA. Browser controls generated hypotheses, disabled actions during work, ran the smooth-surface intervention with three fresh counterfactual trajectories, showed paired recovery -3.5714% and REJECTED for that mechanism, retained final INCONCLUSIVE, and opened/closed the audit modal. No browser console errors. Frozen input data were preserved; prior mutable test investigation states were reset before this actual UI journey.
