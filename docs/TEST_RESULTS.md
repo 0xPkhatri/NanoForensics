@@ -71,3 +71,34 @@ tests/test_investigation_loop.py::test_live_provenance_requires_operation_schema
 ```
 
 Phase 1 regression: 13 passed. Unchanged protocol edits now return NO_APPLICABLE_EDIT. Three-pair effects are descriptive. No live Muse credentials were available; provider-schema tests use clearly identified test fixtures, not real live-integration evidence.
+
+## Phase 3 — PASS
+
+Command: `.venv/bin/python -m benchmarks.evaluate`
+```json
+{
+  "counts": {
+    "Fixed checklist": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "NO_DECISION": 4
+    },
+    "NanoForensics": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "NO_DECISION": 4
+    },
+    "One-shot": {
+      "CORRECT": 0,
+      "INCORRECT": 0,
+      "NO_DECISION": 4
+    }
+  },
+  "report": "/Users/prakash_mac/Desktop/code/x/docs/BENCHMARK_REPORT.md",
+  "raw": "/Users/prakash_mac/Desktop/code/x/docs/BENCHMARK_REPORT.json"
+}
+```
+
+All three methods yielded 0 correct / 0 incorrect / 4 NO_DECISION. This is an honest inconclusive benchmark, not evidence of discovery or superiority. Full immutable-trial evidence: BENCHMARK_REPORT.json; readable comparison: BENCHMARK_REPORT.md.
+
+Live backend smoke check: health HTTP 200; four cases; simultaneous duplicate auto-investigation returned [202,409]; real isolated job with 0.05-second deadline reached TIMED_OUT and was terminated/reaped.

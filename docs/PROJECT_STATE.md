@@ -1,8 +1,9 @@
 # Project state
 
-[x] Phase 1: 13 passing tests; checkpoint 4d464af.
-[x] Phase 2: 9 passing tests; frozen 4-case dataset; all actual diagnoses INCONCLUSIVE.
-[~] Phase 3 next: durable API/process supervisors and fair baseline harness.
-[ ] Phases 4–5
+[x] Phase 1: 13 tests; checkpoint 4d464af.
+[x] Phase 2: 9 tests; checkpoint e86808e.
+[x] Phase 3: benchmark gate PASS; live API duplicate/deadline smoke PASS.
+[~] Phase 4 next: Next.js dashboard and operational README/Makefile.
+[ ] Phase 5: mandatory live full-stack E2E.
 
-Latest verified checkpoint: Phase 2 commit in git log. Runtime DB and privileged benchmark preparation are intentionally ignored; regenerate on a clean machine before starting server.
+Latest verified checkpoint: Phase 3 commit in git log. Four frozen cases exist locally; all methods NO_DECISION on all four cases. No live Muse provider configured.

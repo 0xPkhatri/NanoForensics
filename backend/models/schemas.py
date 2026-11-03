@@ -368,3 +368,8 @@ class ModelDecision(StrictModel):
     hypotheses: List[Hypothesis] = Field(min_length=2, max_length=5)
     ranking: List[InterventionType] = Field(min_length=2, max_length=5)
     revision: str = Field(max_length=4000)
+
+
+class InvestigationRequest(StrictModel):
+    max_experiments: int = Field(default=4, ge=1, le=5)
+    timeout_sec: Optional[float] = Field(default=None, ge=0.05, le=1800)

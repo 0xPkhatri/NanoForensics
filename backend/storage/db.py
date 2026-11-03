@@ -83,12 +83,14 @@ class Store:
             row=db.execute('SELECT data FROM states WHERE case_id=?',(case_id,)).fetchone()
         return InvestigationState.model_validate_json(row[0]) if row else None
 
-    def create_job(self,case_id,kind,payload=None):
+    def create_job(self,case_id,kind,payload=None,initial_state=None):
         job_id=uuid.uuid4().hex
         now=time.time()
         with self.connect() as db:
             db.execute('BEGIN IMMEDIATE')
             db.execute('INSERT INTO jobs(id,case_id,kind,status,created,updated,payload) VALUES(?,?,?,?,?,?,?)',(job_id,case_id,kind,'QUEUED',now,now,json.dumps(payload or {})))
+            if initial_state is not None:
+                db.execute('INSERT INTO states VALUES(?,?) ON CONFLICT(case_id) DO UPDATE SET data=excluded.data',(case_id,initial_state.model_dump_json()))
         return job_id
 
     def job(self,job_id):
