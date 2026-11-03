@@ -1,4 +1,11 @@
-# Executed results
+# Final accepted verification — solver sflj-1.1
+
+All five current phase gates PASS. Phases 1/2: 14 and 11 tests respectively; combined final regression: 25 passed. Phase 3 evaluation: all three methods 0 correct / 0 incorrect / 4 NO_DECISION. Phase 4: production Next.js/TypeScript build PASS, 0 npm vulnerabilities. Phase 5: 9 live full-stack tests passed while both real servers were running, with process cleanup afterward.
+
+Earlier LAMMPS trajectory reports below the correction notice are historical and superseded. The z/vz validation caught a dimensionality bug; enforce2d was moved after Langevin, solver/caches versioned, and all trajectories regenerated with unchanged geometry, controls and thresholds. Historical artifacts under archive are explicitly INVALID.
+
+Current limitations: Muse API not demonstrated (credentials absent; visibly deterministic fallback). No unique benchmark diagnosis established. Three-seed cross-engine pristine-lattice comparison is descriptive, not evidence of population equivalence.
+
 
 Setup: Python 3.15 default; Python 3.13 selected for dependency compatibility. LAMMPS 30 Sep 2026 installed at /opt/homebrew/bin/lmp_serial. No tests run yet.
 
@@ -307,3 +314,91 @@ Route (app)
 ○  (Static)  prerendered as static content
 
 ```
+
+## Final Phase 5 — PASS
+
+Command: `bash scripts/verify_e2e.sh`
+```text
+{
+  "status": "EXISTING_FROZEN_INPUTS",
+  "cases": [
+    "CASE_ALPHA",
+    "CASE_BETA",
+    "CASE_DELTA",
+    "CASE_GAMMA"
+  ]
+}
+Both real servers are ready; running live E2E acceptance tests.
+============================= test session starts ==============================
+platform darwin -- Python 3.13.3, pytest-9.2.0, pluggy-1.7.0 -- /Users/prakash_mac/Desktop/code/x/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/prakash_mac/Desktop/code/x
+configfile: pytest.ini
+plugins: anyio-4.16.0
+collecting ... collected 9 items
+
+tests/test_e2e_fullstack.py::test_health_cors_dashboard_and_blind_metadata PASSED
+tests/test_e2e_fullstack.py::test_request_validation_and_admin_guard PASSED
+tests/test_e2e_fullstack.py::test_conflict_reset_and_real_worker_cancellation Real worker cancellation: 19978 [19981]
+PASSED
+tests/test_e2e_fullstack.py::test_real_job_and_replicate_deadlines Actual replicate timeout: RUN_TIMEOUT 0.509720957983518
+PASSED
+tests/test_e2e_fullstack.py::test_full_closed_loop_http_investigation_and_sqlite_persistence[CASE_ALPHA] CASE_ALPHA INCONCLUSIVE [('heal_interior_vacancy', 'PENDING', 'EXECUTION_FAILED')]
+PASSED
+tests/test_e2e_fullstack.py::test_full_closed_loop_http_investigation_and_sqlite_persistence[CASE_DELTA] CASE_DELTA INCONCLUSIVE [('normalize_temperature', 'INCONCLUSIVE', 'COMPLETE')]
+PASSED
+tests/test_e2e_fullstack.py::test_proposal_execution_and_immutable_result_http PASSED
+tests/test_e2e_fullstack.py::test_server_restart_preserves_durable_state PASSED
+tests/test_e2e_fullstack.py::test_server_crash_recovers_orphaned_worker_and_unlocks_case Crash recovery: INTERRUPTED worker descendants terminated; durable case lock released
+PASSED
+
+============================== 9 passed in 28.36s ==============================
+E2E process logs and isolated SQLite database: /Users/prakash_mac/Desktop/code/x/runtime/e2e-pZIzHu
+```
+
+The shell trap cleaned both owned server process groups. Cancellation and deadline tests observed real nested workers; reset/hypothesis duplicates returned 409; fresh ALPHA/DELTA investigations reached terminal states; restart retained SQLite state; forced server crash recovered and terminated orphaned worker descendants. The API and dashboard remained responsive during work. Latest E2E output also retained in E2E_LAST_RUN.txt.
+
+## Final combined regression — PASS
+
+Command: `.venv/bin/pytest tests/test_physics_and_defects.py tests/test_verifier.py tests/test_investigation_loop.py -v`
+```text
+============================= test session starts ==============================
+platform darwin -- Python 3.13.3, pytest-9.2.0, pluggy-1.7.0 -- /Users/prakash_mac/Desktop/code/x/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /Users/prakash_mac/Desktop/code/x
+configfile: pytest.ini
+plugins: anyio-4.16.0
+collecting ... collected 25 items
+
+tests/test_physics_and_defects.py::test_sflj_derivative_cutoff_and_near_limit PASSED [  4%]
+tests/test_physics_and_defects.py::test_arbitrary_coordinates_force_virial_against_independent_reference PASSED [  8%]
+tests/test_physics_and_defects.py::test_tension_sign_and_grip_reaction_elastic PASSED [ 12%]
+tests/test_physics_and_defects.py::test_nve_500_step_total_energy_conservation PASSED [ 16%]
+tests/test_physics_and_defects.py::test_offgrid_table_and_real_lammps_output PASSED [ 20%]
+tests/test_physics_and_defects.py::test_native_lammps_pair_parity PASSED [ 24%]
+tests/test_physics_and_defects.py::test_geometric_healing_changes_force_and_measured_response PASSED [ 28%]
+tests/test_physics_and_defects.py::test_driven_numpy_valid_reproducible_and_censored PASSED [ 32%]
+tests/test_physics_and_defects.py::test_worker_timeout_terminates_process PASSED [ 36%]
+tests/test_verifier.py::test_free_surface_and_notch_not_initial_fracture PASSED [ 40%]
+tests/test_verifier.py::test_severed_reference_bonds_are_separate_from_coordination PASSED [ 44%]
+tests/test_verifier.py::test_persistent_cluster_and_retrospective_peak PASSED [ 48%]
+tests/test_verifier.py::test_empirical_verdicts_censoring_failures_and_id_invariance PASSED [ 52%]
+tests/test_verifier.py::test_aggregate_excludes_failed_empty_trajectories_without_inventing_statistics PASSED [ 56%]
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_ALPHA] PASSED [ 60%]
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_BETA] PASSED [ 64%]
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_GAMMA] PASSED [ 68%]
+tests/test_investigation_loop.py::test_full_blind_autonomous_loop[CASE_DELTA] PASSED [ 72%]
+tests/test_investigation_loop.py::test_public_metadata_and_permuted_ids PASSED [ 76%]
+tests/test_investigation_loop.py::test_backend_has_no_privileged_reads PASSED [ 80%]
+tests/test_investigation_loop.py::test_missing_credentials_and_invalid_model_json PASSED [ 84%]
+tests/test_investigation_loop.py::test_sqlite_frozen_specimen_and_job_uniqueness PASSED [ 88%]
+tests/test_investigation_loop.py::test_live_provenance_requires_operation_schema_success PASSED [ 92%]
+tests/test_investigation_loop.py::test_diagnostic_new_seeds_measure_variance_without_claiming_repair PASSED [ 96%]
+tests/test_investigation_loop.py::test_model_claimed_support_cannot_bypass_empirical_verifier PASSED [100%]
+
+============================== 25 passed in 5.84s ==============================
+```
+
+## Independent cross-engine experiment — DESCRIPTIVE_LOW_SAMPLE
+
+Command: `.venv/bin/python -m benchmarks.validate_engines`. Six actual, bounded runs on a pristine 12×12 lattice, seeds 42/137/271 per engine; same preparation/protocol. LAMMPS peak mean 2.87739, NumPy 2.85946 (0.6271% relative difference). All six fractured; crack-region agreement 2/3. Student-t uncertainty intervals, assumptions and all raw results are in ENGINE_COMPARISON.json. n=3 does not establish population equivalence or parity for all benchmark conditions.

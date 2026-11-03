@@ -14,7 +14,7 @@ export default function StressStrainPlot({baseline,counterfactual}:{baseline:Sim
     data.push({x,y:y.map((v,i)=>v-std[i]),type:'scatter',mode:'lines',line:{width:0},hoverinfo:'skip',showlegend:false});
     data.push({x,y:y.map((v,i)=>v+std[i]),type:'scatter',mode:'lines',line:{width:0},fill:'tonexty',fillcolor:name==='Baseline'?'rgba(141,218,217,.15)':'rgba(211,179,255,.15)',hoverinfo:'skip',showlegend:false});
     data.push({x,y,type:'scatter',mode:'lines',name,line:{color,width:2},hovertemplate:'ε %{x:.3f}<br>σyy %{y:.3f}<extra>'+name+'</extra>'});
-    if(sim.failure_strain!=null&&sim.outcome==='FRACTURED'){data.push({x:[sim.failure_strain],y:[Math.min(...y)],mode:'markers',type:'scatter',name:name+' fracture',marker:{color,size:10,symbol:'x'}})}
+    if(sim.failure_strain!=null&&sim.outcome==='FRACTURED'){const at=x.reduce((best,value,index)=>Math.abs(value-sim.failure_strain!)<Math.abs(x[best]-sim.failure_strain!)?index:best,0);data.push({x:[sim.failure_strain],y:[y[at]],mode:'markers',type:'scatter',name:name+' fracture',marker:{color,size:10,symbol:'x'}})}
    });
    const layout:Partial<Layout>={autosize:true,height:350,paper_bgcolor:'#0e1828',plot_bgcolor:'#0e1828',font:{family:'Arial',color:'#a9b9ce',size:11},margin:{l:55,r:25,t:20,b:55},xaxis:{title:{text:'Engineering strain ε'},gridcolor:'#243247',zerolinecolor:'#354558'},yaxis:{title:{text:'Tensile virial σyy · LJ units'},gridcolor:'#243247',zerolinecolor:'#354558'},legend:{orientation:'h',y:1.12},hovermode:'x unified'};
    Plotly.newPlot(ref.current,data,layout,{responsive:true,displaylogo:false,modeBarButtonsToRemove:['lasso2d','select2d']});

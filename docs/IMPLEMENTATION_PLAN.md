@@ -9,3 +9,11 @@ Authoritative requirements: ../AGENTS.md. Repository root is the existing worksp
 5. Phase 5: live two-server E2E, duplicate lock, persistence, cancellation, timeout and full investigations. Gate: bash scripts/verify_e2e.sh.
 
 Never infer success from expected benchmark labels. Commit each passed phase; preserve executed outputs. Three seeds: 42, 137, 271. Physical data can be censored or numerically invalid.
+
+## Accepted completion
+
+[x] All five ordered gates passed with corrected solver sflj-1.1.
+[x] Source and evidence checkpointed in Git.
+[x] Late dimensionality failure preserved, corrected and independently checked; all affected evidence regenerated.
+[x] Actual live two-server cancellation, deadline, persistence, crash recovery and fresh investigations passed.
+[x] Benchmark NO_DECISION counts and absent live-provider credentials disclosed.

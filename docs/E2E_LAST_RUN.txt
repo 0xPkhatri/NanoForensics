@@ -8,9 +8,9 @@ collecting ... collected 9 items
 
 tests/test_e2e_fullstack.py::test_health_cors_dashboard_and_blind_metadata PASSED
 tests/test_e2e_fullstack.py::test_request_validation_and_admin_guard PASSED
-tests/test_e2e_fullstack.py::test_conflict_reset_and_real_worker_cancellation Real worker cancellation: 15153 [15156]
+tests/test_e2e_fullstack.py::test_conflict_reset_and_real_worker_cancellation Real worker cancellation: 19978 [19981]
 PASSED
-tests/test_e2e_fullstack.py::test_real_job_and_replicate_deadlines Actual replicate timeout: RUN_TIMEOUT 0.5090702080051415
+tests/test_e2e_fullstack.py::test_real_job_and_replicate_deadlines Actual replicate timeout: RUN_TIMEOUT 0.509720957983518
 PASSED
 tests/test_e2e_fullstack.py::test_full_closed_loop_http_investigation_and_sqlite_persistence[CASE_ALPHA] CASE_ALPHA INCONCLUSIVE [('heal_interior_vacancy', 'PENDING', 'EXECUTION_FAILED')]
 PASSED
@@ -21,4 +21,4 @@ tests/test_e2e_fullstack.py::test_server_restart_preserves_durable_state PASSED
 tests/test_e2e_fullstack.py::test_server_crash_recovers_orphaned_worker_and_unlocks_case Crash recovery: INTERRUPTED worker descendants terminated; durable case lock released
 PASSED
 
-============================== 9 passed in 28.07s ==============================
+============================== 9 passed in 28.36s ==============================

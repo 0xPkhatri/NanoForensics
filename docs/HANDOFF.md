@@ -1,7 +1,13 @@
-# Handoff
+# Handoff — all five gates passed
 
-Corrected solver sflj-1.1: Phase 1 PASS 14 tests; Phase 2 PASS 11 tests. Phase 3 evaluator PASS; all three methods 0 correct, 0 incorrect, 4 NO_DECISION. No thresholds or specimen protocols were tuned. Explicit planar validation is now active. Earlier invalid evidence retained in docs/archive and runtime/archive-v1.
+The local project is implemented and verified with solver sflj-1.1. Phase 1: 14 tests. Phase 2: 11 tests. Final combined regression: 25 tests. Phase 3 evaluator completes, every method has 0 correct / 0 incorrect / 4 NO_DECISION. Phase 4 production build and TypeScript pass, zero npm vulnerabilities. Final Phase 5 live gate: 9 tests passed in 28.36 s; exact logs in TEST_RESULTS.md and E2E_LAST_RUN.txt. E2E servers ran during tests and were stopped by shell cleanup. Latest E2E isolated DB/logs: runtime/e2e-pZIzHu.
 
-Next execute `cd frontend && npm install && npm run build`, then `bash scripts/verify_e2e.sh`. New E2E harness starts owned process groups, both servers, isolated SQLite and real worker tests including crash recovery. No servers currently running. No live Muse credentials available. Latest prior checkpoint a8428fb; this checkpoint records corrected Phase 3.
+An explicit late z/vz audit found enforce2d registered before Langevin. The fix moves it after all force-changing fixes; all trajectories were regenerated, cache version incremented, and gates repeated. Old invalid reports/database are retained under docs/archive and runtime/archive-v1. No physics input preparations or verdict thresholds were tuned. Failed empty trajectories are safely excluded from aggregate means. Model-authored support cannot bypass independent verification. New diagnostic seeds 101/202/303 ran real trajectories and do not count as causal repairs.
 
-Corrected Phase 4 build now PASS. Execute mandatory live Phase 5 next; do not rely on the older pre-planarity E2E log.
+Cross-engine pristine-lattice comparison: three matched seed labels per engine, different loading thermostat PRNG/splitting; peak means differ 0.6271%, fracture rate 3/3 both, crack-region agreement 2/3. Full raw records and explicit small-sample limitations: ENGINE_COMPARISON.json. No claim of population equivalence or all-condition parity.
+
+No live Muse credentials were available; application uses honest OFFLINE_HEURISTIC_FALLBACK. Set the three META_MUSE variables in .env and verify actual per-action structured inference for a live-model judging demo. Do not claim a unique discovery from the current benchmark. ALPHA retains two temperature-stability failures; all four investigations are inconclusive.
+
+For local use: `make backend` and in another terminal `make frontend` (or `cd frontend && npm start` for the compiled UI). Visit http://127.0.0.1:3000. Use `.venv/bin/python` (Python 3.13 installed) and `.venv/bin/pytest`. To reverify: `make test`, `make evaluate`, `make build`, `make e2e`. Recreate ignored data with `make data` on a new checkout; never silently replace a frozen held-out dataset.
+
+Read AGENTS.md and docs before changing this project. Latest prior source checkpoint 2608c53; final acceptance checkpoint is the next Git commit. No required work remains for the local fallback-mode application; live Meta-provider demonstration requires external credentials.
