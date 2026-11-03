@@ -1,6 +1,6 @@
 # Project state — demonstration evaluation complete (2026-11-04)
 
-Latest tested integration checkpoint: b4d68ea (final hardening/evidence checkpoint follows) on science/predeclared-demonstration. Scientific evidence checkpoint:872833f. Original audit source checkpoint:1dd84cf on science/root-cause-audit. Original working build remains available at 00c4375; initial build checkpoints and archived evidence are retained. A documentation-only acceptance checkpoint follows the source commit.
+Latest tested integration and walkthrough checkpoint: d6015e3; earlier live-provider milestone b4d68ea on science/predeclared-demonstration. Scientific evidence checkpoint:872833f. Original audit source checkpoint:1dd84cf on science/root-cause-audit. Original working build remains available at 00c4375; initial build checkpoints and archived evidence are retained. A documentation-only acceptance checkpoint follows the source commit.
 
 [x] Frozen inputs and baseline summaries preserved byte-for-byte; all 29 pre-existing immutable result records unchanged.
 [x] Actual force/NVE, raw/flow temperature, damping, rate, sampling, geometry, stochastic-ordering and expanded-seed controls measured.
