@@ -68,7 +68,7 @@ tests/test_demonstration.py::test_dataset_api_routes_are_isolated_and_protocol_e
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
 ======================== 48 passed, 1 warning in 11.08s ========================
 
-Final production frontend build
+Final production frontend build (includes stored-MD label clarification)
 
 > nanoforensics-workbench@1.0.0 build
 > next build
@@ -77,12 +77,12 @@ Final production frontend build
 ✓ Running next.config.mjs took 7ms
 
   Creating an optimized production build ...
-✓ Compiled successfully in 304ms
+✓ Compiled successfully in 581ms
   Running TypeScript ...
-  Finished TypeScript in 1019ms ...
+  Finished TypeScript in 780ms ...
   Collecting page data using 4 workers ...
   Generating static pages using 4 workers (0/3) ...
-✓ Generating static pages using 4 workers (3/3) in 141ms
+✓ Generating static pages using 4 workers (3/3) in 131ms
   Finalizing page optimization ...
 
 Route (app)
@@ -214,7 +214,7 @@ E           psutil.AccessDenied: (pid=69093)
 FAILED tests/test_e2e_fullstack.py::test_server_crash_recovers_orphaned_worker_and_unlocks_case
 ==================== 1 failed, 9 passed in 81.48s (0:01:21) ====================
 
-Final live full-stack gate
+Final live full-stack gate (before final text-only provenance clarification)
 {
   "status": "EXISTING_FROZEN_INPUTS",
   "cases": [
@@ -252,3 +252,5 @@ PASSED
 
 ======================== 10 passed in 82.82s (0:01:22) =========================
 E2E process logs and isolated SQLite database: /Users/prakash_mac/Desktop/code/x/runtime/e2e-A0ns1i
+
+Browser QA: original4-case selector and all6 separate study cases rendered; DEMO_501 stored CONCLUDED state, two verifications, actual comparison plot; DEMO_502 NO_DECISION badge; fullNOT_VALIDATED and deterministic no-model mode. Final provenance label explicitly says stored MD. Preview restored localhost:3000/API:8000; both healthHTTP200. Scientific lockPASS; original4 specimens/29 results and reports unchanged.

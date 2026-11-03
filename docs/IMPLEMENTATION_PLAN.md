@@ -26,6 +26,6 @@ Never infer success from expected benchmark labels. Commit each passed phase; pr
 [x] Freeze blind decisions, run registered dt refinement and score all held-out outcomes.
 [x] Publish raw MD evidence, exact replay procedure and full NOT_VALIDATED status with one case-level successful distinction.
 [x] Preserve original four specimens, baseline/result records and original benchmark reports.
-[~] Final live evidence-route acceptance, preview inspection and Git/handoff completion.
+[x] Final live evidence-route acceptance10/10, preview inspection and Git/handoff completion.
 
 Software gates can pass while the scientific study remains NOT_VALIDATED. No further outcome-selected design search is authorized by this plan.

@@ -1,6 +1,6 @@
-# Project state — scientific audit complete (2026-11-04)
+# Project state — demonstration evaluation complete (2026-11-04)
 
-Latest tested source checkpoint: 1dd84cf on science/root-cause-audit. Original working build remains available at 00c4375; initial build checkpoints and archived evidence are retained. A documentation-only acceptance checkpoint follows the source commit.
+Latest tested integration checkpoint: 21324d6 on science/predeclared-demonstration. Scientific evidence checkpoint:872833f. Original audit source checkpoint:1dd84cf on science/root-cause-audit. Original working build remains available at 00c4375; initial build checkpoints and archived evidence are retained. A documentation-only acceptance checkpoint follows the source commit.
 
 [x] Frozen inputs and baseline summaries preserved byte-for-byte; all 29 pre-existing immutable result records unchanged.
 [x] Actual force/NVE, raw/flow temperature, damping, rate, sampling, geometry, stochastic-ordering and expanded-seed controls measured.
@@ -27,6 +27,8 @@ User changes preserved: original TEST_RESULTS.md formatting and next-env.d.ts ed
 [x] All held-out applicable cohorts valid, uncensored, exact deterministic replays; timestep convergence passes. No independent thermal samples or population intervals claimed.
 [x] Fresh published held-out baseline replay exactly matches physical record without private preparation access.
 [x] Separate dashboard/API/jobs and checksummed public bundle restore preserve existing data. Six specimens / 56 immutable result entries. Original four cases and29 result rows exact; original reports unchanged from f4fbbca.
-[x] Backend/public-data regression48 passed; frontend production build/typecheck PASS. Final evidence-proxy E2E rerun underway at this checkpoint (previous complete run10 passed83.01s).
+[x] Backend/public-data regression48 passed; frontend production build/typecheck PASS. Final live full-stack E2E10 passed82.82s, including real fresh MD, cancellation, crash recovery and evidence proxy. Final display-label clarification rebuilt and checked in browser.
 
 Evidence: docs/demonstration/v3/STUDY_REPORT.md and raw public archives. Runtime14.41–15.99s exceeds3–12s target; horizon preserved. Partial case-level evidence must not be relabeled full-study validation. All active scientific files remain hash-locked. User TEST_RESULTS formatting, next-env edits and repomix file preserved. Live-model inference remains unverified; study runs registered deterministic tools.
+
+[x] Original and study preview restored; browser inspection verified DEMO_501 stored conclusion/curves, DEMO_502 failed-repair badge, all6 study IDs, original4-case selector and explicit no-model mode. Archived run provenance is labeled stored MD, with timestamped fresh/cache detail. No required implementation task remains; full-study scientific failure remains disclosed.
