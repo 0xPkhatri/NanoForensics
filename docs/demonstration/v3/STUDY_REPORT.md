@@ -30,11 +30,13 @@ Every held-out baseline and applicable repair was also run at dt=0.001 with doub
 |---|---:|---:|---:|---|
 | DEMO_501 | 0.0815 | 0.1205 / +47.85% | 0.0810 / −0.61% | Correct interior distinction; all case-level criteria pass |
 | DEMO_502 | 0.1205 | 0.1065 / −11.62% | 0.1335 / +10.79% | INCONCLUSIVE; boundary improvement below 18% |
-| DEMO_503 | See raw baseline | No applicable edit | No applicable edit | Correct negative control; no identified cause |
+| DEMO_503 | 0.1190 | No applicable edit | No applicable edit | Correct negative control; no identified cause |
 
 DEMO_501 interior-repair SNR is 9.75 versus boundary-repair SNR 0.125; the competing recovery advantage is 48.47 percentage points. DEMO_502 boundary-repair SNR is 3.25 and interior-repair SNR is 3.50, but neither satisfies the complete support rule. A negative effect with large magnitude is not positive recovery. The boundary hypothesis remains inconclusive rather than being forced to pass or reject. The pristine no-op is an availability status, not experimental evidence rejecting every possible mechanism.
 
 All held-out baseline/applicable-arm cohorts were numerically valid, uncensored and exactly replayable. All seven finer-timestep trajectories passed the registered convergence checks. Maximum failure-strain difference was 0.0005 (one original measurement interval); maximum relative peak-stress difference was 0.0000167451 (0.001675%). These convergence results support numerical stability of the measured effects; they do not rescue the failed boundary-recovery criterion.
+
+Across the 21 coarse held-out raw replay records and seven refined trajectories, measured maximum force was 9.0807, maximum step displacement 0.002151, maximum NVE energy drift 2.82e-16, and maximum raw kinetic-temperature ratio 0.174613. The minimum applicable post-NVE opposing-bank separation was 3.0294 sigma, above the 2.5 cutoff. The maximum pair-force moment identity residual was 1.52e-15. These are extrema over retained records, not 28 independent physical observations.
 
 Counts: **1 correct distinction, 1 correct negative control, 1 no decision, 0 incorrect diagnoses**. The full study remains **NOT_VALIDATED**. No additional design search follows this result. See [held-out scoring](held_out-evaluation.json), [blind decisions](held_out-decisions.json), [refinement and raw runs](held_out-refinement.json), and [status](status.json).
 

@@ -3,6 +3,7 @@ import asyncio
 import json
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from backend.config import ROOT
 from backend.storage.db import Store
 from backend.agents.muse_agent import verify_llm_connection
@@ -18,6 +19,9 @@ from backend.demonstration.storage import DemonstrationStore
 async def lifespan(app):
     app.state.store=Store()
     app.state.demonstration_store=DemonstrationStore(STUDY_DB)
+    if not app.state.demonstration_store.case_ids():
+        from demonstrations.restore import restore_public
+        await asyncio.to_thread(restore_public,store=app.state.demonstration_store)
     app.state.telemetry=await asyncio.to_thread(verify_llm_connection)
     app.state.capabilities=await asyncio.to_thread(engine_capabilities)
     calibration=ROOT/'runtime/calibration.json'
@@ -38,3 +42,5 @@ app.add_middleware(CORSMiddleware,allow_origins=['http://localhost:3000','http:/
 app.include_router(router)
 
 app.include_router(demonstration_router)
+
+app.mount('/study-evidence',StaticFiles(directory=ROOT/'docs/demonstration'),name='study_evidence')

@@ -45,8 +45,18 @@ def wait_worker(client,job_id):
         job=client.get('/jobs/'+job_id).json()
         pid=job.get('pid')
         if pid and alive(pid):
-            descendants=psutil.Process(pid).children(recursive=True)
-            actual=[p for p in descendants if 'backend.simulation.worker' in p.cmdline()]
+            try:
+                descendants=psutil.Process(pid).children(recursive=True)
+            except (psutil.NoSuchProcess,psutil.AccessDenied):
+                descendants=[]
+            actual=[]
+            for process in descendants:
+                try:
+                    if 'backend.simulation.worker' in process.cmdline():actual.append(process)
+                except (psutil.NoSuchProcess,psutil.AccessDenied):
+                    # macOS can deny KERN_PROCARGS2 during spawn/exit. Poll again;
+                    # never count an unobserved process as a simulation worker.
+                    continue
             if actual:return pid,[p.pid for p in descendants]
         assert job['status'] in ['QUEUED','RUNNING'],job
         time.sleep(.02)
@@ -208,6 +218,11 @@ def test_separate_demonstration_routes_and_real_counterfactual(client):
     demo=BASE+'/demonstrations'
     study=httpx.get(demo+'/study',timeout=10)
     assert study.status_code==200 and study.json()['registration_hash']
+    evidence=httpx.get('http://127.0.0.1:3000/study-evidence/v3/held_out-evaluation.json',timeout=15)
+    assert evidence.status_code==200
+    assert evidence.json()['registration_hash']==study.json()['registration_hash']
+    report=httpx.get('http://127.0.0.1:3000/study-evidence/v3/STUDY_REPORT.md',timeout=15)
+    assert report.status_code==200 and 'NOT_VALIDATED' in report.text
     all_cases=httpx.get(demo+'/cases',timeout=15).json()
     if not all_cases:
         pytest.fail('Generate the registered demonstration before its integration acceptance gate')

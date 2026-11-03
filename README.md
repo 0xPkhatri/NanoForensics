@@ -59,3 +59,38 @@ make e2e
 The E2E script starts both real servers, runs HTTP and dashboard checks while they are alive, and cleans up launched process groups. [AGENTS.md](AGENTS.md) is authoritative. [Project state](docs/PROJECT_STATE.md), [handoff](docs/HANDOFF.md), [plan](docs/IMPLEMENTATION_PLAN.md) and [executed results](docs/TEST_RESULTS.md) record ordered phase gates and Git checkpoints.
 
 The follow-up [scientific audit](docs/SCIENTIFIC_FINDINGS.md) explains the failed diagnoses using measured temperature, force-balance, seed and rate controls. It preserves the frozen benchmark and reports protocol improvements separately from held-out results.
+
+## Separate prospective demonstration
+
+The original four cases, public baselines and existing results remain unchanged. The dashboard dataset selector opens an isolated preregistered study under `/api/demonstrations`; study data/jobs are in a separate versioned SQLite database. Physical protocols, competing interventions, validation rules and held-out geometry procedures were committed before new results. See `demonstrations/v3/PREREGISTRATION.md` and its hashed registration.
+
+The retained V1/V2 development studies did not validate a distinguishable thermal demonstration; their held-out sets were never opened. V3 is a final **athermal finite-rate reference**, with three exact replay labels per geometry, no independent thermal samples and no population confidence interval. Its claim requires the registered repair effect, contrast, negative control and held-out timestep convergence. The dashboard must show `NOT_VALIDATED` if those requirements fail. Both repairs may have beneficial effects; the study identifies the larger tested effect, not a sole universal cause.
+
+Study generation and scoring are explicit CLI operations, never live investigator tools:
+
+```sh
+.venv/bin/python -m demonstrations.generate --partition development
+.venv/bin/python -m demonstrations.evaluate --partition development
+.venv/bin/python -m demonstrations.reproduce
+# Commit scientific code and fixed development analysis before the prospective lock.
+.venv/bin/python -m demonstrations.lock_development
+# Commit the lock; only then may the unopened held-out partition be generated.
+.venv/bin/python -m demonstrations.generate --partition held_out
+.venv/bin/python -m demonstrations.evaluate --partition held_out
+.venv/bin/python -m demonstrations.package_evidence
+.venv/bin/python -m demonstrations.verify_preservation
+```
+
+Published fixed decisions refuse overwrite. Reproduction on a new machine requires a separately named run directory/database; it must not silently replace published evidence. All relevant scientific source hashes are verified before held-out generation and scoring. Private family maps are accessible only to generator/scorer code, after blind decisions are fixed. The live study uses registered deterministic tools and explicitly claims no model inference.
+
+Final measured result: **the full V3 study is NOT_VALIDATED**. Held-out DEMO_501 satisfies the registered interior-repair distinction (+47.85% failure-strain recovery versus −0.61% for the competing repair); DEMO_502 remains inconclusive (+10.79% boundary recovery, below the fixed 18% criterion); DEMO_503 is a correct negative control. Every applicable held-out arm passes exact replay and timestep-convergence checks. See the [complete evidence and limitations](docs/demonstration/v3/STUDY_REPORT.md). No further design search follows the negative full-study result.
+
+The application automatically restores the checksummed public MD bundle into an empty study database, so a fresh checkout can view both partitions without private preparation files or rerunning the study. Existing databases are preserved. To reproduce a published held-out trajectory without changing any stored result:
+
+```sh
+.venv/bin/python -m demonstrations.replay_published
+# Optional separate empty database for inspecting the public dataset:
+NANO_DEMONSTRATION_DB="$PWD/runtime/reproduction/study.db" .venv/bin/python -m demonstrations.restore
+```
+
+Exact physical replay was measured with the installed LAMMPS version; other versions/engines may differ. Three athermal replay labels are not independent thermal replicates. Raw runs took 14.41–15.99 seconds, exceeding the 3–12 second target without shortening the loading horizon.

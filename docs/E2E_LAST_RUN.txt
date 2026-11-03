@@ -4,13 +4,13 @@ cachedir: .pytest_cache
 rootdir: /Users/prakash_mac/Desktop/code/x
 configfile: pytest.ini
 plugins: anyio-4.16.0
-collecting ... collected 9 items
+collecting ... collected 10 items
 
 tests/test_e2e_fullstack.py::test_health_cors_dashboard_and_blind_metadata PASSED
 tests/test_e2e_fullstack.py::test_request_validation_and_admin_guard PASSED
-tests/test_e2e_fullstack.py::test_conflict_reset_and_real_worker_cancellation Real worker cancellation: 42674 [42677]
+tests/test_e2e_fullstack.py::test_conflict_reset_and_real_worker_cancellation Real worker cancellation: 69606 [69609]
 PASSED
-tests/test_e2e_fullstack.py::test_real_job_and_replicate_deadlines Actual replicate timeout: RUN_TIMEOUT 0.5096545420237817
+tests/test_e2e_fullstack.py::test_real_job_and_replicate_deadlines Actual replicate timeout: RUN_TIMEOUT 0.5094922499847598
 PASSED
 tests/test_e2e_fullstack.py::test_full_closed_loop_http_investigation_and_sqlite_persistence[CASE_ALPHA] CASE_ALPHA INCONCLUSIVE [('heal_interior_vacancy', 'PENDING', 'EXECUTION_FAILED')]
 PASSED
@@ -20,5 +20,7 @@ tests/test_e2e_fullstack.py::test_proposal_execution_and_immutable_result_http P
 tests/test_e2e_fullstack.py::test_server_restart_preserves_durable_state PASSED
 tests/test_e2e_fullstack.py::test_server_crash_recovers_orphaned_worker_and_unlocks_case Crash recovery: INTERRUPTED worker descendants terminated; durable case lock released
 PASSED
+tests/test_e2e_fullstack.py::test_separate_demonstration_routes_and_real_counterfactual Separate demonstration real MD: DEMO_402 3 fresh counterfactual seeds; original namespace unaffected
+PASSED
 
-============================== 9 passed in 29.79s ==============================
+======================== 10 passed in 82.82s (0:01:22) =========================
