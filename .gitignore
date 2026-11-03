@@ -1,0 +1,13 @@
+.venv/
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+node_modules/
+.next/
+*.tsbuildinfo
+runtime/
+*.db*
+*.log
+.DS_Store
+benchmarks/ground_truth.json
