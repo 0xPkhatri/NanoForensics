@@ -1,0 +1,126 @@
+{
+  "study_id": "NF-DEMO-2026-11-04-V2",
+  "version": 2,
+  "design_basis": "V1 development had no uniquely distinguishable repair. Its single-row bank separations (~1.86\u20131.91 sigma after preparation) remain inside the 2.5 sigma interaction cutoff. V2 tests genuine open two-row slots and a lower-temperature regime. V1 is retained as a negative development result; its held-out data were never generated or opened.",
+  "source_checkpoint": "a287622",
+  "lattice": {
+    "nx": 16,
+    "ny": 20,
+    "spacing": "2^(1/6)",
+    "orientation": "horizontal close-packed rows; y loading"
+  },
+  "protocol": {
+    "dt": 0.002,
+    "temperature": 0.005,
+    "strain_rate": 0.005,
+    "max_strain": 0.35,
+    "sample_every": 50,
+    "warmup_steps": 4000,
+    "gamma": 2.0,
+    "nve_steps": 500,
+    "minimize_tolerance": 0.005
+  },
+  "families": [
+    {
+      "name": "interior-dominant hypothesis",
+      "large_gap": "six adjacent centered columns in two consecutive transverse rows (12 sites)",
+      "secondary_gap": "one left boundary site in same row",
+      "hypothesis": "interior reconstruction increases failure strain more than edge reconstruction"
+    },
+    {
+      "name": "boundary-dominant hypothesis",
+      "large_gap": "six adjacent left-boundary columns in two consecutive transverse rows (12 sites)",
+      "secondary_gap": "one interior site at column 11 in same row",
+      "hypothesis": "edge reconstruction increases failure strain more than interior reconstruction"
+    },
+    {
+      "name": "negative control",
+      "large_gap": "none",
+      "secondary_gap": "none",
+      "hypothesis": "no supported geometric repair; no applicable edit is not evidence of causal rejection"
+    }
+  ],
+  "development": {
+    "seeds": [
+      3901,
+      3902,
+      3903
+    ],
+    "gap_row": 9,
+    "case_ids": [
+      "DEMO_201",
+      "DEMO_202",
+      "DEMO_203"
+    ]
+  },
+  "held_out": {
+    "seeds": [
+      4901,
+      4902,
+      4903,
+      4904,
+      4905,
+      4906,
+      4907,
+      4908,
+      4909
+    ],
+    "gap_row": 8,
+    "case_ids": [
+      "DEMO_301",
+      "DEMO_302",
+      "DEMO_303"
+    ],
+    "access": "not generated until V2 development predictions and analysis code are locked; independent private assignment"
+  },
+  "interventions": [
+    "heal_interior_vacancy",
+    "smooth_surface_notch"
+  ],
+  "geometric_edit_rule": "Same circular row-phase fit and component topology as V1; candidate sites require at least two measured nearest-shell neighbors, allowing reconstruction of each bank-adjacent row of a two-row slot. No pristine site IDs. Entire missing-site components classified by observable external-boundary connectivity.",
+  "physical_validation": {
+    "nve_drift_lt": 0.001,
+    "max_force_lt": 10000,
+    "max_step_displacement_lt": 0.1,
+    "raw_temperature_error_lt": 0.35,
+    "positive_peak_required": true,
+    "fracture_rule": "unchanged post-global-peak 0.65 load drop plus reference-bond-loss cluster >=4 persisting three samples; null strain if censored",
+    "planarity": "z=vz=0 verified in LAMMPS",
+    "reproducibility": "one development replicate rerun fresh; same engine/version numeric outputs equal; ignore walltime/PIDs",
+    "true_temperature_relative_error_lt": 0.35,
+    "open_slot_bank_separation_gt": 2.5,
+    "open_slot_measurement": "For every inferred missing component spanning at least two lattice rows, measure nearest opposing-bank distance in the central half of its x extent after NVE and before loading. It must remain above the SFLJ force cutoff; retain actual distances. One-site components and pristine controls have no open-slot requirement.",
+    "temperature_note": "The original solver uses a 0.01 denominator floor for target-temperature error. V2 additionally requires error relative to actual T*=0.005 <0.35, so choosing a lower temperature does not exploit that floor."
+  },
+  "scientific_validation": {
+    "failure_recovery_pct_min": 18,
+    "paired_snr_min": 2.5,
+    "cohort_cv_pct_max": 12,
+    "winner_contrast_recovery_percentage_points_min": 10,
+    "winner_contrast_snr_min": 2.5,
+    "heldout_contrast_t_interval_lower_gt": 0,
+    "complete_valid_uncensored_cohort_required": true,
+    "negative_control": "no supported repair"
+  },
+  "holdout_policy": "No changes to protocol, geometry, thresholds, hypotheses, allowed tools or seed set after any development result. All development outcomes reported. Held-out generation runs once after a Git lock of development predictions and analysis code. All held-out arms/seed results frozen before privileged scoring. No dropped seeds, cherry-picked cases or reruns chosen by outcome. Failure yields NOT_VALIDATED; no attempt to rescue V1 by changing its criteria.",
+  "selection_policy": "Single registered design; no parameter search. Development numeric failure stops validation and is reported. Development scientific failure may still be evaluated on the untouched held-out design, without amendments; it must remain disclosed.",
+  "budgets": {
+    "per_run_sec": 90,
+    "whole_study_sec": 1800,
+    "interactive_job_sec": 900,
+    "loading_horizon_must_not_be_shortened": true,
+    "runtime_target_sec": [
+      3,
+      12
+    ],
+    "over_target_reported": true
+  },
+  "inference": {
+    "modes": "offline deterministic registered tools initially; live inference only with successful per-action JSON provenance",
+    "public_observations": "identical measured geometry, protocol, curves and snapshots available to every comparator",
+    "hidden": "ID-family map and original lattice site identifiers only in separate private generator/scorer files"
+  },
+  "scope": "Separate prospectively registered low-temperature 2D SFLJ open-slot demonstration. Held-out thermal seeds and one-row location shift only; not real-material prediction or broad geometry generalization. V1 remains NOT_VALIDATED on development. Original CASE_ALPHA..DELTA unchanged.",
+  "dashboard_policy": "Always separate original frozen benchmark from this study. Show registration hash, development vs held-out, validation state, cached vs fresh, seed counts, failed/censored states and model mode. Never describe NOT_VALIDATED data as a successful discovery. Preserve all arms and all seeds.",
+  "geometry_algorithm": "observable-component-fit-v2"
+}

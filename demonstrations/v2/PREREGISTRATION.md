@@ -1,0 +1,11 @@
+# V2: open-slot low-temperature counterfactual demonstration
+
+This is a **new prospective study**, not an amendment rescuing V1. V1 development decisions and all raw outcomes remain archived; its held-out partition is not generated. V2 uses wholly new thermal seed labels and new opaque case IDs. Its registration hash and Git commit must predate every V2 trajectory.
+
+V1 demonstrated that a six-site single-row gap remains inside the LJ interaction range. V2 removes two adjacent rows of six sites; initial opposing bank separation is three row spacings, 2.916 sigma, beyond cutoff 2.5. After the same validated relaxation, thermalization and NVE preparation, measured central bank separation must still exceed cutoff. Otherwise the preparation fails physical validation.
+
+The common temperature is reduced from 0.02 to 0.005 to test a lower-noise brittle regime. This does not weaken the temperature gate: an additional error bound relative to the actual 0.005 target is imposed, without the original denominator floor. All other protocols, force laws, integration, dimensions, numerical bounds, horizon and scientific decision thresholds remain as registered in V1. No fitted or synthetic stress curves are allowed.
+
+Both positive families still contain a secondary one-site component, so the competing repair is an actual edit. Missing sites are inferred from measured row phase and at least two observed nearest-shell neighbors; entire component topology distinguishes interior and external-boundary gaps. The pristine negative control must remain without a supported repair. Development seeds 3901–3903 and row 9 precede held-out seeds 4901–4909 and row 8. There is no parameter search or post-outcome alteration. A failed V2 remains NOT_VALIDATED.
+
+Every baseline/arm must be valid and uncensored. Recovery≥18%, paired SNR≥2.5 and CV≤12% remain unchanged; unique distinction also requires ≥10 percentage-point advantage over the competing repair, contrast SNR≥2.5 and positive lower held-out paired-t interval. Nine seeds do not establish population or real-material validity. Development predictions and analysis code must be checkpointed before held-out generation; scoring reads private family assignments only after all blind decisions are fixed.
