@@ -539,3 +539,8 @@ Validation:16 frontend testsPASS (two new cycle-reset regressions), production b
 ## Technical terminal redesign — 2026-11-05
 
 Frontend-only single Technical log terminal completed. `npm --prefix frontend run test:ui`:33PASS; typecheck and production buildPASS. Isolated `bash scripts/verify_e2e.sh`:11PASS84.68s (fresh MD, cancellation/deadline, restart/crash recovery and namespace isolation). No lint script configured. All12 source DB tables unchanged, original4 specimens/29 results and scientific source lock verified. Local preview/all three sample APIs200. Seven palette contrasts>=4.5:1; actual46-event transcript formatting~0.129ms mean (formatting only). Raw JSON expansion/export, ordering/grouping, filtering, expansion state, follow decisions, rendered running/completed/failed/cancelled states and clipboard API acknowledgment covered by focused tests. Browser adapter timeoutMs error blocked real-browser/mobile/clipboard/download/expanded-view QA; these remain unverified. No new real-provider acceptance claimed. Full detail:docs/TECHNICAL_TERMINAL.md; executed evidence runtime/terminal-redesign/, E2E_LAST_RUN.txt. Original backend/science/polling behavior unchanged. User next-env restored; existing TEST_RESULTS formatting preserved separately.
+
+
+## Terminal visibility follow-up — 2026-11-05
+
+Screenshot showed Overview selected, whose original cards were deliberately retained. Technical log now opens by default on mount and new investigation requests. Overview remains available. Frontend33 tests/typecheck/buildPASS; owned UI restarted without stopping API or active investigations. Refresh localhost:3000 to load the new default. No backend/scientific changes.

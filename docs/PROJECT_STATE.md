@@ -132,3 +132,8 @@ Evidence: docs/demonstration/v3/STUDY_REPORT.md and raw public archives. Runtime
 Browser automation failed before navigation; visual/mobile and real-browser interaction QA remain unverified. See docs/TECHNICAL_TERMINAL.md. Latest verified prior checkpoint e20d85e; this milestone is checkpointed in the following Git commit. User next-env/TEST_RESULTS edits and repomix file preserved.
 
 Verified terminal implementation checkpoint: `8b3309b` on `design/frontend-simplification`. Subsequent continuity commit only records this tested source checkpoint.
+
+
+## Terminal visibility follow-up — 2026-11-05
+
+Screenshot showed Overview selected, whose original cards were deliberately retained. Technical log now opens by default on mount and new investigation requests. Overview remains available. Frontend33 tests/typecheck/buildPASS; owned UI restarted without stopping API or active investigations. Refresh localhost:3000 to load the new default. No backend/scientific changes.

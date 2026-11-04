@@ -72,7 +72,7 @@ export default function InvestigationConsole({activity, submitting = false, requ
   activity: ConsoleActivity | null; submitting?: boolean; request?: number; error?: string; caseId: string;
   onResults: () => void; onEvidence: () => void; onTests?: () => void; inEvidence?: boolean; revealSession?: ConsoleRevealSession;
 }) {
-  const [tab, setTab] = useState<'overview'|'technical'>('overview');
+  const [tab, setTab] = useState<'overview'|'technical'>('technical');
   const [follow, setFollow] = useState(true);
   const [reducedMotion, setReducedMotion] = useState(false);
   const localSession = useRef(createConsoleRevealSession());
@@ -92,7 +92,7 @@ export default function InvestigationConsole({activity, submitting = false, requ
   useEffect(() => {
     if (request > 0 && !inEvidence) {
       section.current?.scrollIntoView({behavior:'instant', block:'start'});
-      setFollow(true); setTab('overview');
+      setFollow(true); setTab('technical');
     }
   }, [request, inEvidence]);
   useEffect(() => {

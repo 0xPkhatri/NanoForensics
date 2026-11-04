@@ -133,3 +133,8 @@ Source map, controls, tests and limitations: docs/TECHNICAL_TERMINAL.md. All33 f
 No implementation task remains. Next manual review: open http://127.0.0.1:3000 and select Technical log below scientific loop; exercise search, scrolling, copying, JSON downloads and small viewport. Stop only owned preview with `.venv/bin/python scripts/e2e_servers.py stop runtime/investigation-console/preview`; see report for exact restart env. Restore next-env from runtime/terminal-redesign/next-env.original after builds. Preserve pre-existing TEST_RESULTS formatting, next-env edit and untracked repomix-output.xml. No live provider acceptance repeated for this UI change. Prior verified checkpoint e20d85e; new implementation is the following Git checkpoint.
 
 Verified terminal implementation checkpoint: `8b3309b` on `design/frontend-simplification`. Subsequent continuity commit only records this tested source checkpoint.
+
+
+## Terminal visibility follow-up — 2026-11-05
+
+Screenshot showed Overview selected, whose original cards were deliberately retained. Technical log now opens by default on mount and new investigation requests. Overview remains available. Frontend33 tests/typecheck/buildPASS; owned UI restarted without stopping API or active investigations. Refresh localhost:3000 to load the new default. No backend/scientific changes.
