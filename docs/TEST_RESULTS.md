@@ -461,3 +461,7 @@ Real API acceptance: documented api.meta.ai/v1, muse-spark-1.3. Startup probe an
 - Six-step dashboard guide, four-minute presenter script, real/fallback receipts and failure discussion published in docs/live-muse. Preview restoredlocalhost:3000/API:8000. Integration milestoneb4d68ea; final hardening/evidence checkpoint follows.
 
 No required task remains. Actual provider availability/output can vary. This is a post-study integration rehearsal on published evidence, not new blind discovery, thermal validation or full-study validation.
+
+## Beginner documentation validation
+
+Created detail.md at the repository root. Verified its local Markdown links resolve, fenced code blocks are balanced, and its file/workflow descriptions agree with current source/configuration and recorded evidence. The guide explicitly distinguishes software acceptance, real-provider integration and the full NOT_VALIDATED scientific study. Application tests were not rerun for this documentation-only task; it reports the existing56 regression/11 E2E acceptance results as historical evidence.

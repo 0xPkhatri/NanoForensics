@@ -45,3 +45,8 @@ Evidence: docs/demonstration/v3/STUDY_REPORT.md and raw public archives. Runtime
 [x] Polished six-step dashboard guide and four-minute presenter walkthrough complete; all model limitations and fullNOT_VALIDATED explicit.
 [x] Initial model localization error and subsequent mixed/fallback rehearsal retained. Coordinate-derived grounding and completed-evidence citation enum added; final actual-provider rehearsal all4 callsLIVE with explicit immutable MD reuse. No scientific results/thresholds changed.
 [x] Final all-table original/study and frozen-file/source-lock preservationPASS; preview restored, user edits preserved; no required implementation work remains.
+
+## Beginner project documentation
+
+[x] Added root detail.md: complete simple-language project guide, three workspaces, genuine physics/AI/verifier roles, workflow, results/limitations, file map, storage/API/jobs, setup, configuration, testing and presentation.
+[x] Checked local Markdown links and code-block balance against the repository. Documentation-only checkpoint; previously recorded software/scientific results remain unchanged.
