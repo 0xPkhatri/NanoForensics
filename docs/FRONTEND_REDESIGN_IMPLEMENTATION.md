@@ -72,3 +72,10 @@ The full study remains NOT_VALIDATED. This UI work does not change that result.
 ## Reversibility
 
 The original branch is `science/predeclared-demonstration`. Preserve the user's existing uncommitted TEST_RESULTS formatting, next-env edits and repomix file before any branch switch. Do not reset or clean the worktree. Switching frontend versions also requires rebuilding and restarting the preview. The isolated preview databases can remain for review; source scientific databases were not used for interactive test actions.
+
+
+## Investigation controls follow-up — 2026-11-04
+
+Moved investigation mode controls directly after Workspace/Sample. Primary action is Run full investigation, changing to View results when complete with Investigate again retained. Renamed manual disclosure Explore step by step; reset is a quiet secondary action inside it with confirmation and preservation wording. Removed duplicated action controls from the lower page/status banner. Backend behavior unchanged.
+
+Validation: production buildPASS, TypeScriptPASS,6 UI logic testsPASS; live previewHTTP200 and served-markup ordering/labelsPASS. Existing next-env bytes restored. Browser visual QA remains unverified due the previously documented browser-tool issue; no full backend/E2E rerun for this frontend-only placement/copy change.

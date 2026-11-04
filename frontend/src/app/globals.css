@@ -14,3 +14,14 @@
 @media(max-width:767px){.viewer-toolbar{align-items:flex-start}.zoom-controls{margin-left:auto}.help-button{min-height:44px}}
 
 .now-action .banner-secondary{background:transparent;border-color:#84908f;color:#f2eee4;font-size:12px;min-height:40px}.now-action .banner-secondary:hover:not(:disabled){background:#303b43}
+
+/* Investigation mode follows the workspace/sample selection. */
+.investigation-controls{background:var(--surface);border:1px solid var(--line);border-radius:6px;margin:0 0 16px;padding:18px 20px}
+.investigation-mode{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.investigation-mode p{font-size:14px;color:var(--muted);margin:4px 0 0}
+.step-by-step{margin-top:12px;border-top:1px solid var(--line)}
+.step-by-step>summary{font-weight:600}
+.manual-controls{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:24px;padding:10px 0 4px}
+.manual-controls h3{font-size:16px}.manual-controls p{font-size:14px;color:var(--muted)}
+.reset-controls{border-left:1px solid var(--line);padding-left:24px}.reset-controls small{display:block;font-size:12px}.reset-controls .reset-button{font-size:13px;color:var(--muted);font-weight:500}
+@media(max-width:767px){.investigation-controls{padding:14px}.investigation-mode{align-items:stretch;flex-direction:column;gap:14px}.investigation-mode .toolbar{align-items:stretch;flex-direction:column}.manual-controls{grid-template-columns:1fr;gap:18px}.reset-controls{border-left:0;border-top:1px solid var(--line);padding:12px 0 0}}

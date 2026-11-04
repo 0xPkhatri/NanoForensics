@@ -488,3 +488,9 @@ Created detail.md at the repository root. Verified its local Markdown links reso
 - Rendered browser/mobile QA NOT_RUN: browser transport failed before navigation/DOM/screenshot with internal timeoutMs error despite troubleshooting/reconnection. Human comprehension targets NOT_RUN. No screenshot or visual acceptance claim.
 - Final previewHTTP200 onlocalhost:3000/API:8000, owned by runtime/frontend-redesign/preview; isolated DB copies, new provider calls disabled. No .env change/provider calls. Next-env bytes and pre-existing TEST_RESULTS edits preserved exactly; repomix file untouched.
 - Details and remaining visual-review checklist: docs/FRONTEND_REDESIGN_IMPLEMENTATION.md. Local logs/snapshots:runtime/frontend-redesign.
+
+
+## Investigation mode controls — 2026-11-04
+
+Top controls now immediately follow Workspace/Sample; primary Run full investigation changes to View results for completed states with Investigate again retained. Explore step by step replaces Choose tests myself; Reset is secondary within that disclosure and still confirms before clearing state. No backend/scientific changes.
+Production buildPASS; restored-next-env TypeScriptPASS;6 existing UI checksPASS; HTTP200/served-markup order/new-label checksPASS. Browser visual QA remains blocked as documented; backend/E2E gates were not rerun for this layout/copy-only change. Preview restarted with isolated databases and provider calls disabled.

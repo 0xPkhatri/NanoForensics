@@ -1,5 +1,12 @@
 # Handoff — scientific root-cause audit complete
 
+## Investigation controls follow-up — 2026-11-04
+
+Moved investigation mode controls directly after Workspace/Sample. Primary action is Run full investigation, changing to View results when complete with Investigate again retained. Renamed manual disclosure Explore step by step; reset is a quiet secondary action inside it with confirmation and preservation wording. Removed duplicated action controls from the lower page/status banner. Backend behavior unchanged.
+
+Validation: production buildPASS, TypeScriptPASS,6 UI logic testsPASS; live previewHTTP200 and served-markup ordering/labelsPASS. Existing next-env bytes restored. Browser visual QA remains unverified due the previously documented browser-tool issue; no full backend/E2E rerun for this frontend-only placement/copy change.
+
+
 Latest verified redesign source checkpoint: `b94578b` on `design/frontend-simplification`. Build/typecheck,6 UI logic,56 regression and11 live HTTP checks passed. Rendered browser QA remains blocked; preview uses isolated copies. The following continuity commit changes documentation only.
 
 ## Latest task: redesign implementation on design/frontend-simplification
