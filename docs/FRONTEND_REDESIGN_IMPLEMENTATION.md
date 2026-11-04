@@ -91,3 +91,8 @@ Production build/typecheckPASS;6 existing UI logic checksPASS; source destinatio
 ## Study scope placement — 2026-11-04
 
 User requested the full published-study status, explanation and Read the study link inside the collapsed Study scope and this sample disclosure, placed last. Moved the entire disclosure after optional help and before the footer. All study/sample metadata and actual status retained. Production build/typecheck and source nesting/order checksPASS; isolated preview rebuilt/restarted. Browser visual QA remains unverified as previously documented. No backend/scientific changes.
+
+
+## Live console extension
+
+The user-requested live investigation console is implemented. See [console implementation and acceptance](INVESTIGATION_CONSOLE.md) for the durable backend events, UI, current preview ownership and exact tests. Current preview moved to runtime/investigation-console/preview; do not start the previous preview concurrently. Scientific records remain unchanged; browser visual acceptance remains blocked.

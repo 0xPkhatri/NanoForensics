@@ -150,6 +150,11 @@ def test_full_closed_loop_http_investigation_and_sqlite_persistence(client,case_
     for v in state['verifications']:
         if v['execution_status']=='EXECUTION_FAILED': assert v['verdict']=='PENDING'
         if any(v['censoring_counts'].values()):assert v['strain_recovery_pct'] is None
+    console=client.get('/cases/'+case_id+'/activity').json()
+    assert console['job']['id']==job['id'] and console['job']['status']=='COMPLETE'
+    assert console['events'][-1]['phase']=='complete'
+    assert all(event['job_id']==job['id'] for event in console['events'])
+    assert any(event['phase']=='verify' and 'verification' in event['data'] for event in console['events'])
     from backend.storage.db import Store
     persisted=Store().state(case_id).model_dump(mode='json')
     assert persisted==state
@@ -233,12 +238,17 @@ def test_separate_demonstration_routes_and_real_counterfactual(client):
     assert httpx.post(demo+'/cases/'+case_id+'/experiment',json={'intervention':'normalize_strain_rate'}).status_code==422
     response=httpx.post(demo+'/cases/'+case_id+'/hypothesize',timeout=15)
     assert response.status_code==202
+    observed_run={'started':False}
     def wait_demo(job_id,limit=240):
         deadline=time.monotonic()+limit
         while time.monotonic()<deadline:
             job=httpx.get(demo+'/jobs/'+job_id,timeout=15).json()
             if job['status'] not in ['QUEUED','RUNNING']:return job
             assert client.get('/health').status_code==200
+            live_console=httpx.get(demo+'/cases/'+case_id+'/activity',timeout=15).json()
+            if live_console['job']['id']==job_id and live_console['events']:
+                current=live_console['events'][-1]
+                if current['phase']=='simulate' and current['status']=='started':observed_run['started']=True
             time.sleep(.5)
         pytest.fail('Demo job timed out in test')
     assert wait_demo(response.json()['job_id'])['status']=='COMPLETE'
@@ -258,6 +268,12 @@ def test_separate_demonstration_routes_and_real_counterfactual(client):
     assert state['ai_execution_mode']=='OFFLINE_HEURISTIC_FALLBACK'
     proxy=httpx.get('http://127.0.0.1:3000/api/demonstrations/study',timeout=15)
     assert proxy.status_code==200 and proxy.json()['registration_hash']==study.json()['registration_hash']
+    console=httpx.get(demo+'/cases/'+case_id+'/activity',timeout=15).json()
+    assert observed_run['started'],'No in-flight simulation event observed during fresh MD'
+    assert console['job']['id']==job_id and console['job']['status']=='COMPLETE'
+    fresh=[event for event in console['events'] if event['phase']=='simulate' and event['data'].get('role')=='test_change' and event['data'].get('cached') is False]
+    assert len(fresh)==3 and all(event['data']['engine_used'] for event in fresh)
+    assert console['events'][-1]['phase']=='complete'
     print('Separate demonstration real MD:',case_id,len(result['replicate_results']),'fresh counterfactual seeds; original namespace unaffected')
 
 
@@ -296,4 +312,10 @@ def test_live_muse_workspace_fallback_provenance_and_frozen_study_isolation(clie
     dashboard = httpx.get('http://127.0.0.1:3000',timeout=15).text
     assert '<option value="live">AI investigation</option>' in dashboard
     assert '<option value="demonstration">Published study</option>' in dashboard
+    console=httpx.get(base+'/cases/'+case_id+'/activity',timeout=15).json()
+    assert console['job']['id']==job_id and console['job']['status']=='COMPLETE'
+    simulations=[event for event in console['events'] if event['phase']=='simulate' and 'cached' in event['data']]
+    assert len(simulations)==6 and all(event['data']['cached'] for event in simulations)
+    assert any(event['phase']=='revise' and event['data'].get('ai_execution_mode')=='OFFLINE_HEURISTIC_FALLBACK' for event in console['events'])
+    assert not any(event['data'].get('ai_execution_mode')=='LIVE_MUSE_SPARK_API' for event in console['events'])
     print('Live workspace fallback receipts, cached genuine MD and frozen-study isolation verified')

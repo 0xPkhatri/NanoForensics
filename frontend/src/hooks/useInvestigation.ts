@@ -1,7 +1,7 @@
 'use client';
 import {useCallback, useEffect, useRef, useState} from 'react';
 import {api, terminal} from '@/lib/api';
-import type {Case, CaseResponse, Health, Job, DemonstrationStudy, DemonstrationEvaluation} from '@/lib/api';
+import type {Case, CaseResponse, Health, Job, ConsoleActivity, DemonstrationStudy, DemonstrationEvaluation} from '@/lib/api';
 import {requestGate, workspaces} from '@/lib/presentation';
 import type {Workspace} from '@/lib/presentation';
 
@@ -20,12 +20,18 @@ export function useInvestigation() {
   const [cancelling, setCancelling] = useState(false);
   const [elapsed, setElapsed] = useState<number | null>(null);
   const [retry, setRetry] = useState(0);
+  const [activity, setActivity] = useState<ConsoleActivity | null>(null);
+  const [consoleError, setConsoleError] = useState('');
+  const [consoleRequest, setConsoleRequest] = useState(0);
+  const [consolePending, setConsolePending] = useState(false);
   const gate = useRef(requestGate());
   const context = useRef('');
+  const consoleJob = useRef<string | null>(null);
+  const consoleAwaiting = useRef(false);
   const prefix = workspaces[workspace].prefix;
   context.current = `${workspace}/${selected}`;
   const key = `nano-job-${workspace}-${selected}`;
-  const busy = pending || !!jobId || !!data?.investigation.is_running;
+  const busy = pending || !!jobId || !!data?.investigation.is_running || ['QUEUED', 'RUNNING'].includes(activity?.job?.status || '');
 
   useEffect(() => {
     const saved = localStorage.getItem('nano-workspace');
@@ -55,6 +61,8 @@ export function useInvestigation() {
   useEffect(() => {
     const token = gate.current.next();
     setData(null); setError(''); setJobId(null); setElapsed(null); setCancelling(false);
+    setActivity(null); setConsoleError(''); setConsoleRequest(0); setConsolePending(false);
+    consoleJob.current = null; consoleAwaiting.current = false;
     if (!selected) return;
     setLoading(true);
     localStorage.setItem('nano-sample-' + workspace, selected);
@@ -62,6 +70,14 @@ export function useInvestigation() {
     api<CaseResponse>(`${prefix}/cases/${selected}`).then(value => {
       if (gate.current.isCurrent(token)) {setData(value); setLoading(false)}
     }).catch(e => {if (gate.current.isCurrent(token)) {setError(e.message); setLoading(false)}});
+    api<ConsoleActivity>(`${prefix}/cases/${selected}/activity`).then(value => {
+      if (!gate.current.isCurrent(token)) return;
+      if (consoleAwaiting.current || (consoleJob.current && value.job?.id !== consoleJob.current)) return;
+      setActivity(value);
+      if (value.job && ['QUEUED', 'RUNNING'].includes(value.job.status)) {
+        setJobId(value.job.id); localStorage.setItem(key, value.job.id);
+      }
+    }).catch(e => {if (gate.current.isCurrent(token)) setConsoleError(e.message)});
     return () => {gate.current.next()};
   }, [selected, prefix, workspace, key, retry]);
   useEffect(() => {
@@ -70,9 +86,18 @@ export function useInvestigation() {
     let timer: ReturnType<typeof setTimeout>;
     const tick = async () => {
       try {
-        const fresh = await api<CaseResponse>(`${prefix}/cases/${selected}`);
+        const [snapshot, log] = await Promise.allSettled([
+          api<CaseResponse>(`${prefix}/cases/${selected}`),
+          api<ConsoleActivity>(`${prefix}/cases/${selected}/activity`),
+        ]);
         if (!active) return;
-        setData(fresh);
+        if (snapshot.status === 'fulfilled') setData(snapshot.value);
+        else setError(snapshot.reason.message);
+        if (log.status === 'fulfilled') {
+          if (!consoleAwaiting.current && (!consoleJob.current || log.value.job?.id === consoleJob.current)) setActivity(log.value);
+          setConsoleError('');
+        }
+        else setConsoleError(log.reason.message);
         if (jobId) {
           const job = await api<Job>(`${prefix}/jobs/${jobId}`);
           if (!active) return;
@@ -83,7 +108,11 @@ export function useInvestigation() {
             if (job.status !== 'COMPLETE') setError(`${job.status}: ${job.error || 'See the evidence for details.'}`);
             // Read once more after terminal acknowledgement, retaining the final server state.
             const final = await api<CaseResponse>(`${prefix}/cases/${selected}`);
-            if (active) setData(final);
+            if (active) {
+              setData(final);
+              const history = await api<ConsoleActivity>(`${prefix}/cases/${selected}/activity`);
+              if (active && !consoleAwaiting.current && (!consoleJob.current || history.job?.id === consoleJob.current)) setActivity(history);
+            }
           }
         }
       } catch (e) {if (active) setError((e as Error).message)}
@@ -96,14 +125,24 @@ export function useInvestigation() {
     if (!selected || busy) return;
     const identity = context.current;
     setPending(true); setElapsed(null); setError('');
+    const showConsole = ['hypothesize', 'auto-investigate', 'experiment'].includes(path);
+    if (showConsole) {consoleAwaiting.current = true; consoleJob.current = null; setActivity(null); setConsoleError(''); setConsolePending(true); setConsoleRequest(value => value + 1)}
     try {
       const result = await api<{job_id?: string}>(`${prefix}/cases/${selected}/${path}`, body);
       if (context.current !== identity) return;
-      if (result.job_id) {setJobId(result.job_id); localStorage.setItem(key, result.job_id)}
+      if (result.job_id) {consoleJob.current = result.job_id; consoleAwaiting.current = false; setJobId(result.job_id); localStorage.setItem(key, result.job_id)}
       const fresh = await api<CaseResponse>(`${prefix}/cases/${selected}`);
-      if (context.current === identity) setData(fresh);
-    } catch (e) {if (context.current === identity) setError((e as Error).message)}
-    finally {if (context.current === identity) setPending(false)}
+      if (context.current === identity) {
+        setData(fresh);
+        if (showConsole) {
+          try {
+            const history = await api<ConsoleActivity>(`${prefix}/cases/${selected}/activity`);
+            if (context.current === identity && (!consoleJob.current || history.job?.id === consoleJob.current)) setActivity(history);
+          } catch (e) {if (context.current === identity) setConsoleError((e as Error).message)}
+        } else if (path === 'reset') {setActivity(null); setConsoleRequest(0)}
+      }
+    } catch (e) {if (context.current === identity) {setError((e as Error).message); if (showConsole) setConsoleError((e as Error).message)}}
+    finally {if (context.current === identity) {setPending(false); setConsolePending(false)}}
   }, [selected, prefix, busy, key]);
   const cancel = async () => {
     if (!jobId || cancelling) return;
@@ -119,5 +158,5 @@ export function useInvestigation() {
     if (busy) return;
     gate.current.next(); setData(null); setSelected(value);
   };
-  return {workspace, changeWorkspace, selected, setSelected: changeSample, health, cases, data, study, evaluation, error, loading, busy, jobId, cancelling, elapsed, action, cancel, retry: () => setRetry(x => x + 1)};
+  return {workspace, changeWorkspace, selected, setSelected: changeSample, health, cases, data, study, evaluation, activity, consoleError, consoleRequest, consolePending, error, loading, busy, jobId, cancelling, elapsed, action, cancel, retry: () => setRetry(x => x + 1)};
 }

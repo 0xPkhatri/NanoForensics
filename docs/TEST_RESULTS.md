@@ -504,3 +504,15 @@ Fixed same-view guide navigation by scheduling a distinct target request, scroll
 ## Study scope placement — 2026-11-04
 
 User requested the full published-study status, explanation and Read the study link inside the collapsed Study scope and this sample disclosure, placed last. Moved the entire disclosure after optional help and before the footer. All study/sample metadata and actual status retained. Production build/typecheck and source nesting/order checksPASS; isolated preview rebuilt/restarted. Browser visual QA remains unverified as previously documented. No backend/scientific changes.
+
+
+## Live investigation console — 2026-11-04
+
+- New4 backend progress testsPASS7.61s; complete regression60PASS21.22s (one existing dependency deprecation warning). New console checks use genuine cached published MD, not synthetic scientific runs/provider acceptance.
+- Frontend11 logic testsPASS, including job isolation, no premature completion, replicate versus comparison completion, terminal failures, real source labels and receipt-only live status. Existing Node module-type warning remains non-fatal.
+- Production build and user-restored-next-env TypeScriptPASS. Initial live HTTP gate11PASS84.27s; final gate11PASS83.83s. It observed a started event while fresh physics was in flight,3 fresh test runs, cached/fresh engine identity, actual verifier/revision data and terminal supervisor events.
+- Real isolated preview HTTP rehearsal: job76efd7f6087f4a24ba2759c31d476eed COMPLETE1.644s,46 events,12 genuine cached LAMMPS loads; all AI actionsOFFLINE_HEURISTIC_FALLBACK. This proves cache/console behavior, not12 new simulations or a new live API response.
+- Per-job archive retrievalPASS; wrong sample/job404PASS. Queued cancellation and timeout tests confirm stopped/failed work is not marked successful. Final receipt/download UI refinements built/typechecked; final supervisor message wording is presentation-only.
+- PreservationPASS: all12 source DB tables match task-start snapshots,4 original specimens/29 results unchanged; scientific lockf551d9dPASS. Original user next-env bytes restored and TEST_RESULTS formatting/repomix untouched.
+- Browser visual/click QA NOT_RUN: transport still errors before navigation/DOM/screenshot with timeoutMs issue. No rendered/visual pass claimed.
+- Isolated preview3000/8000 now owned by runtime/investigation-console/preview, provider calls disabled; old preview databases retained. Complete report:docs/INVESTIGATION_CONSOLE.md. Local logs/transcript/snapshots:runtime/investigation-console. No frozen report/protocol/verifier/source-lock changes.

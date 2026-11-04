@@ -26,3 +26,26 @@ export const pct=(value:number|null|undefined)=>value==null?'—':`${value.toFix
 export interface DemonstrationStudy {version:number;study_id:string;registration_hash:string;validation_status:string;partition_evaluated?:string;development_result?:string;scope:string;counts?:Record<string,number>}
 
 export interface DemonstrationEvaluation {partition:string;validation_status:string;rows:{case_id:string;passed:boolean;numeric_complete_uncensored:boolean;exact_replays:boolean;timestep_convergence:boolean|null;scoring:string}[]}
+
+export type ConsolePhase = 'initialize'|'worker'|'observe'|'hypotheses'|'plan'|'simulate'|'verify'|'revise'|'conclude'|'complete';
+export interface ConsoleEvent {
+ seq:number; job_id:string; timestamp:string; phase:ConsolePhase;
+ status:'started'|'completed'|'failed'|'skipped'; message:string;
+ data:{
+  [key:string]:unknown;
+  atom_count?:number; case_id?:string; experiment_id?:string; intervention?:string;
+  role?:string; seed?:number; replicate_index?:number; replicate_total?:number;
+  comparison_complete?:boolean; fresh_requested?:boolean; cached?:boolean|null;
+  result_id?:string; outcome?:Simulation['outcome']; engine_requested?:string; engine_used?:string;
+  wall_time_sec?:number; numerical_check?:NumericalCheck; failure_strain?:number|null;
+  baseline?:{sim_id:string;outcome:Simulation['outcome'];failure_strain:number|null;max_observed_strain:number;peak_stress:number;numerical_valid:boolean;engine_used:string};
+  hypotheses?:{id:string;title:string;mechanism:string;confidence:number;ai_execution_mode:AIMode;prediction_pct:number}[];
+  proposals?:Proposal[]; verification?:Verification;
+  receipt?:{action?:string;telemetry?:Telemetry;request_hash?:string;response_hash?:string};
+  ai_execution_mode?:AIMode;
+  belief_changes?:{hypothesis_id:string;before:number|null;after:number;verifier_status:Verdict}[];
+  summary?:string;scientific_status?:string;execution_status?:string;
+ }
+}
+export interface ConsoleJob {id:string;case_id:string;kind:string;status:string;created:number;updated:number;elapsed_sec:number;error:string|null}
+export interface ConsoleActivity {job:ConsoleJob|null;events:ConsoleEvent[]}

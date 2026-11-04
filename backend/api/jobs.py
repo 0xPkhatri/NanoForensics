@@ -10,6 +10,7 @@ from pathlib import Path
 import psutil
 from backend.config import ROOT, JOB_TIMEOUT
 from backend.simulation.worker import kill_tree
+from backend.api.progress import emit
 
 
 class JobManager:
@@ -44,6 +45,7 @@ class JobManager:
         self.children.clear()
 
     def _claim(self):
+        cancelled = None
         with self.store.connect() as db:
             db.execute('BEGIN IMMEDIATE')
             if db.execute("SELECT COUNT(*) FROM jobs WHERE status='RUNNING'").fetchone()[0]>=2:
@@ -51,10 +53,14 @@ class JobManager:
             row=db.execute("SELECT * FROM jobs WHERE status='QUEUED' ORDER BY created LIMIT 1").fetchone()
             if not row: return None
             if row['cancel']:
-                db.execute("UPDATE jobs SET status='CANCELLED',updated=? WHERE id=?",(time.time(),row['id']))
-                return None
-            db.execute("UPDATE jobs SET status='RUNNING',owner_pid=?,updated=? WHERE id=?",(os.getpid(),time.time(),row['id']))
-            return dict(row)
+                cancelled = row['id']
+            else:
+                db.execute("UPDATE jobs SET status='RUNNING',owner_pid=?,updated=? WHERE id=?",(os.getpid(),time.time(),row['id']))
+                claimed = dict(row)
+        if cancelled:
+            self._finish(cancelled,'CANCELLED','Requested cancellation before worker launch')
+            return None
+        return claimed
 
     def _finish(self,job_id,status,error=None):
         job=self.store.job(job_id)
@@ -69,6 +75,11 @@ class JobManager:
                 state.audit_log.append({'timestamp':datetime.now(timezone.utc).isoformat(),'stage':'execution','status':status,'message':error})
             self.store.save_state(state)
         self.store.update_job(job_id,status=status,error=error)
+        if job['kind'] != 'evaluate':
+            emit(self.store, job_id, 'complete', 'completed' if status == 'COMPLETE' else 'failed',
+                 'Worker job completed' if status == 'COMPLETE' else f'Worker job {status.lower()}',
+                 execution_status=status, error=error,
+                 elapsed_sec=max(0,time.time()-job['created']))
         shutil.rmtree(ROOT/'runtime/job_tmp'/job_id,ignore_errors=True)
 
     def _loop(self):
@@ -88,10 +99,12 @@ class JobManager:
                         proc.wait();self._finish(job_id,status,error);del self.children[job_id]
                 job=self._claim()
                 if job:
+                    if job['kind'] != 'evaluate':
+                        emit(self.store, job['id'], 'worker', 'started', 'Job claimed; launching an isolated worker')
                     job_tmp=ROOT/'runtime/job_tmp'/job['id']
                     job_tmp.mkdir(parents=True,exist_ok=True)
                     try:
-                        proc=subprocess.Popen([sys.executable,'-m',self.worker_module,str(self.store.path.resolve()),job['id']],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True,env={**os.environ,'NANO_TMP_ROOT':str(job_tmp),'TMPDIR':str(job_tmp)})
+                        proc=subprocess.Popen([sys.executable,'-m','backend.api.progress_worker',self.worker_module,str(self.store.path.resolve()),job['id']],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True,env={**os.environ,'NANO_TMP_ROOT':str(job_tmp),'TMPDIR':str(job_tmp)})
                     except OSError as exc:
                         self._finish(job['id'],'FAILED',f'Worker launch failed: {type(exc).__name__}')
                         continue

@@ -1,5 +1,17 @@
 # Handoff — scientific root-cause audit complete
 
+## Live investigation console — 2026-11-04
+
+[x] Added durable per-job operation events and an Overview/Technical log console immediately below the controls, retained in Evidence with JSON export.
+[x] Real starts/returns, engine/source/replicate identity, independent checks, subjective-score changes and supervisor-confirmed terminal status; no fake progress or startup-only live claim.
+[x] Polling/stale-job isolation, active-job restoration, page scroll on submission, optional internal following, results/test navigation and archived per-job retrieval.
+[x]60 backend tests,11 UI logic tests, production build/typecheck and final11 live HTTP gatesPASS (83.83s). Fresh MD start was observed before completion; cached/fresh labels and fallback receipts checked.
+[x]12 source DB tables and4 original specimens/29 result rows unchanged; scientific source lockf551d9dPASS. No locked scientific code/prompt/protocol/threshold changes.
+[ ] Browser visual/click QA remains blocked by browser transport timeoutMs errors; no rendered acceptance claimed.
+
+See docs/INVESTIGATION_CONSOLE.md. Current previewlocalhost:3000/API:8000 is owned by runtime/investigation-console/preview and uses preview-original/study/rehearsal.db copies, provider calls disabled. Prepared DEMO_501 real cached-MD console:46 events/12 cached LAMMPS result loads,1.644s; this is not12 fresh MD executions or new live-model acceptance. Prior preview files and source databases retained.
+
+
 ## Study scope placement — 2026-11-04
 
 User requested the full published-study status, explanation and Read the study link inside the collapsed Study scope and this sample disclosure, placed last. Moved the entire disclosure after optional help and before the footer. All study/sample metadata and actual status retained. Production build/typecheck and source nesting/order checksPASS; isolated preview rebuilt/restarted. Browser visual QA remains unverified as previously documented. No backend/scientific changes.

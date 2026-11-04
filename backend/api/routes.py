@@ -8,6 +8,7 @@ from fastapi import APIRouter, HTTPException, Request, Header
 from backend.models.schemas import ExperimentRequest, InvestigationRequest, InvestigationState
 from backend.agents.muse_agent import telemetry
 from backend.config import BUDGET
+from backend.api.progress import ConsoleResponse, activity, emit
 
 router=APIRouter(prefix='/api')
 locks=defaultdict(threading.RLock)
@@ -32,6 +33,10 @@ def enqueue(request,case_id,kind,payload=None):
             state.is_running=True;state.current_step_message='Queued for isolated worker'
         try: job_id=store(request).create_job(case_id,kind,payload,initial_state=state)
         except sqlite3.IntegrityError: raise HTTPException(409,'An active job already owns this case')
+    if kind != 'evaluate':
+        public = store(request).public(case_id)
+        emit(store(request), job_id, 'initialize', 'completed', 'Investigation job accepted',
+             case_id=case_id, atom_count=public.atom_count, job_kind=kind)
     return {'job_id':job_id,'status':'QUEUED'}
 
 
@@ -82,6 +87,14 @@ def experiment(case_id:str,request:Request,body:ExperimentRequest):
         state=store(request).state(case_id)
         if state is None or not any(p.experiment_id==body.proposal_id for p in state.proposed_experiments): raise HTTPException(422,'Unknown registered proposal_id')
     return enqueue(request,case_id,'experiment',body.model_dump(mode='json',exclude_none=True))
+
+
+@router.get('/cases/{case_id}/activity', response_model=ConsoleResponse)
+def console_activity(case_id:str,request:Request,job_id:str|None=None):
+    known(request,case_id)
+    result = activity(store(request),case_id,job_id)
+    if job_id and result.job is None: raise HTTPException(404,'Unknown job for this sample')
+    return result
 
 
 @router.get('/jobs/{job_id}')
