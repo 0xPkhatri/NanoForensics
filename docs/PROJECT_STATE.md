@@ -1,5 +1,12 @@
 # Project state — demonstration evaluation complete (2026-11-04)
 
+## Latest task: frontend redesign planning
+
+[x] Reviewed PlantDebugger source at d69507aa48aec773a5cf72761e5ff60c491eefc1 and sampled frames across the user's 239.708-second demo video; reviewed current frontend code at source checkpoint23f2525.
+[x] Added docs/FRONTEND_REDESIGN_PLAN.md: cream/charcoal/blue/orange design, plain-language dictionary, NOW banner, focused investigation/results/evidence views, component roadmap, phased estimates and scientific-display acceptance checks.
+[x] Planning-only change; no application/scientific code, simulations, provider calls or databases changed. Local preview port3000 was offline, so current UI findings are source-based; browser visual QA remains pending implementation.
+[ ] Redesign implementation remains pending; the user's current request was for the complete plan.
+
 Latest tested integration and walkthrough checkpoint: d6015e3; earlier live-provider milestone b4d68ea on science/predeclared-demonstration. Scientific evidence checkpoint:872833f. Original audit source checkpoint:1dd84cf on science/root-cause-audit. Original working build remains available at 00c4375; initial build checkpoints and archived evidence are retained. A documentation-only acceptance checkpoint follows the source commit.
 
 [x] Frozen inputs and baseline summaries preserved byte-for-byte; all 29 pre-existing immutable result records unchanged.

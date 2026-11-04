@@ -1,5 +1,11 @@
 # Handoff — scientific root-cause audit complete
 
+## Latest task: frontend redesign plan complete (2026-11-04)
+
+User requested analysis of PlantDebugger GitHub/video and one detailed plan to simplify NanoForensics. Deliverable: docs/FRONTEND_REDESIGN_PLAN.md. Reference source inspected at d69507aa48aec773a5cf72761e5ff60c491eefc1 in /private/tmp/nanoforensics-plantdebugger-reference. Video inspected using 12-second sampled contact sheet plus full-resolution frames at24/72/108 seconds; no audio transcription claimed. Current frontend source reviewed; preview port3000 was offline, so no rendered current-dashboard QA was completed.
+
+Plan adopts the light Commander style, not the reference's older dark homepage: cream sheets, charcoal NOW banner, blue actions, orange current-test highlights, simple copy, material/evidence/next-test composition and three views. It preserves all science, namespace separation, uncertainty, per-action provenance and full-study NOT_VALIDATED. No application code was changed. Implementation is pending, beginning with phases1–2 in that plan. Suggested next reads: `cat docs/FRONTEND_REDESIGN_PLAN.md` and `git status --short`. Follow its phase gates during implementation. Preserve pre-existing TEST_RESULTS formatting, next-env changes and repomix-output.xml.
+
 Read AGENTS.md and SCIENTIFIC_FINDINGS.md before further work. Branch science/root-cause-audit; source checkpoint 1dd84cf, starting build 00c4375 preserved. The subsequent acceptance checkpoint changes documentation/evidence only. All mandatory gates pass again: 32 backend tests, 9 live E2E tests (29.79 s), evaluator and Next.js production build; post-restoration TypeScript also passes, npm audit 0 vulnerabilities.
 
 The original database inputs/public baselines and 29 pre-existing result rows are unchanged. Snapshot: runtime/science-audit/original.db; runner uses SQLite read-only access. Current benchmark verdicts remain inconclusive. Never replace them with slower-loading or higher-damping pilot outcomes. No thresholds or hidden preparations were tuned. The audit runner does not read privileged labels; only the separate evaluator reads preparation labels after decisions are fixed.

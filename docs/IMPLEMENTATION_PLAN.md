@@ -1,5 +1,11 @@
 # NanoForensics implementation plan
 
+## Frontend redesign follow-up (2026-11-04)
+
+[x] Review PlantDebugger reference source, sampled uploaded demo frames, and current frontend source.
+[x] Produce [detailed frontend redesign plan](FRONTEND_REDESIGN_PLAN.md), including visual tokens, plain-language copy, workspace layout, data states, component changes and acceptance gates.
+[ ] Implement the six redesign phases when continuing frontend development. This planning task does not mark UI implementation complete.
+
 Authoritative requirements: ../AGENTS.md. Repository root is the existing workspace `x` (no extra nested checkout).
 
 1. Phase 1: contracts, analytic SFLJ, NumPy and verified LAMMPS trajectory paths, geometric edits, reference rupture, empirical verifier; calibrate complete runs. Gate: pytest physics + verifier.
