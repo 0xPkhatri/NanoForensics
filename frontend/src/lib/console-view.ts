@@ -6,9 +6,17 @@ export const consoleSteps: {phase: ConsolePhase; label: string}[] = [
   {phase:'revise',label:'Update explanations'}, {phase:'conclude',label:'Conclude'},
   {phase:'complete',label:'Finish job'},
 ];
+// Verification and revision repeat for each comparison. Their earlier completions
+// remain in the log, but cannot check off a later experiment's pending stages.
+export function currentComparison(activity: ConsoleActivity | null) {
+  return [...confirmedEvents(activity)].reverse().find(event =>
+    event.phase === 'simulate' && !!event.data.experiment_id &&
+    (event.status === 'skipped' || (event.status === 'started' && !event.data.role)));
+}
 export type PhaseState = 'waiting'|'running'|'completed'|'failed'|'skipped'|'stopped';
 export function phaseState(phase: ConsolePhase, activity: ConsoleActivity | null): PhaseState {
-  const relevant = confirmedEvents(activity).filter(event => event.phase === phase);
+  const cycle = ['simulate','verify','revise'].includes(phase) ? currentComparison(activity) : undefined;
+  const relevant = confirmedEvents(activity).filter(event => event.phase === phase && (!cycle || event.seq >= cycle.seq));
   if (!relevant.length) return 'waiting';
   const last = relevant.at(-1)!;
   let state: PhaseState = last.status === 'started' ? 'running' : last.status;

@@ -525,3 +525,12 @@ Added a spinner/blue highlight only for backend-confirmed active stages; complet
 Saved history is immediate; a shared page-local reveal session prevents replay across views. New receipts on a restored running job can animate. Reduced-motion preferences disable typing/motion; screen readers have the full received text. ResizeObserver follows growing text only when following is enabled. Switching to Technical log skips the active reveal.
 
 Validation:14 frontend testsPASS (including history/session/Unicode/markup reveal tests), production buildPASS, restored-next-env TypeScriptPASS, previewHTTP200. A React key warning found by static-render testing was fixed and the final tests have no key warnings. Existing Node module-type warning remains non-fatal. No backend/scientific change or new physics/provider call; backend/E2E gates not rerun for this display-only extension. Rendered animation/reduced-motion/browser interaction verification remains pending due the prior browser-tool failure. Logs:runtime/console-animation.
+
+
+## Current comparison progress and console placement — 2026-11-04
+
+Fixed the screenshot-reported confusion: simulate/verify/revise indicators are now scoped to the latest actual comparison boundary, including repeated proposal IDs and skipped edits. A second test cannot inherit green verification/revision checkmarks from the first. Prior results remain in the immutable event log. The console labels Current test/Last test, explains the current-cycle scope, distinguishes unchanged reference samples from changed samples, and offers Jump to latest when following is paused.
+
+Moved the entire investigation console below The scientific loop, after the NOW status banner. The NOW message now prefers the latest confirmed running console event over an older completed-replicate audit message. Added explicit readable cancel-button text/background colors to fix the white-on-white appearance.
+
+Validation:16 frontend testsPASS (two new cycle-reset regressions), production buildPASS, user-restored-next-env TypeScriptPASS, source ordering/previewHTTP200PASS. No backend/physics/provider changes or extra simulation runs; backend/E2E not rerun for this frontend status/layout fix. Browser visual QA remains unverified as previously documented. Logs:runtime/console-cycle-fix.

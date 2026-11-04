@@ -3,7 +3,7 @@ import {useEffect, useRef, useState} from 'react';
 import {contentCharacters, createConsoleRevealSession, revealContent} from '@/lib/console-reveal';
 import type {ConsoleRevealSession} from '@/lib/console-reveal';
 import type {ConsoleActivity, ConsoleEvent} from '@/lib/api';
-import {clockLabel, confirmedEvents, consoleSteps, eventSource, eventTime, phaseState} from '@/lib/console-view';
+import {clockLabel, confirmedEvents, consoleSteps, currentComparison, eventSource, eventTime, phaseState} from '@/lib/console-view';
 import {difference, sampleName, sourceLabel, stretch, testName, verdictLabel, verdictTone} from '@/lib/presentation';
 
 function eventDetails(event: ConsoleEvent) {
@@ -13,7 +13,7 @@ function eventDetails(event: ConsoleEvent) {
     {data.baseline && <p>Original sample: {data.baseline.outcome === 'FRACTURED' ? `${stretch(data.baseline.failure_strain)} stretch at fracture` : data.baseline.outcome === 'EXECUTION_FAILED' ? 'simulation checks failed' : `no fracture observed up to ${stretch(data.baseline.max_observed_strain)}`}. Highest tensile stress: {data.baseline.peak_stress.toFixed(3)} LJ units.</p>}
     {data.hypotheses && <ul className="console-explanations">{data.hypotheses.map(h => <li key={h.id}><strong>{h.id}: {h.title}</strong><small>{sourceLabel(h.ai_execution_mode)} · {h.ai_execution_mode === 'LIVE_MUSE_SPARK_API' ? 'model' : 'heuristic'} score {(h.confidence * 100).toFixed(0)}% · not a measured probability</small></li>)}</ul>}
     {data.proposals && <ul className="console-explanations">{[...data.proposals].sort((a,b) => b.utility_score-a.utility_score).map((proposal,index) => <li key={proposal.experiment_id}><strong>{index + 1}. {testName(proposal.intervention)}</strong><small>Test priority {proposal.utility_score.toFixed(2)} · {sourceLabel(proposal.ai_execution_mode)}</small></li>)}</ul>}
-    {data.replicate_index != null && <p>{data.role === 'baseline' ? 'Original sample' : 'Test change'} · run {data.replicate_index} of {data.replicate_total} · seed/replay label {data.seed}{data.intervention ? ` · ${testName(data.intervention)}` : ''}</p>}
+    {data.replicate_index != null && <p>{data.role === 'baseline' ? 'Original reference sample (unchanged)' : 'Changed sample'} · run {data.replicate_index} of {data.replicate_total} · seed/replay label {data.seed}{data.intervention ? ` · comparison: ${testName(data.intervention)}` : ''}</p>}
     {data.engine_used && <p>Executed engine: {data.engine_used === 'LAMMPS_BINARY' ? 'LAMMPS' : 'NumPy'}{data.wall_time_sec != null ? ` · ${data.wall_time_sec.toFixed(2)} s recorded compute` : ''}</p>}
     {event.status === 'started' && data.engine_requested && <p>Selected engine: {data.engine_requested === 'LAMMPS_BINARY' ? 'LAMMPS' : 'NumPy'}. Actual engine and source are confirmed when the run returns. No per-timestep progress is available.</p>}
     {data.numerical_check && <p className={data.numerical_check.is_valid ? 'text-good' : 'text-muted'}>Simulation checks {data.numerical_check.is_valid ? 'passed' : 'failed'}. {data.outcome === 'NOT_FRACTURED_WITHIN_HORIZON' ? 'No fracture was observed within this run.' : data.outcome === 'EXECUTION_FAILED' ? 'This computation cannot support a scientific verdict.' : 'A completed simulation is not a causal verdict.'}</p>}
@@ -82,6 +82,7 @@ export default function InvestigationConsole({activity, submitting = false, requ
   const status = submitting ? 'Submitting request' : job?.status || 'Awaiting job confirmation';
   const completed = !submitting && job?.status === 'COMPLETE';
   const latest = events.at(-1);
+  const comparison = currentComparison(confirmed);
   if (job) session.observe(job.id,latest?.seq || 0,request > 0 && !inEvidence);
   const done = consoleSteps.filter(step => phaseState(step.phase, confirmed) === 'completed').length;
   const stopped = !!job && !running && !completed;
@@ -117,14 +118,16 @@ export default function InvestigationConsole({activity, submitting = false, requ
   const id = inEvidence ? 'evidence-console' : 'investigation-console';
   return <section ref={section} className="panel investigation-console" id={id} aria-label="Investigation console">
     <div className="panelhead"><div><span className="overline">NanoForensics · Investigation console</span><h2>{submitting ? 'Starting your investigation…' : running ? 'Follow the work as it happens' : completed ? 'The investigation record' : stopped ? 'The job stopped' : 'Waiting for the worker'}</h2></div><span className={`badge ${completed ? 'good' : stopped ? 'bad' : 'warn'}`}>{status}</span></div>
-    <div className="console-context"><span>{sampleName(job?.case_id || caseId)} · <span className="mono">{job?.case_id || caseId}</span></span>{job && <span>{clockLabel(job.elapsed_sec)} elapsed, including queue time</span>}<span>{done}/{consoleSteps.length} stages confirmed · stages may repeat or be omitted</span></div>
+    <div className="console-context"><span>{sampleName(job?.case_id || caseId)} · <span className="mono">{job?.case_id || caseId}</span></span>{job && <span>{clockLabel(job.elapsed_sec)} elapsed, including queue time</span>}<span>{done}/{consoleSteps.length} stages in this cycle · tests may repeat</span></div>
     <div className="console-toolbar"><div className="filter-tabs" role="group" aria-label="Console view"><button aria-pressed={tab === 'overview'} onClick={() => setTab('overview')}>Overview</button><button aria-pressed={tab === 'technical'} onClick={() => setTab('technical')}>Technical log</button></div><label className="follow-control"><input type="checkbox" checked={follow} onChange={e => setFollow(e.target.checked)}/>Follow new events</label></div>
     {error && <div className="notice" role="alert">Live updates are unavailable. The console retains only the last confirmed records. <details><summary>Connection details</summary><p>{error}</p></details></div>}
     <p className="console-current" role="status" aria-live="polite">{running && <span className="stage-spinner current-spinner" aria-hidden="true"/>}{submitting ? 'Submitting the request. No worker execution has been confirmed yet.' : latest?.message || (job ? 'No detailed console events were recorded for this older job. Run a new investigation to see operation-level progress.' : 'Waiting for the server to confirm a job. No completed steps are assumed.')}</p>
+    {comparison && <p className="console-cycle"><strong>{running ? 'Current test' : 'Last test'}:</strong> {testName(comparison.data.intervention || 'Registered comparison')}<span>Simulation, evidence checks and explanation updates refer to this test. Earlier results stay in the log.</span></p>}
+    {!follow && <div className="console-follow-paused"><span>Auto-follow is paused. The log may show earlier updates.</span><button onClick={() => setFollow(true)}>Jump to latest</button></div>}
     <div className="console-body">
       {tab === 'overview' && <ol className="console-phases" aria-label="Confirmed investigation stages">{consoleSteps.map(step => {
         const value = phaseState(step.phase, confirmed);
-        const label = value === 'waiting' && job && !running ? 'Not recorded' : value === 'running' ? 'In progress' : value[0].toUpperCase()+value.slice(1);
+        const label = value === 'waiting' && comparison && ['verify','revise'].includes(step.phase) ? running ? 'Waiting for this test' : 'Not run for this test' : value === 'waiting' && job && !running ? 'Not recorded' : value === 'running' ? 'In progress' : value[0].toUpperCase()+value.slice(1);
         return <li key={step.phase} className={`console-phase ${value}`} aria-current={value === 'running' ? 'step' : undefined}><span className="phase-symbol" aria-hidden="true">{value === 'running' ? <span className="stage-spinner"/> : value === 'completed' ? '✓' : value === 'failed' || value === 'stopped' ? '!' : '○'}</span><div><strong>{step.label}</strong><small>{label}</small></div></li>;
       })}</ol>}
       <div ref={list} className="console-events" tabIndex={0} aria-label="Scrollable confirmed job events" onScroll={e => {const node=e.currentTarget;if (node.scrollHeight-node.scrollTop-node.clientHeight > 55) setFollow(false)}}>

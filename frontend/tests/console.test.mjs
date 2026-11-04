@@ -35,3 +35,28 @@ test('live status requires an actual action receipt and fresh/cached labels need
   assert.equal(eventSource(event('simulate','completed',{cached:true})),'Saved immutable simulation');
   assert.equal(eventSource(event('revise','completed',{receipt:{telemetry:{execution_mode:'OFFLINE_HEURISTIC_FALLBACK'}}})),'Rule-based fallback');
 });
+
+test('a second test does not inherit evidence checks or explanation updates from the first', () => {
+  const first=[
+    event('simulate','started',{experiment_id:'first'},1),
+    event('simulate','completed',{experiment_id:'first',comparison_complete:true},2),
+    event('verify','completed',{verification:{experiment_id:'first'}},3),
+    event('revise','completed',{},4),
+  ];
+  assert.equal(phaseState('verify',activity(first)),'completed');
+  const next=[...first,event('simulate','started',{experiment_id:'second'},5),event('simulate','started',{experiment_id:'second',role:'test_change',replicate_index:1},6)];
+  assert.equal(phaseState('simulate',activity(next)),'running');
+  assert.equal(phaseState('verify',activity(next)),'waiting');
+  assert.equal(phaseState('revise',activity(next)),'waiting');
+  const checked=[...next,event('simulate','completed',{comparison_complete:true},7),event('verify','started',{experiment_id:'second'},8)];
+  assert.equal(phaseState('verify',activity(checked)),'running');
+  assert.equal(phaseState('revise',activity(checked)),'waiting');
+});
+test('repeating the same proposal or skipping a new edit also resets downstream stage indicators', () => {
+  const previous=[event('simulate','started',{experiment_id:'same'},1),event('verify','completed',{},2),event('revise','completed',{},3)];
+  for (const boundary of [event('simulate','started',{experiment_id:'same'},4),event('simulate','skipped',{experiment_id:'another'},4)]) {
+    const current=activity([...previous,boundary]);
+    assert.equal(phaseState('verify',current),'waiting');
+    assert.equal(phaseState('revise',current),'waiting');
+  }
+});

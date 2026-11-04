@@ -1,5 +1,14 @@
 # Handoff — scientific root-cause audit complete
 
+## Current comparison progress and console placement — 2026-11-04
+
+Fixed the screenshot-reported confusion: simulate/verify/revise indicators are now scoped to the latest actual comparison boundary, including repeated proposal IDs and skipped edits. A second test cannot inherit green verification/revision checkmarks from the first. Prior results remain in the immutable event log. The console labels Current test/Last test, explains the current-cycle scope, distinguishes unchanged reference samples from changed samples, and offers Jump to latest when following is paused.
+
+Moved the entire investigation console below The scientific loop, after the NOW status banner. The NOW message now prefers the latest confirmed running console event over an older completed-replicate audit message. Added explicit readable cancel-button text/background colors to fix the white-on-white appearance.
+
+Validation:16 frontend testsPASS (two new cycle-reset regressions), production buildPASS, user-restored-next-env TypeScriptPASS, source ordering/previewHTTP200PASS. No backend/physics/provider changes or extra simulation runs; backend/E2E not rerun for this frontend status/layout fix. Browser visual QA remains unverified as previously documented. Logs:runtime/console-cycle-fix.
+
+
 ## Active-stage and received-text animation — 2026-11-04
 
 Added a spinner/blue highlight only for backend-confirmed active stages; completed, failed, stopped and waiting stages keep their actual states. New human-readable event text reveals progressively with a cursor and Show now control. Source badges, timestamps, raw technical JSON, result navigation and actual stage completion are never delayed by typing. The effect is presentation after receipt, not provider token streaming.
