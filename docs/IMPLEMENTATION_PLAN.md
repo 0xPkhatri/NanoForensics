@@ -64,3 +64,12 @@ Software gates can pass while the scientific study remains NOT_VALIDATED. No fur
 [x] Add dashboard action receipts and guided DEMO_501 walkthrough; explicitly retain fullNOT_VALIDATED.
 [x] Finish all regression56/build/typecheck/evaluator/E2E11 gates, browser QA and continuity checkpoints.
 [x] Retain initial model localization error and mixed validation failure; add measured-position grounding and completed-evidence citation schema; verify real final rehearsal without changing any scientific threshold or result.
+
+
+## Single execution terminal — 2026-11-05
+
+[x] Inspect existing console/event/polling/progress architecture.
+[x] Implement continuous terminal, compact workflow, truthful event/source formatting and lazy full JSON.
+[x] Implement search/filter/navigation, copying/full exports, auto-follow pause/jump, responsive expanded view and accessibility.
+[x] Verify focused UI tests33, typecheck, production build, isolated E2E11 and scientific/source-data preservation.
+[x] Restore isolated preview and record browser verification limitation in TECHNICAL_TERMINAL.md.

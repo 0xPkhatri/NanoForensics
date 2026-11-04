@@ -8,9 +8,9 @@ collecting ... collected 11 items
 
 tests/test_e2e_fullstack.py::test_health_cors_dashboard_and_blind_metadata PASSED
 tests/test_e2e_fullstack.py::test_request_validation_and_admin_guard PASSED
-tests/test_e2e_fullstack.py::test_conflict_reset_and_real_worker_cancellation Real worker cancellation: 5938 [5942]
+tests/test_e2e_fullstack.py::test_conflict_reset_and_real_worker_cancellation Real worker cancellation: 96319 [96322]
 PASSED
-tests/test_e2e_fullstack.py::test_real_job_and_replicate_deadlines Actual replicate timeout: RUN_TIMEOUT 0.5101744160056114
+tests/test_e2e_fullstack.py::test_real_job_and_replicate_deadlines Actual replicate timeout: RUN_TIMEOUT 0.5089913329866249
 PASSED
 tests/test_e2e_fullstack.py::test_full_closed_loop_http_investigation_and_sqlite_persistence[CASE_ALPHA] CASE_ALPHA INCONCLUSIVE [('heal_interior_vacancy', 'PENDING', 'EXECUTION_FAILED')]
 PASSED
@@ -25,4 +25,4 @@ PASSED
 tests/test_e2e_fullstack.py::test_live_muse_workspace_fallback_provenance_and_frozen_study_isolation Live workspace fallback receipts, cached genuine MD and frozen-study isolation verified
 PASSED
 
-======================== 11 passed in 83.83s (0:01:23) =========================
+======================== 11 passed in 84.68s (0:01:24) =========================

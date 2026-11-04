@@ -4,6 +4,7 @@ import {contentCharacters, createConsoleRevealSession, revealContent} from '@/li
 import type {ConsoleRevealSession} from '@/lib/console-reveal';
 import type {ConsoleActivity, ConsoleEvent} from '@/lib/api';
 import {clockLabel, confirmedEvents, consoleSteps, currentComparison, eventSource, eventTime, phaseState} from '@/lib/console-view';
+import ExecutionTerminal from './ExecutionTerminal';
 import {difference, sampleName, sourceLabel, stretch, testName, verdictLabel, verdictTone} from '@/lib/presentation';
 
 function eventDetails(event: ConsoleEvent) {
@@ -24,20 +25,22 @@ function eventDetails(event: ConsoleEvent) {
   </>;
 }
 
-function ConsoleEventEntry({event, activity, technical, animate, reducedMotion, session}: {
-  event: ConsoleEvent; activity: ConsoleActivity; technical: boolean; animate: boolean;
+function ConsoleEventEntry({event, activity, animate, reducedMotion, session}: {
+  event: ConsoleEvent; activity: ConsoleActivity; animate: boolean;
   reducedMotion: boolean; session: ConsoleRevealSession;
 }) {
-  const details = eventDetails(event);
-  const titleLength = Array.from(event.message).length;
+  let details;
+  try {details = eventDetails(event)} catch {details = <p>Structured details could not be formatted. The complete original payload remains available below.</p>}
+  const message = typeof event.message === 'string' ? event.message : 'Unrecognized event message';
+  const titleLength = Array.from(message).length;
   const total = titleLength + contentCharacters(details);
-  const [animateOnce] = useState(() => animate && !reducedMotion && !technical);
+  const [animateOnce] = useState(() => animate && !reducedMotion);
   const [visible, setVisible] = useState(() => animateOnce ? 0 : total);
   const [skip, setSkip] = useState(false);
-  const revealing = animateOnce && !technical && !reducedMotion && !skip && visible < total;
+  const revealing = animateOnce && !reducedMotion && !skip && visible < total;
   useEffect(() => {session.markDisplayed(event.job_id,event.seq)}, [event.job_id,event.seq,session]);
   useEffect(() => {
-    if (animateOnce && (reducedMotion || technical)) {setSkip(true); return}
+    if (animateOnce && reducedMotion) {setSkip(true); return}
     if (!animateOnce || skip) return;
     let frame = 0;
     const start = performance.now();
@@ -49,19 +52,19 @@ function ConsoleEventEntry({event, activity, technical, animate, reducedMotion, 
     };
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [animateOnce,total,reducedMotion,technical,skip]);
-  const title = revealing ? Array.from(event.message).slice(0,visible).join('') : event.message;
+  }, [animateOnce,total,reducedMotion,skip]);
+  const title = revealing ? Array.from(message).slice(0,visible).join('') : message;
   const body = revealing ? revealContent(details,{remaining:Math.max(0,visible-titleLength)}) : details;
   const source = eventSource(event);
-  return <li className={`console-event ${event.status}${revealing ? ' revealing' : ''}`} aria-label={event.message}>
-    {revealing && <div className="sr-only">{event.message}{details}</div>}
+  return <li className={`console-event ${event.status}${revealing ? ' revealing' : ''}`} aria-label={message}>
+    {revealing && <div className="sr-only">{message}{details}</div>}
     <div className="console-event-head"><strong aria-hidden={revealing || undefined}>{title}{revealing && visible < titleLength && <span className="typing-cursor" aria-hidden="true"/>}</strong><time dateTime={event.timestamp} title={new Date(event.timestamp).toLocaleString()}>{eventTime(event,activity)}</time></div>
-    {source && <span className={`badge ${event.data.cached === false ? 'orange' : ''}`}>{source}</span>}
-    {technical ? <details><summary>{event.phase} · {event.status} · event {event.seq}</summary><pre className="reportpre" tabIndex={0}>{JSON.stringify(event,null,2)}</pre></details> : <>
+    {source && <span className={`badge ${event.data?.cached === false ? 'orange' : ''}`}>{source}</span>}
+    <>
       <div className="console-event-copy" aria-hidden={revealing || undefined}>{body}{revealing && visible >= titleLength && <span className="typing-cursor" aria-hidden="true"/>}</div>
       {revealing && <div className="reveal-controls"><span>Revealing a received update</span><button onClick={() => setSkip(true)}>Show now</button></div>}
       <details><summary>Technical details</summary><pre className="reportpre" tabIndex={0}>{JSON.stringify(event,null,2)}</pre></details>
-    </>}
+    </>
   </li>;
 }
 
@@ -117,10 +120,18 @@ export default function InvestigationConsole({activity, submitting = false, requ
   };
   const id = inEvidence ? 'evidence-console' : 'investigation-console';
   return <section ref={section} className="panel investigation-console" id={id} aria-label="Investigation console">
-    <div className="panelhead"><div><span className="overline">NanoForensics · Investigation console</span><h2>{submitting ? 'Starting your investigation…' : running ? 'Follow the work as it happens' : completed ? 'The investigation record' : stopped ? 'The job stopped' : 'Waiting for the worker'}</h2></div><span className={`badge ${completed ? 'good' : stopped ? 'bad' : 'warn'}`}>{status}</span></div>
-    <div className="console-context"><span>{sampleName(job?.case_id || caseId)} · <span className="mono">{job?.case_id || caseId}</span></span>{job && <span>{clockLabel(job.elapsed_sec)} elapsed, including queue time</span>}<span>{done}/{consoleSteps.length} stages in this cycle · tests may repeat</span></div>
-    <div className="console-toolbar"><div className="filter-tabs" role="group" aria-label="Console view"><button aria-pressed={tab === 'overview'} onClick={() => setTab('overview')}>Overview</button><button aria-pressed={tab === 'technical'} onClick={() => setTab('technical')}>Technical log</button></div><label className="follow-control"><input type="checkbox" checked={follow} onChange={e => setFollow(e.target.checked)}/>Follow new events</label></div>
-    {error && <div className="notice" role="alert">Live updates are unavailable. The console retains only the last confirmed records. <details><summary>Connection details</summary><p>{error}</p></details></div>}
+    {tab === 'overview' && <><div className="panelhead"><div><span className="overline">NanoForensics · Investigation console</span><h2>{submitting ? 'Starting your investigation…' : running ? 'Follow the work as it happens' : completed ? 'The investigation record' : stopped ? 'The job stopped' : 'Waiting for the worker'}</h2></div><span className={`badge ${completed ? 'good' : stopped ? 'bad' : 'warn'}`}>{status}</span></div>
+    <div className="console-context"><span>{sampleName(job?.case_id || caseId)} · <span className="mono">{job?.case_id || caseId}</span></span>{job && <span>{clockLabel(job.elapsed_sec)} elapsed, including queue time</span>}<span>{done}/{consoleSteps.length} stages in this cycle · tests may repeat</span></div></>}
+    <div className="console-toolbar"><div className="filter-tabs" role="group" aria-label="Console view"><button aria-pressed={tab === 'overview'} onClick={() => setTab('overview')}>Overview</button><button aria-pressed={tab === 'technical'} onClick={() => setTab('technical')}>Technical log</button></div>{tab === 'overview' && <label className="follow-control"><input type="checkbox" checked={follow} onChange={e => setFollow(e.target.checked)}/>Follow new events</label>}</div>
+    {tab === 'overview' && error && <div className="notice" role="alert">Live updates are unavailable. The console retains only the last confirmed records. <details><summary>Connection details</summary><p>{error}</p></details></div>}
+    <div hidden={tab !== 'technical'}>
+      <ol className="terminal-workflow" aria-label="Current investigation workflow">{consoleSteps.map((step,index)=>{
+        const value=phaseState(step.phase,confirmed);
+        return <li key={step.phase} className={value} aria-current={value==='running'?'step':undefined} title={`${step.label}: ${value}`}><span aria-hidden="true">{value==='running'?<span className="stage-spinner"/>:value==='completed'?'✓':value==='failed'||value==='stopped'?'!':'○'}</span>{['Initialize','Inspect','Explain','Plan','Simulate','Verify','Update','Conclude','Finish'][index]}<span className="sr-only"> · {value}</span></li>;
+      })}</ol>
+      <ExecutionTerminal active={tab === 'technical'} activity={confirmed} caseId={caseId} follow={follow} onFollow={setFollow} submitting={submitting} error={error}/>
+    </div>
+    {tab === 'overview' && <>
     <p className="console-current" role="status" aria-live="polite">{running && <span className="stage-spinner current-spinner" aria-hidden="true"/>}{submitting ? 'Submitting the request. No worker execution has been confirmed yet.' : latest?.message || (job ? 'No detailed console events were recorded for this older job. Run a new investigation to see operation-level progress.' : 'Waiting for the server to confirm a job. No completed steps are assumed.')}</p>
     {comparison && <p className="console-cycle"><strong>{running ? 'Current test' : 'Last test'}:</strong> {testName(comparison.data.intervention || 'Registered comparison')}<span>Simulation, evidence checks and explanation updates refer to this test. Earlier results stay in the log.</span></p>}
     {!follow && <div className="console-follow-paused"><span>Auto-follow is paused. The log may show earlier updates.</span><button onClick={() => setFollow(true)}>Jump to latest</button></div>}
@@ -132,9 +143,10 @@ export default function InvestigationConsole({activity, submitting = false, requ
       })}</ol>}
       <div ref={list} className="console-events" tabIndex={0} aria-label="Scrollable confirmed job events" onScroll={e => {const node=e.currentTarget;if (node.scrollHeight-node.scrollTop-node.clientHeight > 55) setFollow(false)}}>
         {!events.length && <div className="empty-state compact"><h3>{submitting ? 'Requesting an isolated worker' : 'No confirmed operation events yet'}</h3><p>New events appear when the backend records them. Waiting steps have no invented times or results.</p></div>}
-        <ol>{events.map(event => <ConsoleEventEntry key={`${event.job_id}:${event.seq}`} event={event} activity={confirmed!} technical={tab === 'technical'} animate={!inEvidence && session.shouldReveal(event.job_id,event.seq)} reducedMotion={reducedMotion} session={session}/>)}</ol>
+        <ol>{events.map(event => <ConsoleEventEntry key={`${event.job_id}:${event.seq}`} event={event} activity={confirmed!} animate={!inEvidence && session.shouldReveal(event.job_id,event.seq)} reducedMotion={reducedMotion} session={session}/>)}</ol>
       </div>
     </div>
-    <div className="console-footer"><div>{job && <span className="mono">Job {job.id}</span>}<p className="caption">Stage status follows confirmed backend events. New text has a display-only typing effect, not provider token streaming. Predictions and model scores are distinct from verified measurements.</p></div><div className="toolbar">{completed && <button className="primary" onClick={job?.kind === 'hypothesize' && onTests ? onTests : onResults}>{job?.kind === 'hypothesize' && onTests ? 'Choose a test ↗' : 'Show results ↗'}</button>}{job && <button onClick={download}>Download log ↓</button>}{!inEvidence && <button onClick={onEvidence}>Review evidence</button>}</div></div>
+    </>}
+    <div className="console-footer"><div>{tab === 'overview' && <>{job && <span className="mono">Job {job.id}</span>}<p className="caption">Stage status follows confirmed backend events. New text has a display-only typing effect, not provider token streaming. Predictions and model scores are distinct from verified measurements.</p></>}</div><div className="toolbar">{completed && <button className="primary" onClick={job?.kind === 'hypothesize' && onTests ? onTests : onResults}>{job?.kind === 'hypothesize' && onTests ? 'Choose a test ↗' : 'Show results ↗'}</button>}{tab === 'overview' && job && <button onClick={download}>Download log ↓</button>}{!inEvidence && <button onClick={onEvidence}>Review evidence</button>}</div></div>
   </section>;
 }

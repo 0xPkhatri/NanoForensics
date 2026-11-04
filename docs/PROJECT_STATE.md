@@ -119,3 +119,14 @@ Evidence: docs/demonstration/v3/STUDY_REPORT.md and raw public archives. Runtime
 
 [x] Added root detail.md: complete simple-language project guide, three workspaces, genuine physics/AI/verifier roles, workflow, results/limitations, file map, storage/API/jobs, setup, configuration, testing and presentation.
 [x] Checked local Markdown links and code-block balance against the repository. Documentation-only checkpoint; previously recorded software/scientific results remain unchanged.
+
+
+## Technical terminal redesign completed — 2026-11-05
+
+[x] Inspected event schema, polling, progress and auto-follow; retained existing backend behavior.
+[x] Replaced Technical log cards with a single terminal, compact workflow, full on-demand JSON, search/navigation/filtering, clipboard/export and expanded view.
+[x] Preserved input order and full history; differentiated fallback/live AI, saved/fresh computation, numerical checks and scientific verdicts.
+[x] 33 UI tests, typecheck, production build and isolated full-stack11 tests (84.68s) passed. All12 source DB tables unchanged; scientific source lock/original preservation PASS.
+[x] Preview restored on3000/8000 using isolated copies; all three sample APIs200. No dependency/backend changes.
+
+Browser automation failed before navigation; visual/mobile and real-browser interaction QA remain unverified. See docs/TECHNICAL_TERMINAL.md. Latest verified prior checkpoint e20d85e; this milestone is checkpointed in the following Git commit. User next-env/TEST_RESULTS edits and repomix file preserved.
