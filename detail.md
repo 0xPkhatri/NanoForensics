@@ -2,7 +2,13 @@
 
 This document explains the project from the beginning. You do not need to know artificial intelligence, molecular dynamics, or the code before reading it.
 
-The description reflects the implemented project and its recorded results as of **4 November 2026**. Recorded test results and successful API calls describe what was verified at that time; they do not guarantee that an external service will always be available.
+The description reflects the implemented project and its recorded results as of **5 November 2026**. Recorded test results and successful API calls describe what was verified at that time; they do not guarantee that an external service will always be available.
+
+For a shorter introduction and quick setup, start with [README.md](README.md). This guide goes further into the current interface, scientific methods, code, storage, and limitations.
+
+Recent changes covered here include the simpler three-view dashboard, investigation controls near sample selection, a single live terminal with word-by-word output and a stage sidebar, architecture diagrams, and the presentation-first README. These changes do not alter the registered physics or evidence rules.
+
+Quick navigation: [Dashboard and controls](#18-what-you-see-in-the-dashboard) · [Architecture](#19-how-the-application-is-connected) · [File map](#21-where-the-files-are-and-what-each-important-file-does) · [Run locally](#25-how-to-run-the-project) · [DEMO_501 walkthrough](#27-how-to-understand-or-present-demo_501-yourself) · [Testing](#28-how-testing-and-reproducibility-work) · [Troubleshooting](#30-common-questions-and-problems)
 
 ## 1. What is NanoForensics?
 
@@ -60,9 +66,9 @@ The project uses a small, two-dimensional model material. It is a scientific com
 
 ## 4. The three workspaces in the dashboard
 
-The dataset menu contains three choices. Understanding this menu prevents most confusion about the project.
+The **Workspace** selector contains three choices. Current display names are **Original samples**, **Published study**, and **AI investigation**. Older reports may call them the original benchmark, preregistered demonstration, and Live Muse Spark rehearsal respectively. These refer to the same three isolated workspaces.
 
-### 4.1 Original frozen benchmark
+### 4.1 Original samples — the frozen benchmark
 
 This contains four original specimens:
 
@@ -77,7 +83,7 @@ All four original investigations remain inconclusive. This is part of the actual
 
 These specimens test whether an investigator can reach a diagnosis without being given the answer in the specimen's name or hidden preparation information.
 
-### 4.2 Separate preregistered demonstration
+### 4.2 Published study — the preregistered demonstration
 
 This is a separate study designed after the original scientific audit.
 
@@ -102,7 +108,7 @@ V3 has six public specimens:
 
 The frozen study uses registered deterministic tools. Its original investigation is not presented as a live AI investigation.
 
-### 4.3 Live Muse Spark rehearsal
+### 4.3 AI investigation — the live/fallback rehearsal
 
 This is a third, separate workspace.
 
@@ -511,36 +517,144 @@ This history shows why a live model response is not automatically a correct scie
 
 ## 18. What you see in the dashboard
 
+The page uses plain-language labels and three main views: **Investigate**, **Results**, and **Evidence**. You select a workspace and sample near the top, then choose how to investigate.
+
+### 18.1 Page order and navigation
+
+The main order is:
+
+```text
+Workspace → Sample → Investigation controls
+                         ↓
+Current operation / cancellation
+                         ↓
+The scientific loop · tests may repeat
+                         ↓
+Investigation console
+                         ↓
+Investigate / Results / Evidence content
+                         ↓
+Study scope and this sample
+```
+
+The console appears when a request starts or confirmed event history is available. It sits below the scientific loop rather than above it. The Evidence view retains the console for later inspection.
+
 | Part of the page | What it helps you understand |
 |---|---|
-| Header | Actual physics engine, last AI action mode, and used investigation budget. |
-| Dataset selector | Whether you are viewing original benchmarks, the frozen study, or the live AI workspace. |
-| Study notice | Registration fingerprint, physical settings, full-study status, and frozen case-level evaluation. |
-| Specimen selector | Which specimen you are investigating. |
-| Atomic viewer | Actual atom coordinates, coordination, bond loss, and per-atom stress coloring. |
-| Trajectory slider | Initial, peak, and fracture/last snapshots from the recorded trajectory. |
-| Stress–strain plot | Baseline and selected counterfactual curves from MD. |
-| Hypothesis cards | Competing explanations, predictions, missing evidence, scores, and statuses. |
-| Planner | Allowed interventions, information gain, cost, risk, utility, and execution buttons. |
-| Verification cards | Numerical/execution status, recovery, SNR, and scientific explanations. |
-| Live action receipts | Per-operation provider identity, usage, latency, hashes, and score changes. |
-| Decision trace | Timestamped actions from observation through conclusion. |
-| Audit modal/export | The complete saved investigation in an inspectable JSON record. |
-| DEMO_501 guide | Six presentation steps for the hackathon rehearsal. |
+| Header and main navigation | Actual engine/AI telemetry and the Investigate, Results, Evidence views. |
+| Workspace and sample selectors | Which isolated dataset and sample you are viewing. |
+| Investigation controls | Full automatic investigation or step-by-step exploration. |
+| Current operation banner | Confirmed operation message, elapsed job time, and cancellation while running. |
+| Scientific loop | The high-level investigation stages; experiments and verification may repeat. |
+| Investigation console | Confirmed operation history, technical details, and execution sources. |
+| Atomic viewer and trajectory controls | Recorded coordinates, coordination, bond loss, per-atom stress, and saved frames. |
+| Stress–strain plot | Original and selected changed-sample curves from genuine MD. |
+| Explanation cards | Possible causes, subjective scores, predictions, and evidence statuses. |
+| Test planner | Registered interventions, priority/rationale, cost/risk, and Run this test controls. |
+| Results | Measured comparisons and independent verdicts, including insufficient evidence. |
+| Evidence | AI action receipts, event history, simulation records, and full-report inspection/export. |
+| Follow an investigation guide | Six shortcuts to relevant sections; these navigate and do not run experiments. |
+| Study scope and this sample | Full-study NOT_VALIDATED status, case scope, registration, and Read the study link near the bottom. |
 
-The plot's replay envelope in V3 is not a population uncertainty band. The page explains that distinction.
+The V3 replay envelope is not a population uncertainty band. Stored evidence is identified as stored rather than portrayed as current computation.
 
-The main controls are:
+### 18.2 What the investigation controls do
 
-- **Generate hypotheses:** starts a new hypothesis/plan cycle.
-- **Run paired test:** executes a registered individual proposal.
-- **Start autonomous investigation:** starts a new cycle and runs the allowed investigation loop.
-- **Cancel worker:** requests actual termination of running work.
-- **Reset:** clears mutable investigation state for that workspace; it does not make a failed scientific result disappear from the published evidence files.
+| Control | What happens |
+|---|---|
+| **Run full investigation** | Begins a new cycle: explanations, ranked tests, physical comparisons, independent checks, revisions, and conclusion. |
+| **View results** | Replaces the primary action when the investigation has concluded or is inconclusive; opens existing results. |
+| **Investigate again** | Available beside View results; requests a new cycle. Valid saved physical records may still be reused according to execution policy. |
+| **Explore step by step** | Expands the manual workflow controls. |
+| **Suggest possible causes** | Generates explanations/plans using recorded baseline observations; it does not itself request a new repair trajectory. It replaces mutable explanation/progress state for that cycle. |
+| **Run this test** | Executes a registered individual experiment and checks its evidence. |
+| **Cancel current job** | Requests actual termination of the current worker and its descendants. |
+| **Reset investigation** | After confirmation, clears mutable investigation progress in this workspace. It retains immutable simulation results and published scientific evidence. |
 
-To inspect prepared evidence without changing anything, read the stored receipts, plots, and report without pressing investigation/reset buttons.
+Reset does not force LAMMPS to recompute a cached simulation. A new investigation cycle and new physical computation are different actions. Whether fresh or cached physics actually supplied a result is recorded explicitly.
+
+### 18.3 Overview and Technical log
+
+**Technical log opens by default**, including when you start a new investigation. **Overview** remains available for readable event cards and explanatory summaries.
+
+Both show the same backend-confirmed nine-stage sidebar:
+
+1. Initialize.
+2. Inspect the sample.
+3. Suggest explanations.
+4. Plan tests.
+5. Run simulations.
+6. Check evidence.
+7. Update explanations.
+8. Conclude.
+9. Finish job.
+
+On desktop, stages sit on the left and output on the right. Smaller screens place a compact stage grid above the output. An active stage has a loading indicator, completed stages have checkmarks, and waiting/failed/stopped states have text as well as symbols. Reduced-motion preferences are respected.
+
+Simulation, verification, and revision status refer to the current comparison. A completed first repair does not mark a later repair's checks complete. Likewise, finishing one replicate does not finish the entire comparison. Earlier results stay in the chronological log.
+
+### 18.4 The single execution terminal
+
+Technical log uses one dark, internally scrolling console, titled **NanoForensics / Execution Console**. Its header uses actual sample, engine, job status, and elapsed-time records. A selected engine is qualified until returned results confirm the executed engine.
+
+Events appear as continuous lines with elapsed time, a short tag, a message, and relevant scientific details. Events retain their original sequence, timestamps, and payloads. Adjacent events may receive an experiment heading/indentation; this changes presentation only and does not merge or reorder records.
+
+| Example tag | Meaning |
+|---|---|
+| `AI` | AI-related event; live versus fallback is stated explicitly. |
+| `PLAN` | Registered test planning information. |
+| `RUN` | Execution has started or is in progress. |
+| `CACHE` | A saved immutable simulation was loaded. |
+| `OK` | Successful execution; not proof of a causal explanation. |
+| `CHECK` | Numerical-check information. |
+| `RESULT` | Measured comparison and independent evidence verdict. |
+| `ERR` / `STOP` | Failed or stopped work. |
+
+These are semantic examples, not a fabricated transcript. Color supplements the label: green for execution success/checks, blue for running/information, amber for fallback/warnings, red for failure, and gray for ordinary information. Execution success, numerical validity, evidence support, and full-study validation remain separate.
+
+An active simulation panel can show the selected engine, baseline/test role, replicate label, and real elapsed time. If per-timestep progress is unavailable, it says it is waiting for the simulation result. It does not invent completion percentages, ETAs, or trajectory events.
+
+### 18.5 Word-by-word output and automatic following
+
+Newly confirmed messages and their metrics reveal word by word, in event order. A single display queue handles a batch of events; a large backlog catches up in bounded word batches. The backend may have already confirmed an event before all its text appears.
+
+This is **a display effect over completed event payloads**, not live provider token streaming or streamed LAMMPS stdout. The terminal states this distinction. Existing completed history appears immediately. Reduced-motion mode, searching, opening details, or leaving the terminal view make the relevant confirmed text available immediately rather than waiting through animation.
+
+**Auto-follow** scrolls the internal terminal as revealed text grows and new events arrive. Manual upward scrolling pauses following so you can read. **Jump to latest** clears the matches-only filter and resumes following the output. Intentional return to the bottom may also resume following. Expansion and search state persist across polling and view switches for the same job.
+
+### 18.6 Search, JSON details, copying, and downloads
+
+- **Search logs:** searches both readable messages and full structured event data. Matching text is highlighted. Use the arrow buttons, Enter, or Shift+Enter to navigate. A match found only in a payload can open that event's details.
+- **Matches only:** filters the displayed rows; it never deletes history.
+- **Expand an event:** reveals syntax-highlighted original event JSON, collapsed by default. Long payloads remain accessible without truncation. JSON is complete relative to the API payload already parsed by JavaScript; it cannot restore numerical precision lost before that point.
+- **Copy event JSON:** copies one complete original payload.
+- **Copy logs / Copy visible logs:** copies readable timestamps, sequence numbers, status labels, messages, and metrics for the relevant rows. Feedback waits for the clipboard operation to succeed or fail.
+- **Download JSON:** exports the complete original job/activity event history, including events hidden by filtering.
+- **Download .log:** exports the complete readable transcript.
+- **Expand console:** opens an in-page expanded view, with Escape/focus handling. This is not a real command terminal or operating-system fullscreen session.
+
+The Evidence view also offers the complete investigation report and simulation metadata. Job events and report/state exports are related but separate records.
+
+### 18.7 The guide and study scope
+
+The six **Follow an investigation** shortcuts take you to material, explanations, tests, results, evidence, and conclusion. They navigate; they do not start jobs. Use the top controls to request work.
+
+The **Study scope and this sample** disclosure is near the end of the page in the study/AI workspaces. It contains **Full published study: NOT_VALIDATED**, the explanation that not all preset criteria passed, case-level checks, and **Read the study**. The AI workspace additionally explains that this is a post-study rehearsal, not new blinded validation.
+
+For visual and control implementation details, see the [technical terminal report](docs/TECHNICAL_TERMINAL.md). Its latest browser/mobile and real-browser interaction checks remain unverified because the browser automation adapter failed before navigation; passing logic/rendering tests do not replace those checks.
 
 ## 19. How the application is connected
+
+### Scientific workflow image
+
+![NanoForensics scientific workflow](docs/architecture/nanoforensics-scientific-workflow.png)
+
+### Implemented technical architecture
+
+![NanoForensics technical architecture](docs/architecture/nanoforensics-technical-architecture.png)
+
+These are explanatory diagrams of the implemented local system. The lattice is schematic and the drawn stress plot is explicitly not measured data. The architecture does not assume Google Cloud, Firestore, Pub/Sub, SSE, or WebSockets. Diagram prompts and notes are saved in [docs/architecture](docs/architecture/README.md).
+
 
 ```text
 Browser dashboard
@@ -565,7 +679,7 @@ Dashboard receives progress, measurements, receipts, and conclusions
 
 The browser does not run the MD solver. It asks the backend to create a job.
 
-The API responds quickly with a job ID. The browser checks that job periodically while a separate worker performs the expensive calculation.
+The API responds quickly with a job ID. The browser polls job/state/activity data approximately every 1.2 seconds while a separate worker performs the expensive calculation. After a terminal job status is confirmed, the client refreshes the final event snapshot. Requests belonging to an earlier sample/job are guarded so they do not replace the current view.
 
 This keeps the server responsive while atoms are being simulated.
 
@@ -600,7 +714,7 @@ Paths below are relative to the repository root. Small `__init__.py` files make 
 |---|---|
 | `detail.md` | This beginner-friendly explanation. |
 | `AGENTS.md` | Build specification, scientific integrity rules, and continuity instructions. |
-| `README.md` | Shorter setup and project overview, including historical and newer sections. |
+| `README.md` | Presentation-first overview with badges, diagrams, current demo walkthrough, setup, configuration, evidence scope, and testing. |
 | `Makefile` | Short commands for setup, simulation data, tests, build, servers, and live verification. |
 | `requirements.txt` | Python dependency list. |
 | `.env.example` | Example nonsecret configuration names and documented provider settings. |
@@ -719,7 +833,26 @@ These are research/generation tools, not tools that the live model can freely in
 
 | File | Purpose |
 |---|---|
-| `frontend/src/app/page.tsx` | Main workbench page: workspace selection, data loading, polling, controls, and investigation panels. |
+| `frontend/src/app/page.tsx` | Main page composition, Investigate/Results/Evidence navigation, guide targets, and study scope. |
+| `frontend/src/hooks/useInvestigation.ts` | Sample/workspace loading, actions, durable-job restoration, guarded polling, cancellation, and current event history. |
+| `frontend/src/components/WorkspaceSelector.tsx` | Current workspace and sample controls. |
+| `frontend/src/components/InvestigationControls.tsx` | Run full investigation, completed-state actions, manual exploration, and reset. |
+| `frontend/src/components/CurrentStepBanner.tsx` | Current operation message, elapsed time, and job cancellation. |
+| `frontend/src/components/InvestigationSteps.tsx` | High-level scientific loop. |
+| `frontend/src/components/InvestigationConsole.tsx` | Default Technical log / Overview tabs, shared nine-stage sidebar and results/evidence actions. |
+| `frontend/src/components/ExecutionTerminal.tsx` | Single terminal, search/filter/navigation, copying, full exports and expanded view. |
+| `frontend/src/components/TerminalEventRow.tsx` | Continuous event lines and deliberately expanded highlighted original JSON. |
+| `frontend/src/hooks/useLogFollow.ts` | Internal auto-follow, resize handling and manual-scroll pause/resume. |
+| `frontend/src/hooks/useTerminalReveal.ts` | Ordered word-by-word display queue with immediate/reduced-motion modes. |
+| `frontend/src/lib/console-view.ts` | Confirmed events, stage labels, elapsed formatting and current-comparison progress. |
+| `frontend/src/lib/console-reveal.ts` | Overview text-reveal session state. |
+| `frontend/src/lib/terminal-format.ts` | Safe event formatting/grouping, search highlights, source semantics and exports. |
+| `frontend/src/lib/terminal-reveal.ts` | Pure word-boundary and timeline reveal helpers; raw events remain untouched. |
+| `frontend/src/lib/log-follow.ts`, `clipboard.ts` | Follow decisions and real clipboard success/failure handling. |
+| `frontend/src/lib/presentation.ts`, `investigation-view.ts` | Plain-language labels, workspace definitions and view/result helpers. |
+| `frontend/src/components/ResultSummary.tsx` | Plain-language conclusion and measured-result summary. |
+| `frontend/src/components/EvidenceTimeline.tsx`, `EvidenceUpdateCard.tsx` | Evidence chronology and experiment updates. |
+| `frontend/src/components/HelpPanel.tsx` | Plain-language workflow help. |
 | `frontend/src/app/layout.tsx` | Shared application layout. |
 | `frontend/src/app/globals.css` | Workbench styling. |
 | `frontend/src/components/HeaderBar.tsx` | Engine, AI mode, and budget display. |
@@ -728,11 +861,11 @@ These are research/generation tools, not tools that the live model can freely in
 | `frontend/src/components/HypothesisPanel.tsx` | Hypothesis cards and subjective scores. |
 | `frontend/src/components/PlannerPanel.tsx` | Ranked intervention table and execution controls. |
 | `frontend/src/components/AIActionPanel.tsx` | Per-operation live/fallback receipts and belief changes. |
-| `frontend/src/components/DemoWalkthrough.tsx` | Six-step DEMO_501 presentation guide. |
+| `frontend/src/components/DemoWalkthrough.tsx` | Six working navigation shortcuts under Follow an investigation; no experiment is run by a shortcut. |
 | `frontend/src/components/AuditReportModal.tsx` | Detailed audit modal and JSON export. |
 | `frontend/src/lib/api.ts` | Typed frontend data structures and HTTP helper with a request timeout. |
 | `frontend/src/lib/plotly.d.ts` | TypeScript declaration support for Plotly. |
-| `frontend/package.json` | Frontend dependencies and development/build/start/typecheck commands. |
+| `frontend/package.json` | Frontend dependencies and development/build/start/typecheck/UI-test commands. |
 | `frontend/package-lock.json` | npm's resolved dependency versions. |
 | `frontend/next.config.mjs` | Proxies API and public study-evidence requests to the backend. |
 | `frontend/tsconfig.json` | TypeScript compiler settings. |
@@ -754,6 +887,13 @@ These are research/generation tools, not tools that the live model can freely in
 | `tests/test_demonstration.py` | Study geometry, registrations, physical checks, contrast, source lock, and isolation. |
 | `tests/test_demonstration_public.py` | Public archive restoration and corruption rejection. |
 | `tests/test_live_muse.py` | Bounded model outputs, failures, real-MD cache use, citation restrictions, and verifier authority. Provider fixtures here are not proof of live service use. |
+| `backend/api/progress.py` | Durable public event schema, allowlisted event emission and consistent job/activity snapshots. |
+| `tests/test_console_progress.py` | Real operation event order, provenance and workspace-preserving progress checks. |
+| `frontend/tests/console.test.mjs`, `console-reveal.test.mjs` | Stage/current-comparison and Overview reveal logic. |
+| `frontend/tests/terminal.test.mjs`, `terminal-render.test.mjs` | Terminal formatting, event order/grouping, search, raw payload/export preservation and rendered states/sidebar. |
+| `frontend/tests/terminal-reveal.test.mjs`, `log-follow.test.mjs` | Sequential word reveal, unchanged underlying data and scrolling decisions. |
+| `frontend/tests/clipboard.test.mjs`, `presentation.test.mjs` | Clipboard acknowledgment/failure and plain-language presentation logic. |
+| `frontend/tests/tsx-loader.mjs` | Test-only TSX loader using the installed TypeScript compiler; no new runtime dependency. |
 | `tests/test_e2e_fullstack.py` | Real HTTP jobs, persistence, cancellation, timeouts, crash recovery, dashboard, and workspace isolation. |
 
 ### Documentation and evidence folders
@@ -777,11 +917,14 @@ These are research/generation tools, not tools that the live model can freely in
 | `docs/live-muse/INTEGRATION_REPORT.md` | Current live-model implementation, actual calls, errors, failures, and limitations. |
 | `docs/live-muse/DEMO_501_WALKTHROUGH.md` | Four-minute presenter script and prepared/fresh-run instructions. |
 | `docs/live-muse/` | First successful, mixed-failure, final grounded, and HTTP-worker integration records. |
+| `docs/TECHNICAL_TERMINAL.md` | Current terminal/sidebar/reveal behavior, tests and browser-verification limitation. |
+| `docs/INVESTIGATION_CONSOLE.md` | Earlier backend console/event implementation and regression record; newer layout is in TECHNICAL_TERMINAL.md. |
+| `docs/architecture/` | Scientific workflow and technical architecture PNGs, notes, and image-generation prompts. |
 | `docs/archive/` | Earlier retained reports for historical comparison. |
 
 Files ending in `.json` contain structured records. Files ending in `.json.gz` contain compressed structured records. A `.sha256` file contains a fingerprint used to check file integrity.
 
-Some older README/project notes say live usage was not yet verified. They describe an earlier stage. The later live integration report and its receipts record the subsequent verified calls. The frozen scientific study itself still uses its original deterministic procedure.
+The current README reflects verified historical live integration. Earlier retained project notes may predate it; consult the dated integration receipts rather than interpreting old prose as current connection status. The frozen scientific study itself still uses its original deterministic procedure.
 
 ## 22. What is stored in the databases?
 
@@ -795,7 +938,7 @@ The normal local paths are:
 
 Environment settings can point to different database paths.
 
-Each store uses four main tables:
+Each store uses four principal scientific/job tables plus a durable public event table:
 
 | Table | Contents |
 |---|---|
@@ -803,6 +946,11 @@ Each store uses four main tables:
 | `results` | Immutable simulation records and their IDs/cache keys. |
 | `states` | Current mutable investigation state: hypotheses, proposals, evidence, audit, conclusion. |
 | `jobs` | Durable queued/running/completed work records, payloads, process identity, and errors. |
+| `job_events` | Ordered, timestamped public console events linked to a job; separate from mutable investigation state. |
+
+An event has `seq`, `job_id`, `timestamp`, `phase`, `status`, `message`, and structured `data`. Event statuses are `started`, `completed`, `failed`, or `skipped`; job statuses are separate. The terminal shows RUNNING/COMPLETED/FAILED/CANCELLED and other recorded stop states without assuming that finishing execution validates a scientific claim. Public event emission excludes credentials, hidden preparation/scoring data and arbitrary raw worker stderr. It is not an unrestricted dump of backend internals.
+
+The main UI restores the latest applicable job for the selected sample. Earlier jobs/events remain stored and can be requested by their job ID; the terminal export covers the selected job's full history, not every job in the database.
 
 Private demonstration preparation maps live under the generator/scorer-owned runtime study directories. They are not needed by the live repair tools.
 
@@ -824,6 +972,7 @@ The frontend normally reaches these through its own `/api` proxy.
 | `POST /api/cases/{case_id}/auto-investigate` | Queue the autonomous loop. |
 | `POST /api/cases/{case_id}/reset` | Clear that workspace's mutable investigation state when no job owns it. |
 | `GET /api/jobs/{job_id}` | Read progress and terminal job status. |
+| `GET /api/cases/{case_id}/activity` | Read a consistent job-plus-events snapshot; optional `job_id` selects a retained job. |
 | `POST /api/jobs/{job_id}/cancel` | Request worker termination. |
 | `GET /api/results/{sim_id}` | Retrieve a saved immutable result. |
 | `POST /api/benchmarks/evaluate` | Administrative original evaluation, protected by an admin token. |
@@ -877,21 +1026,49 @@ Open:
 
 If the managed local preview is already running on those ports, use that preview or stop its owned processes before starting duplicates.
 
-The existing managed preview can be stopped with:
+The latest managed preview is owned by `runtime/investigation-console/preview`. It uses separate preview copies of the original, study, and rehearsal databases, preserving the source databases. Its provider key is disabled for UI review, so new actions there use visible fallback unless the server is deliberately reconfigured.
+
+Stop only those owned processes with:
 
 ```sh
-.venv/bin/python scripts/e2e_servers.py stop runtime/demo
+.venv/bin/python scripts/e2e_servers.py stop runtime/investigation-console/preview
 ```
+
+To restore the same isolated preview after an E2E run, from the repository root:
+
+```sh
+NANO_DB="$PWD/runtime/investigation-console/preview-original.db" \
+NANO_DEMONSTRATION_DB="$PWD/runtime/investigation-console/preview-study.db" \
+NANO_LIVE_MUSE_DB="$PWD/runtime/investigation-console/preview-rehearsal.db" \
+META_MUSE_API_KEY='' \
+.venv/bin/python scripts/e2e_servers.py start runtime/investigation-console/preview
+```
+
+These preview database paths are local development artifacts, not prerequisites for a fresh checkout. Older handoff notes may refer to a different owner such as `runtime/demo`; use the owner of the processes actually running.
 
 ### For a fresh installation
 
-The project expects compatible Python, Node.js, and npm. Its setup command uses Python 3.13, and the documented frontend requirement is Node 20.9 or newer.
+Use Python 3.11+ and npm. Node.js 22.18+ is recommended for both the current app and native TypeScript UI tests; Next.js itself requires Node 20.9+. LAMMPS is optional: a verified installed binary is used when supported, with visible NumPy fallback otherwise.
+
+A portable installation is:
 
 ```sh
-make setup
+git clone https://github.com/0xPkhatri/NanoForensics.git
+cd NanoForensics
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+npm --prefix frontend ci
 ```
 
-Create `.env` from `.env.example` only if `.env` does not already exist. Do not overwrite an existing secret configuration.
+Alternatively, `make setup` creates the environment and installs dependencies using the Makefile's `python3.13` executable.
+
+Create `.env` from `.env.example` only if `.env` does not already exist:
+
+```sh
+cp .env.example .env
+```
+
+Retain any existing secret configuration instead of overwriting it.
 
 Add your own key locally if you want live AI. Do not paste it into source code or commit it.
 
@@ -905,7 +1082,7 @@ make build
 
 `make data` runs genuine MD to create original inputs when needed. It is not a command for replacing unfavorable frozen results.
 
-The public study/rehearsal bundles are automatically restored into empty databases during startup. Existing data are preserved.
+The public study/rehearsal bundles are automatically restored into empty databases during backend startup. Existing data are preserved. To explore those two workspaces, you can start the backend/frontend without running `make data`; that command is specifically for the original benchmark.
 
 For a production-mode frontend, after building:
 
@@ -923,32 +1100,34 @@ The backend must also be running. A frontend build by itself does not start the 
 | `META_MUSE_BASE_URL` | Configured provider base URL; this project's verified setup used `https://api.meta.ai/v1`. |
 | `META_MUSE_MODEL` | Configured model ID; verified integration used `muse-spark-1.3`. |
 | `META_MUSE_API_KEY` | Secret credential used for actual provider calls. Never publish its value. |
-| `META_MUSE_TIMEOUT_SEC` | Provider request deadline; defaults to 30 seconds and is bounded by the implementation. |
-| `NANO_DB` | Original database path. |
-| `NANO_DEMONSTRATION_DB` | Optional separate active-study database path. |
-| `NANO_LIVE_MUSE_DB` | Separate AI rehearsal database path. |
+| `META_MUSE_TIMEOUT_SEC` | Provider request deadline; defaults to 30 seconds and is capped at 60 seconds. |
+| `NANO_DB` | Original database path; default `runtime/nanoforensics.db`. |
+| `NANO_DEMONSTRATION_DB` | Active-study database; default V3 path `runtime/demonstration/v3/study.db`. |
+| `NANO_LIVE_MUSE_DB` | Separate AI rehearsal database; default `runtime/live-muse/rehearsal.db`. |
 | `NANO_DEMONSTRATION_VERSION` | Optional registered study version selection for research tools. |
-| `NANO_RUN_TIMEOUT` | Original per-simulation time limit. |
-| `NANO_JOB_TIMEOUT` | Original job time limit. |
-| `NANO_BUDGET` | Original investigation budget setting. |
+| `NANO_RUN_TIMEOUT` | Original per-simulation time limit; default 30 seconds. |
+| `NANO_JOB_TIMEOUT` | Original job time limit; default 120 seconds. |
+| `NANO_BUDGET` | Investigation budget setting; default 1,800 seconds. |
 | `NANO_ADMIN_TOKEN` | Administrative token for protected evaluation requests. |
 
 The live model requires an internet connection, valid credentials, provider access, and a successful valid response for each operation. Merely having a key in `.env` does not establish live execution.
 
 ## 27. How to understand or present DEMO_501 yourself
 
-1. Open the dashboard.
-2. Select **Live Muse Spark rehearsal**.
-3. Select **DEMO_501**.
-4. Read the full-study `NOT_VALIDATED` notice and the separate frozen case-level result.
-5. Inspect the prepared baseline and comparison curves.
-6. Open the live action receipts. Check the model, host, timestamp, usage, and hashes.
-7. Read the before/after subjective scores and the independent verification cards.
-8. Inspect the timestamped trace or export its JSON.
+1. Open the dashboard and choose **AI investigation** under Workspace.
+2. Select **DEMO_501** under Sample.
+3. Inspect the recorded atomic structure and original stretching curve in **Investigate**.
+4. For saved work, use **View results** and inspect **Evidence**. Stored timestamps describe past execution, not a new live request.
+5. To request new work, click **Run full investigation**, or **Investigate again** if it already has a conclusion.
+6. Under the scientific loop, follow **Technical log**, which opens by default. The left sidebar follows the current test. Confirm live/fallback and fresh/cached labels rather than relying on the terminal's typing animation.
+7. Keep Auto-follow enabled to follow word-by-word text. If you scroll up, use Jump to latest to follow again.
+8. In **Results**, compare the original and changed simulations and read each independent verdict. The published interior-repair example is +47.85% versus −0.61% for the competing repair; these are recorded case-level observations.
+9. In **Evidence**, inspect actual action receipts, subjective score updates, numerical checks, seed/replay records and protocol hashes. Expand a terminal event's original JSON or export the complete selected-job log.
+10. Open **Study scope and this sample** near the bottom. State that the full study remains NOT_VALIDATED and that the AI workspace is a post-study rehearsal.
 
-To run new work, choose **Generate hypotheses**, individual **Run paired test** controls, or **Start autonomous investigation**.
+For a manual explanation, open **Explore step by step → Suggest possible causes**, inspect the possible explanations and planned tests, then choose **Run this test** for an individual registered comparison. This separates generation/planning from physical execution.
 
-Starting autonomous investigation begins a new cycle, so its model wording/order can differ from an earlier manual hypothesis call.
+Starting a full investigation begins a new cycle, so model wording, experiment order and subjective scores can differ from previous calls. Never present the animated text as provider token streaming or a stored simulation as newly computed physics. If editing a long wait out of a video, label the cut as later in the same investigation rather than implying instantaneous simulation.
 
 The command-line live check is:
 
@@ -972,26 +1151,33 @@ The full presenter script is [the DEMO_501 walkthrough](docs/live-muse/DEMO_501_
 
 ## 28. How testing and reproducibility work
 
-The latest completed code acceptance recorded:
+The latest recorded checks are from different, explicitly dated milestones. They are historical executed results, not fresh test claims for this documentation update:
 
 | Check | Recorded outcome |
 |---|---|
-| Backend/physics/study/live-contract regression | 56 tests passed, with one dependency deprecation warning. |
-| Actual full-stack HTTP integration | 11 tests passed. |
+| Backend/physics/study/live-contract and operation-event regression | 60 tests passed in 21.22 seconds at the console milestone, with one existing dependency deprecation warning. |
+| Frontend UI logic/rendering/sidebar regression | 36 tests passed at the latest stage-sidebar milestone. |
+| Actual full-stack HTTP integration | 11 tests passed in 84.68 seconds at the terminal redesign milestone. |
 | Production frontend build | Passed. |
 | TypeScript check | Passed. |
 | Original comparator evaluation | Each method retained four `NO_DECISION` results. |
 | Actual-provider hypothesis/plan/revision acceptance | Verified, with both successful and failed rehearsals retained. |
-| Frozen file/source/database preservation | Passed. |
+| Frozen file/source/database preservation | Passed; the terminal milestone also checked all 12 principal source-table fingerprints across the three workspaces. |
+| Latest terminal visual/mobile/real-browser interactions | Not verified: the browser adapter failed before navigation. SSR and logic tests passed but do not prove browser behavior. |
+| Architecture images and README | Both PNGs checked for valid chunk CRCs/compressed image payloads; prompts parse; README's 36 local links/anchors resolved. |
 
 The usual test/build commands are:
 
 ```sh
 make test
+npm --prefix frontend run test:ui
+npm --prefix frontend run typecheck
 make build
-cd frontend
-npm run typecheck
 ```
+
+There is no configured standalone frontend lint script. The UI suite covers event formatting/order/grouping, search, payload/export preservation, expansion, follow decisions, word-reveal ordering, clipboard API success/failure, rendered job states and stage-sidebar placement. It uses the existing TypeScript compiler for test TSX loading; no terminal library or command runner was added.
+
+The terminal report records what was actually tested and what was not. Browser automation failed before navigation with a `timeoutMs` adapter error. Visual layout, small-screen behavior, actual browser clipboard/download actions and expanded-view keyboard interactions remain unverified. Earlier successful browser inspections do not automatically verify the later redesign.
 
 Tests that create mutable state should use copied/isolated databases when preservation of the existing application databases matters. The recorded full-stack gate isolates all three workspaces.
 
@@ -1001,7 +1187,9 @@ Run the managed full-stack gate from the repository root with the ordinary previ
 bash scripts/verify_e2e.sh
 ```
 
-It runs the real backend and frontend while exercising HTTP requests, workers, cancellations, restarts, and namespace isolation. It disables provider credentials for predictable fallback testing. Separate actual-provider acceptance establishes live AI use.
+It runs the real backend and frontend while exercising HTTP requests, workers, cancellations, restarts, and namespace isolation. It disables provider credentials for predictable fallback testing. Separate actual-provider acceptance establishes live AI use. E2E owns ports 3000/8000 and cleans up its processes; restore your owned preview afterward. A UI-only preview rebuild can stop/start just the `ui` process with the owner script, leaving API investigations running.
+
+In this shared workspace, Next.js can regenerate `frontend/next-env.d.ts` during builds. Preserve any existing user edits; the terminal milestone saved their original bytes at `runtime/terminal-redesign/next-env.original`. That backup is local and is not assumed to exist in a new checkout.
 
 `make evaluate` runs the original comparator evaluator, but its default output path writes the benchmark report. When preserving the frozen reports, use the evaluator's explicit separate output argument instead. For example:
 
@@ -1052,6 +1240,30 @@ The main scientific lock belongs to the registered study. The later live AI work
 ### The page loads but no cases appear
 
 Check that the backend is running. An original benchmark on a new machine needs explicit generation. Study/rehearsal data require a valid matching public bundle and an empty destination database for automatic restoration.
+
+### I still see the old event cards
+
+Choose **Technical log** rather than Overview. Technical log is now the default, but Overview intentionally keeps readable cards. Refresh the page if an older frontend bundle is loaded.
+
+### The text types out, so is the AI streaming?
+
+No. The backend records a complete event and the frontend reveals its message/metrics word by word. Saved history remains immediate. Inspect action receipts to distinguish live API calls from fallback and timestamps to distinguish historical from current work.
+
+### The console no longer scrolls to the bottom
+
+Manual upward scrolling, search, or opening event details pauses Auto-follow. Use **Jump to latest** or enable Auto-follow to resume. Search/expanded payloads always expose confirmed data without waiting for the reveal effect.
+
+### A simulation says completed but Run simulations is still active
+
+One replicate may have finished while the current multi-run comparison is still running. Only the explicit completed-comparison event finishes that stage. Verification and revision are scoped to the current test; previous-test results stay in the log.
+
+### Does Reset force a new LAMMPS simulation?
+
+No. Reset clears mutable explanations/progress, after confirmation. Immutable results remain. Fresh computation versus cache reuse is determined by the requested policy and confirmed by the returned event provenance.
+
+### Why are the guide buttons not running experiments?
+
+The **Follow an investigation** guide contains navigation shortcuts. They open or scroll to relevant sections. Use **Run full investigation**, **Suggest possible causes**, or **Run this test** to request work.
 
 ### The AI shows fallback even though a key exists
 
