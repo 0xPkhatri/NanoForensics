@@ -516,3 +516,12 @@ User requested the full published-study status, explanation and Read the study l
 - PreservationPASS: all12 source DB tables match task-start snapshots,4 original specimens/29 results unchanged; scientific lockf551d9dPASS. Original user next-env bytes restored and TEST_RESULTS formatting/repomix untouched.
 - Browser visual/click QA NOT_RUN: transport still errors before navigation/DOM/screenshot with timeoutMs issue. No rendered/visual pass claimed.
 - Isolated preview3000/8000 now owned by runtime/investigation-console/preview, provider calls disabled; old preview databases retained. Complete report:docs/INVESTIGATION_CONSOLE.md. Local logs/transcript/snapshots:runtime/investigation-console. No frozen report/protocol/verifier/source-lock changes.
+
+
+## Active-stage and received-text animation — 2026-11-04
+
+Added a spinner/blue highlight only for backend-confirmed active stages; completed, failed, stopped and waiting stages keep their actual states. New human-readable event text reveals progressively with a cursor and Show now control. Source badges, timestamps, raw technical JSON, result navigation and actual stage completion are never delayed by typing. The effect is presentation after receipt, not provider token streaming.
+
+Saved history is immediate; a shared page-local reveal session prevents replay across views. New receipts on a restored running job can animate. Reduced-motion preferences disable typing/motion; screen readers have the full received text. ResizeObserver follows growing text only when following is enabled. Switching to Technical log skips the active reveal.
+
+Validation:14 frontend testsPASS (including history/session/Unicode/markup reveal tests), production buildPASS, restored-next-env TypeScriptPASS, previewHTTP200. A React key warning found by static-render testing was fixed and the final tests have no key warnings. Existing Node module-type warning remains non-fatal. No backend/scientific change or new physics/provider call; backend/E2E gates not rerun for this display-only extension. Rendered animation/reduced-motion/browser interaction verification remains pending due the prior browser-tool failure. Logs:runtime/console-animation.

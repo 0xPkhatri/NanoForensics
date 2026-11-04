@@ -1,5 +1,14 @@
 # Project state — demonstration evaluation complete (2026-11-04)
 
+## Active-stage and received-text animation — 2026-11-04
+
+Added a spinner/blue highlight only for backend-confirmed active stages; completed, failed, stopped and waiting stages keep their actual states. New human-readable event text reveals progressively with a cursor and Show now control. Source badges, timestamps, raw technical JSON, result navigation and actual stage completion are never delayed by typing. The effect is presentation after receipt, not provider token streaming.
+
+Saved history is immediate; a shared page-local reveal session prevents replay across views. New receipts on a restored running job can animate. Reduced-motion preferences disable typing/motion; screen readers have the full received text. ResizeObserver follows growing text only when following is enabled. Switching to Technical log skips the active reveal.
+
+Validation:14 frontend testsPASS (including history/session/Unicode/markup reveal tests), production buildPASS, restored-next-env TypeScriptPASS, previewHTTP200. A React key warning found by static-render testing was fixed and the final tests have no key warnings. Existing Node module-type warning remains non-fatal. No backend/scientific change or new physics/provider call; backend/E2E gates not rerun for this display-only extension. Rendered animation/reduced-motion/browser interaction verification remains pending due the prior browser-tool failure. Logs:runtime/console-animation.
+
+
 Latest verified console source checkpoint: `f93a4f4` on `design/frontend-simplification`.60 backend/11 UI/11 live HTTP checks, build/typecheck and scientific/source-DB preservation pass. PreviewHTTP200 and46-event persisted console verified through the frontend proxy. Browser-rendered QA remains blocked. Following checkpoint is documentation only.
 
 ## Live investigation console — 2026-11-04
