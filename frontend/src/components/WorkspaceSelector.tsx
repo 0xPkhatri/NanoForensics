@@ -1,0 +1,6 @@
+import type {Case} from '@/lib/api';
+import {sampleName, workspaces} from '@/lib/presentation';
+import type {Workspace} from '@/lib/presentation';
+export default function WorkspaceSelector({workspace, onWorkspace, cases, selected, onSample, busy}: {workspace: Workspace; onWorkspace: (value: Workspace) => void; cases: Case[]; selected: string; onSample: (id: string) => void; busy: boolean}) {
+  return <section className="workspace-selector" aria-label="Select a workspace and sample"><div className="selector-fields"><label>Workspace<select value={workspace} onChange={e => onWorkspace(e.target.value as Workspace)} disabled={busy}>{Object.entries(workspaces).map(([id, item]) => <option key={id} value={id}>{item.label}</option>)}</select></label><label>Sample<select value={selected} onChange={e => onSample(e.target.value)} disabled={busy || !cases.length}><option value="" disabled>Choose a sample</option>{cases.map(sample => <option key={sample.case_id} value={sample.case_id}>{sampleName(sample.case_id)}{sample.case_id.startsWith('CASE_') ? ` · ${sample.case_id}` : ''}</option>)}</select></label></div><p>{busy ? 'Sample selection is locked while this investigation is running.' : workspaces[workspace].description}</p></section>;
+}

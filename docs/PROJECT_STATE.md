@@ -1,11 +1,20 @@
 # Project state — demonstration evaluation complete (2026-11-04)
 
+## Latest task: frontend redesign implemented on a separate branch
+
+[x] Branch design/frontend-simplification preserves the prior frontend on science/predeclared-demonstration.
+[x] Delivered cream/charcoal/blue/orange UI, Investigate/Results/Evidence, simpler copy, actual-state progress, next-test cards, stable atom scales, correct censoring/provenance and full evidence export.
+[x]6 UI logic tests,56 backend tests,11 live HTTP tests, build/typecheck and task-specific12-table preservation pass.
+[ ] Rendered browser QA blocked by browser-control timeoutMs error; human usability targets unmeasured. No visual pass claimed.
+
+Previewlocalhost:3000 uses isolated database copies with new provider calls disabled. No source scientific records or scientific code changed. See FRONTEND_REDESIGN_IMPLEMENTATION.md for logs and exact preview commands.
+
 ## Latest task: frontend redesign planning
 
 [x] Reviewed PlantDebugger source at d69507aa48aec773a5cf72761e5ff60c491eefc1 and sampled frames across the user's 239.708-second demo video; reviewed current frontend code at source checkpoint23f2525.
 [x] Added docs/FRONTEND_REDESIGN_PLAN.md: cream/charcoal/blue/orange design, plain-language dictionary, NOW banner, focused investigation/results/evidence views, component roadmap, phased estimates and scientific-display acceptance checks.
 [x] Planning-only change; no application/scientific code, simulations, provider calls or databases changed. Local preview port3000 was offline, so current UI findings are source-based; browser visual QA remains pending implementation.
-[ ] Redesign implementation remains pending; the user's current request was for the complete plan.
+[x] The subsequent user request authorized implementation; see the latest implementation checkpoint above.
 
 Latest tested integration and walkthrough checkpoint: d6015e3; earlier live-provider milestone b4d68ea on science/predeclared-demonstration. Scientific evidence checkpoint:872833f. Original audit source checkpoint:1dd84cf on science/root-cause-audit. Original working build remains available at 00c4375; initial build checkpoints and archived evidence are retained. A documentation-only acceptance checkpoint follows the source commit.
 

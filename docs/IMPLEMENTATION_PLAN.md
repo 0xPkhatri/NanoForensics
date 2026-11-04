@@ -1,10 +1,18 @@
 # NanoForensics implementation plan
 
+## Frontend redesign implementation (2026-11-04)
+
+[x] Implement phases1–5 on design/frontend-simplification; retain original branch and existing user edits.
+[x] Typecheck/build,6 UI logic tests,56 regression tests and11 live HTTP tests pass; scientific records preserved.
+[ ] Rendered browser visual acceptance and human comprehension targets remain unverified; browser control failed before navigation.
+
+Details: [implementation report](FRONTEND_REDESIGN_IMPLEMENTATION.md).
+
 ## Frontend redesign follow-up (2026-11-04)
 
 [x] Review PlantDebugger reference source, sampled uploaded demo frames, and current frontend source.
 [x] Produce [detailed frontend redesign plan](FRONTEND_REDESIGN_PLAN.md), including visual tokens, plain-language copy, workspace layout, data states, component changes and acceptance gates.
-[ ] Implement the six redesign phases when continuing frontend development. This planning task does not mark UI implementation complete.
+[x] Subsequent user-authorized implementation delivered phases1–5 and automated phase6 checks on design/frontend-simplification. Rendered visual review remains pending.
 
 Authoritative requirements: ../AGENTS.md. Repository root is the existing workspace `x` (no extra nested checkout).
 

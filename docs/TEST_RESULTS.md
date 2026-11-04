@@ -473,3 +473,18 @@ Created detail.md at the repository root. Verified its local Markdown links reso
 - Current preview inspection NOT_RUN: localhost3000 was offline (curl connection refused); browser attempt did not render current UI. Source-based findings are explicitly identified in the plan.
 - Documentation checkPASS:15 numbered plan sections, balanced code fences, Markdown links checked;5077 words. git diff --checkPASS.
 - Application/build/science tests not rerun: this is a documentation-only redesign plan. No scientific results or prior acceptance claims changed; frontend implementation and its browser/regression gates remain pending.
+
+
+## Frontend redesign implementation — 2026-11-04
+
+- Branch design/frontend-simplification created from adf1a2e; prior frontend retained on science/predeclared-demonstration. No merge/deployment.
+- Production build and restored-next-env TypeScript PASS;6 UI logic testsPASS. Node reports a non-fatal module-type detection warning for the direct TypeScript test imports.
+- Backend regression56 passed16.89s; existing Starlette dependency deprecation warning.
+- First live HTTP gate10PASS/1FAIL84.08s: stale workspace-copy assertion. Updated only the display assertion to actual AI investigation/Published study option labels. Final gate11PASS84.53s, real fresh MD/jobs/cancellation/deadlines/restarts/crash recovery/isolation. Final display-only refinements rebuilt/typechecked afterward; backend source unchanged.
+- EvaluatorPASS to runtime/frontend-redesign/BENCHMARK_REPORT.{md,json}; all3 methods0CORRECT/0INCORRECT/4NO_DECISION. Frozen reports untouched.
+- Original record verificationPASS:4 specimens/29 results unchanged. Source lockf551d9dPASS. Task-specific source DB comparisonPASS for all12 tables across original/study/rehearsal, including states/jobs.
+- Historical rehearsal-preservation check failed before testing because original states already differed from its older snapshot. User states preserved; no attempt to reset them to force that older comparison.
+- Eight semantic foreground/background combinations exceed4.5:1; this is a token check, not a full rendered accessibility audit.
+- Rendered browser/mobile QA NOT_RUN: browser transport failed before navigation/DOM/screenshot with internal timeoutMs error despite troubleshooting/reconnection. Human comprehension targets NOT_RUN. No screenshot or visual acceptance claim.
+- Final previewHTTP200 onlocalhost:3000/API:8000, owned by runtime/frontend-redesign/preview; isolated DB copies, new provider calls disabled. No .env change/provider calls. Next-env bytes and pre-existing TEST_RESULTS edits preserved exactly; repomix file untouched.
+- Details and remaining visual-review checklist: docs/FRONTEND_REDESIGN_IMPLEMENTATION.md. Local logs/snapshots:runtime/frontend-redesign.

@@ -1,5 +1,13 @@
 # Handoff — scientific root-cause audit complete
 
+## Latest task: redesign implementation on design/frontend-simplification
+
+Implemented the user-approved plan; prior frontend stays on science/predeclared-demonstration. Read docs/FRONTEND_REDESIGN_IMPLEMENTATION.md for delivered files, tests, preview ownership, limitations and rollback precautions. Automated gates:6 UI checks,56 regression tests,11 live HTTP tests, production build and typecheck pass. Original4 specimens/29 results preserved; all12 task source DB tables unchanged. Historical preservation script already failed before tests on original states; do not overwrite those user states to force agreement.
+
+Previewlocalhost:3000/API:8000 is owned by runtime/frontend-redesign/preview and uses preview-original/study/rehearsal.db copies, new provider calls disabled. Prior runtime/demo owned processes were stopped for isolated testing. No real provider invocation or scientific-code change. User TEST_RESULTS formatting, next-env bytes and repomix file remain uncommitted and preserved; snapshots in runtime/frontend-redesign.
+
+Remaining limitation: browser transport fails on navigation/DOM/screenshot with timeoutMs error, including after troubleshooting and fresh binding. Do not claim screenshot/mobile visual QA. Human comprehension targets not measured. Next action is rendered desktop/mobile review when browser works; do not redo MD or tune scientific outcomes.
+
 ## Latest task: frontend redesign plan complete (2026-11-04)
 
 User requested analysis of PlantDebugger GitHub/video and one detailed plan to simplify NanoForensics. Deliverable: docs/FRONTEND_REDESIGN_PLAN.md. Reference source inspected at d69507aa48aec773a5cf72761e5ff60c491eefc1 in /private/tmp/nanoforensics-plantdebugger-reference. Video inspected using 12-second sampled contact sheet plus full-resolution frames at24/72/108 seconds; no audio transcription claimed. Current frontend source reviewed; preview port3000 was offline, so no rendered current-dashboard QA was completed.

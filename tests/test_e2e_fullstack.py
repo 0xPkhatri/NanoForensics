@@ -293,5 +293,7 @@ def test_live_muse_workspace_fallback_provenance_and_frozen_study_isolation(clie
     assert httpx.get(BASE+'/demonstrations/cases/'+case_id,timeout=15).json()==frozen_before
     proxy=httpx.get('http://127.0.0.1:3000/api/live-muse/study',timeout=15)
     assert proxy.status_code==200 and proxy.json()['rehearsal']
-    assert 'Live Muse Spark rehearsal' in httpx.get('http://127.0.0.1:3000',timeout=15).text
+    dashboard = httpx.get('http://127.0.0.1:3000',timeout=15).text
+    assert '<option value="live">AI investigation</option>' in dashboard
+    assert '<option value="demonstration">Published study</option>' in dashboard
     print('Live workspace fallback receipts, cached genuine MD and frozen-study isolation verified')

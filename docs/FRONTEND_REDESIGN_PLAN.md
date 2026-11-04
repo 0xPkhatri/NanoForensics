@@ -1,6 +1,6 @@
 # NanoForensics frontend redesign plan
 
-Prepared 2026-11-04. Status: reference review and implementation specification complete; redesign implementation pending.
+Prepared 2026-11-04. Status: implemented on `design/frontend-simplification`; automated gates pass. Rendered browser and human usability review remain pending. See [implementation report](FRONTEND_REDESIGN_IMPLEMENTATION.md).
 
 ## 1. Recommended direction
 
@@ -393,4 +393,4 @@ This is a storyboard, not a promised run duration or prescribed outcome. If comp
 
 ## 15. Current deliverable boundary
 
-This task produced the reviewed redesign plan. It did not change application code, run new physics, call the model provider, or implement the redesigned UI. The next implementation unit is Phase 1 followed by the workspace shell; the full plan above is ready to execute.
+The initial planning task produced this specification. The subsequent user-authorized implementation is now on `design/frontend-simplification`: phases1–5 and automated phase6 checks are delivered. Browser rendering checks were blocked by the browser tool, and human comprehension targets remain unmeasured. See the implementation report for exact tests, preview ownership, preservation evidence and review limitations.
