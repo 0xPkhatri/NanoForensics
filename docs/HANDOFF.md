@@ -1,5 +1,7 @@
 # Handoff — scientific root-cause audit complete
 
+Latest verified console source checkpoint: `f93a4f4` on `design/frontend-simplification`.60 backend/11 UI/11 live HTTP checks, build/typecheck and scientific/source-DB preservation pass. PreviewHTTP200 and46-event persisted console verified through the frontend proxy. Browser-rendered QA remains blocked. Following checkpoint is documentation only.
+
 ## Live investigation console — 2026-11-04
 
 [x] Added durable per-job operation events and an Overview/Technical log console immediately below the controls, retained in Evidence with JSON export.
