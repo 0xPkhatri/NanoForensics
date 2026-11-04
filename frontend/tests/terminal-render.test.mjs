@@ -43,3 +43,13 @@ test('running panel uses confirmed simulation context and stops for failed or ca
     assert.ok(html.includes(status==='COMPLETE'?'COMPLETED':status));
   }
 });
+
+const {default:InvestigationConsole}=await import('../src/components/InvestigationConsole.tsx');
+test('technical view has the same nine-stage sidebar beside the terminal',()=>{
+  const html=renderToStaticMarkup(createElement(InvestigationConsole,{activity:null,caseId:'DEMO_FIXTURE',onResults:()=>{},onEvidence:()=>{}}));
+  assert.match(html,/console-body technical-console-layout/);
+  assert.equal((html.match(/class="console-phases"/g)||[]).length,1);
+  assert.match(html,/Initialize/);assert.match(html,/Finish job/);
+  assert.doesNotMatch(html,/terminal-workflow/);
+  assert.ok(html.indexOf('console-phases')<html.indexOf('class="execution-terminal"'));
+});

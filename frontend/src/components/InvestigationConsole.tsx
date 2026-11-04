@@ -118,6 +118,11 @@ export default function InvestigationConsole({activity, submitting = false, requ
     const link = document.createElement('a'); link.href = url; link.download = `${confirmed.job.case_id}-${confirmed.job.id}-console.json`;
     link.click(); setTimeout(() => URL.revokeObjectURL(url), 0);
   };
+  const stages = <ol className="console-phases" aria-label="Confirmed investigation stages">{consoleSteps.map(step => {
+        const value = phaseState(step.phase, confirmed);
+        const label = value === 'waiting' && comparison && ['verify','revise'].includes(step.phase) ? running ? 'Waiting for this test' : 'Not run for this test' : value === 'waiting' && job && !running ? 'Not recorded' : value === 'running' ? 'In progress' : value[0].toUpperCase()+value.slice(1);
+        return <li key={step.phase} className={`console-phase ${value}`} aria-current={value === 'running' ? 'step' : undefined}><span className="phase-symbol" aria-hidden="true">{value === 'running' ? <span className="stage-spinner"/> : value === 'completed' ? '✓' : value === 'failed' || value === 'stopped' ? '!' : '○'}</span><div><strong>{step.label}</strong><small>{label}</small></div></li>;
+      })}</ol>;
   const id = inEvidence ? 'evidence-console' : 'investigation-console';
   return <section ref={section} className="panel investigation-console" id={id} aria-label="Investigation console">
     {tab === 'overview' && <><div className="panelhead"><div><span className="overline">NanoForensics · Investigation console</span><h2>{submitting ? 'Starting your investigation…' : running ? 'Follow the work as it happens' : completed ? 'The investigation record' : stopped ? 'The job stopped' : 'Waiting for the worker'}</h2></div><span className={`badge ${completed ? 'good' : stopped ? 'bad' : 'warn'}`}>{status}</span></div>
@@ -125,22 +130,17 @@ export default function InvestigationConsole({activity, submitting = false, requ
     <div className="console-toolbar"><div className="filter-tabs" role="group" aria-label="Console view"><button aria-pressed={tab === 'overview'} onClick={() => setTab('overview')}>Overview</button><button aria-pressed={tab === 'technical'} onClick={() => setTab('technical')}>Technical log</button></div>{tab === 'overview' && <label className="follow-control"><input type="checkbox" checked={follow} onChange={e => setFollow(e.target.checked)}/>Follow new events</label>}</div>
     {tab === 'overview' && error && <div className="notice" role="alert">Live updates are unavailable. The console retains only the last confirmed records. <details><summary>Connection details</summary><p>{error}</p></details></div>}
     <div hidden={tab !== 'technical'}>
-      <ol className="terminal-workflow" aria-label="Current investigation workflow">{consoleSteps.map((step,index)=>{
-        const value=phaseState(step.phase,confirmed);
-        return <li key={step.phase} className={value} aria-current={value==='running'?'step':undefined} title={`${step.label}: ${value}`}><span aria-hidden="true">{value==='running'?<span className="stage-spinner"/>:value==='completed'?'✓':value==='failed'||value==='stopped'?'!':'○'}</span>{['Initialize','Inspect','Explain','Plan','Simulate','Verify','Update','Conclude','Finish'][index]}<span className="sr-only"> · {value}</span></li>;
-      })}</ol>
+      <div className="console-body technical-console-layout">
+      {stages}
       <ExecutionTerminal active={tab === 'technical'} activity={confirmed} caseId={caseId} follow={follow} onFollow={setFollow} submitting={submitting} error={error}/>
+      </div>
     </div>
     {tab === 'overview' && <>
     <p className="console-current" role="status" aria-live="polite">{running && <span className="stage-spinner current-spinner" aria-hidden="true"/>}{submitting ? 'Submitting the request. No worker execution has been confirmed yet.' : latest?.message || (job ? 'No detailed console events were recorded for this older job. Run a new investigation to see operation-level progress.' : 'Waiting for the server to confirm a job. No completed steps are assumed.')}</p>
     {comparison && <p className="console-cycle"><strong>{running ? 'Current test' : 'Last test'}:</strong> {testName(comparison.data.intervention || 'Registered comparison')}<span>Simulation, evidence checks and explanation updates refer to this test. Earlier results stay in the log.</span></p>}
     {!follow && <div className="console-follow-paused"><span>Auto-follow is paused. The log may show earlier updates.</span><button onClick={() => setFollow(true)}>Jump to latest</button></div>}
     <div className="console-body">
-      {tab === 'overview' && <ol className="console-phases" aria-label="Confirmed investigation stages">{consoleSteps.map(step => {
-        const value = phaseState(step.phase, confirmed);
-        const label = value === 'waiting' && comparison && ['verify','revise'].includes(step.phase) ? running ? 'Waiting for this test' : 'Not run for this test' : value === 'waiting' && job && !running ? 'Not recorded' : value === 'running' ? 'In progress' : value[0].toUpperCase()+value.slice(1);
-        return <li key={step.phase} className={`console-phase ${value}`} aria-current={value === 'running' ? 'step' : undefined}><span className="phase-symbol" aria-hidden="true">{value === 'running' ? <span className="stage-spinner"/> : value === 'completed' ? '✓' : value === 'failed' || value === 'stopped' ? '!' : '○'}</span><div><strong>{step.label}</strong><small>{label}</small></div></li>;
-      })}</ol>}
+      {stages}
       <div ref={list} className="console-events" tabIndex={0} aria-label="Scrollable confirmed job events" onScroll={e => {const node=e.currentTarget;if (node.scrollHeight-node.scrollTop-node.clientHeight > 55) setFollow(false)}}>
         {!events.length && <div className="empty-state compact"><h3>{submitting ? 'Requesting an isolated worker' : 'No confirmed operation events yet'}</h3><p>New events appear when the backend records them. Waiting steps have no invented times or results.</p></div>}
         <ol>{events.map(event => <ConsoleEventEntry key={`${event.job_id}:${event.seq}`} event={event} activity={confirmed!} animate={!inEvidence && session.shouldReveal(event.job_id,event.seq)} reducedMotion={reducedMotion} session={session}/>)}</ol>
