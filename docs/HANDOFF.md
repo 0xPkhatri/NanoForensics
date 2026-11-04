@@ -1,5 +1,12 @@
 # Handoff — scientific root-cause audit complete
 
+## Investigation guide navigation fix — 2026-11-04
+
+Renamed the presentation-oriented guide to Investigation guide / Follow an investigation. Each shortcut now names and opens a specific section (material, explanations, next test, results, evidence or conclusion), switches views when necessary, scrolls to that section, moves focus and briefly outlines it. A new navigation request is made even when the selected view is already active, fixing the previous apparent no-op. Copy explicitly distinguishes navigation from running experiments.
+
+Production build/typecheckPASS;6 existing UI logic checksPASS; source destination checksPASS for all5 target IDs and same-view scroll/focus handling. No new backend/physics/model behavior. Preview rebuilt/restarted using isolated databases. Browser-rendered click verification remains unverified due the previously documented tool failure.
+
+
 ## Investigation controls follow-up — 2026-11-04
 
 Moved investigation mode controls directly after Workspace/Sample. Primary action is Run full investigation, changing to View results when complete with Investigate again retained. Renamed manual disclosure Explore step by step; reset is a quiet secondary action inside it with confirmation and preservation wording. Removed duplicated action controls from the lower page/status banner. Backend behavior unchanged.

@@ -494,3 +494,8 @@ Created detail.md at the repository root. Verified its local Markdown links reso
 
 Top controls now immediately follow Workspace/Sample; primary Run full investigation changes to View results for completed states with Investigate again retained. Explore step by step replaces Choose tests myself; Reset is secondary within that disclosure and still confirms before clearing state. No backend/scientific changes.
 Production buildPASS; restored-next-env TypeScriptPASS;6 existing UI checksPASS; HTTP200/served-markup order/new-label checksPASS. Browser visual QA remains blocked as documented; backend/E2E gates were not rerun for this layout/copy-only change. Preview restarted with isolated databases and provider calls disabled.
+
+
+## Investigation guide shortcuts — 2026-11-04
+
+Fixed same-view guide navigation by scheduling a distinct target request, scrolling/focusing the matching section after view rendering and briefly outlining it. Guide copy now explicitly says shortcuts do not run experiments; labels name their destinations. Production build/typecheckPASS;6 existing UI checksPASS;5 source target-ID checksPASS. Isolated preview restarted; browser click/render checks remain unverified due the existing browser-tool failure. No backend/science changes.
