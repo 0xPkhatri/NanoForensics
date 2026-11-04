@@ -1,5 +1,7 @@
 # Handoff — scientific root-cause audit complete
 
+Latest verified redesign source checkpoint: `b94578b` on `design/frontend-simplification`. Build/typecheck,6 UI logic,56 regression and11 live HTTP checks passed. Rendered browser QA remains blocked; preview uses isolated copies. The following continuity commit changes documentation only.
+
 ## Latest task: redesign implementation on design/frontend-simplification
 
 Implemented the user-approved plan; prior frontend stays on science/predeclared-demonstration. Read docs/FRONTEND_REDESIGN_IMPLEMENTATION.md for delivered files, tests, preview ownership, limitations and rollback precautions. Automated gates:6 UI checks,56 regression tests,11 live HTTP tests, production build and typecheck pass. Original4 specimens/29 results preserved; all12 task source DB tables unchanged. Historical preservation script already failed before tests on original states; do not overwrite those user states to force agreement.

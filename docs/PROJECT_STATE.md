@@ -1,5 +1,7 @@
 # Project state — demonstration evaluation complete (2026-11-04)
 
+Latest verified redesign source checkpoint: `b94578b` on `design/frontend-simplification`. Build/typecheck,6 UI logic,56 regression and11 live HTTP checks passed. Rendered browser QA remains blocked; preview uses isolated copies. The following continuity commit changes documentation only.
+
 ## Latest task: frontend redesign implemented on a separate branch
 
 [x] Branch design/frontend-simplification preserves the prior frontend on science/predeclared-demonstration.
