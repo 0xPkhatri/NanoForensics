@@ -499,3 +499,8 @@ Production buildPASS; restored-next-env TypeScriptPASS;6 existing UI checksPASS;
 ## Investigation guide shortcuts — 2026-11-04
 
 Fixed same-view guide navigation by scheduling a distinct target request, scrolling/focusing the matching section after view rendering and briefly outlining it. Guide copy now explicitly says shortcuts do not run experiments; labels name their destinations. Production build/typecheckPASS;6 existing UI checksPASS;5 source target-ID checksPASS. Isolated preview restarted; browser click/render checks remain unverified due the existing browser-tool failure. No backend/science changes.
+
+
+## Study scope placement — 2026-11-04
+
+User requested the full published-study status, explanation and Read the study link inside the collapsed Study scope and this sample disclosure, placed last. Moved the entire disclosure after optional help and before the footer. All study/sample metadata and actual status retained. Production build/typecheck and source nesting/order checksPASS; isolated preview rebuilt/restarted. Browser visual QA remains unverified as previously documented. No backend/scientific changes.

@@ -28,3 +28,5 @@
 
 /* Guide destinations are visible after same-view and cross-view navigation. */
 .guide-target{outline:3px solid var(--blue);outline-offset:4px;scroll-margin-top:24px}
+
+.study-scope{margin-top:24px}.study-scope>details{width:100%}.study-scope>details>summary{min-height:44px;font-size:14px}.study-scope details>a{display:inline-block;margin:12px 0}

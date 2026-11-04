@@ -86,3 +86,8 @@ Validation: production buildPASS, TypeScriptPASS,6 UI logic testsPASS; live prev
 Renamed the presentation-oriented guide to Investigation guide / Follow an investigation. Each shortcut now names and opens a specific section (material, explanations, next test, results, evidence or conclusion), switches views when necessary, scrolls to that section, moves focus and briefly outlines it. A new navigation request is made even when the selected view is already active, fixing the previous apparent no-op. Copy explicitly distinguishes navigation from running experiments.
 
 Production build/typecheckPASS;6 existing UI logic checksPASS; source destination checksPASS for all5 target IDs and same-view scroll/focus handling. No new backend/physics/model behavior. Preview rebuilt/restarted using isolated databases. Browser-rendered click verification remains unverified due the previously documented tool failure.
+
+
+## Study scope placement — 2026-11-04
+
+User requested the full published-study status, explanation and Read the study link inside the collapsed Study scope and this sample disclosure, placed last. Moved the entire disclosure after optional help and before the footer. All study/sample metadata and actual status retained. Production build/typecheck and source nesting/order checksPASS; isolated preview rebuilt/restarted. Browser visual QA remains unverified as previously documented. No backend/scientific changes.
