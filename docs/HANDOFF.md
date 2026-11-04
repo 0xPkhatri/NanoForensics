@@ -138,3 +138,10 @@ Verified terminal implementation checkpoint: `8b3309b` on `design/frontend-simpl
 ## Terminal visibility follow-up — 2026-11-05
 
 Screenshot showed Overview selected, whose original cards were deliberately retained. Technical log now opens by default on mount and new investigation requests. Overview remains available. Frontend33 tests/typecheck/buildPASS; owned UI restarted without stopping API or active investigations. Refresh localhost:3000 to load the new default. No backend/scientific changes.
+
+
+## Word-by-word terminal output — 2026-11-05
+
+Newly confirmed terminal events now reveal sequentially by word across messages and metrics, using a single ordered display queue. Saved completed history is immediate. Poll batches catch up with a bounded word batch; reduced-motion, search, opened details and hidden tabs show complete text immediately. Raw JSON, search corpus and exports always retain full confirmed events. A cursor and explicit display-only disclosure distinguish this from provider token streaming. Existing ResizeObserver/animation-frame auto-follow tracks text growth; intentional upward scrolling still pauses following. No event, backend behavior or scientific metric changed.
+
+35 frontend testsPASS (two new sequential reveal/raw preservation tests), typecheckPASS and production buildPASS. Browser visual/interaction verification remains unavailable from the previously reported adapter failure. Owned UI alone restarted; API/ongoing investigations untouched. Refresh localhost:3000 and start an investigation to see new events reveal; historical results do not replay a fake investigation. Evidence:runtime/terminal-redesign/reveal-{tests,types,build}.txt.

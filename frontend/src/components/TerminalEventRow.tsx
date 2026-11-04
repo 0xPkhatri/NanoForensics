@@ -12,14 +12,14 @@ export function JSONPayload({raw,query}:{raw:string;query:string}) {
   return <pre className="terminal-json" tabIndex={0} aria-label="Complete original event JSON"><code>{tokens.map((token,index)=><span key={index} className={`json-${token.kind}`}><HighlightedText text={token.text} ranges={ranges} offset={token.offset}/></span>)}</code></pre>;
 }
 
-export const TerminalEventRow=memo(function TerminalEventRow({row,open,query,activeMatch,onToggle,onCopy,register}:{
-  row:TerminalRow;open:boolean;query:string;activeMatch:boolean;
+export const TerminalEventRow=memo(function TerminalEventRow({row,open,query,activeMatch,onToggle,onCopy,register,revealing=false}:{
+  row:TerminalRow;open:boolean;query:string;activeMatch:boolean;revealing?:boolean;
   onToggle:(key:string)=>void;onCopy:(row:TerminalRow)=>void;register:(key:string,node:HTMLLIElement|null)=>void;
 }) {
   const detailId=useId();
   const visibleText=[row.message,...row.metrics].join('\n');
   const payloadOnly=!!query.trim() && findRanges(row.raw,query).length>0 && !findRanges(visibleText,query).length;
-  return <li ref={node=>register(row.key,node)} className={`terminal-event tone-${row.tone}${row.groupId?' grouped':''}${activeMatch?' active-match':''}`}>
+  return <li ref={node=>register(row.key,node)} className={`terminal-event tone-${row.tone}${row.groupId?' grouped':''}${activeMatch?' active-match':''}${revealing?' is-revealing':''}`}>
     {row.groupStart && <div className="terminal-group-heading"><span>EXPERIMENT</span><strong>{row.groupLabel}</strong><code>{row.groupId}</code></div>}
     <button className="terminal-line" aria-expanded={open} aria-controls={detailId} onClick={()=>onToggle(row.key)}>
       <time dateTime={row.timestamp||undefined} title={row.timestamp||'Timestamp unavailable'}>{row.time}</time>

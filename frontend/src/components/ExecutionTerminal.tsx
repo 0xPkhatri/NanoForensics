@@ -5,6 +5,7 @@ import {clockLabel} from '@/lib/console-view';
 import {buildTerminalRows, engineName, exportConsoleJSON, findRanges, pendingSimulation, readableLog, record, searchRows, terminalEngine, terminalStatus, toggleExpanded} from '@/lib/terminal-format';
 import type {TerminalRow} from '@/lib/terminal-format';
 import {copyLogText} from '@/lib/clipboard';
+import {useTerminalReveal} from '@/hooks/useTerminalReveal';
 import {useLogFollow} from '@/hooks/useLogFollow';
 import {TerminalEventRow} from './TerminalEventRow';
 
@@ -22,6 +23,7 @@ export default function ExecutionTerminal({activity,caseId,follow,onFollow,submi
   const matches=useMemo(()=>searchRows(rows,query),[rows,query]);
   const matchingKeys=useMemo(()=>new Set(matches),[matches]);
   const visibleRows=matchesOnly && query.trim()?rows.filter(row=>matchingKeys.has(row.key)):rows;
+  const reveal=useTerminalReveal(visibleRows,job?.id||'',submitting || job?.status==='RUNNING' || job?.status==='QUEUED',active,!!query.trim() || open.size>0);
   const activeKey=selectedKey && matchingKeys.has(selectedKey)?selectedKey:matches[0];
   const selectedIndex=activeKey?matches.indexOf(activeKey):-1;
   const state=submitting?{label:'SUBMITTING',tone:'muted' as const}:terminalStatus(job?.status);
@@ -80,12 +82,13 @@ export default function ExecutionTerminal({activity,caseId,follow,onFollow,submi
     <div ref={scroll.viewport} className="terminal-viewport" tabIndex={0} aria-label="Chronological execution output" {...scroll.handlers}>
       {error && <p className="terminal-notice tone-warning" role="alert">[WARN] Live updates unavailable. Showing last confirmed events. {error}</p>}
       {!visibleRows.length && <p className="terminal-empty">{query.trim() && matchesOnly?'No events match this search. Complete history is retained in the JSON export.':submitting?'Submitting request. No worker execution is confirmed yet.':job?'No detailed events were recorded for this job.':'Waiting for a confirmed investigation job.'}</p>}
-      <ol ref={scroll.content} className="terminal-lines" aria-label="Original events in recorded order">{visibleRows.map(row=><TerminalEventRow key={row.key} row={row} open={open.has(row.key)} query={query} activeMatch={row.key===activeKey} onToggle={toggle} onCopy={copyEvent} register={register}/>)}</ol>
+      <ol ref={scroll.content} className="terminal-lines" aria-label="Original events in recorded order">{reveal.rows.map(row=><TerminalEventRow key={row.key} row={row} open={open.has(row.key)} query={query} activeMatch={row.key===activeKey} onToggle={toggle} onCopy={copyEvent} register={register} revealing={row.revealing}/>)}</ol>
+      {reveal.revealing && <p className="terminal-reveal-status" role="status">Revealing confirmed output…</p>}
       {activeRun && <aside className="terminal-active-operation" aria-label="Current confirmed simulation operation"><span className="stage-spinner" aria-hidden="true"/><div><strong>[RUN] {activeRun.data.fresh_requested===true?'New physics computation in progress':'Resolving saved or newly computed physics'}</strong><div>Selected engine: {engineName(activeRun.data.engine_requested)} · actual engine confirmed on return</div><div>{activeRun.data.role==='baseline'?'Baseline reference':'Test change'} · replicate {String(activeRun.data.replicate_index??'unreported')}/{String(activeRun.data.replicate_total??'unreported')}{runElapsed!=null?` · run elapsed ${clockLabel(runElapsed)}`:''}</div><div>Waiting for the simulation result. No per-timestep progress is available.</div></div></aside>}
     </div>
     <footer className="terminal-footer"><div className="terminal-search"><label htmlFor={`${job?.id||'pending'}-terminal-search`}>Search logs</label><input id={`${job?.id||'pending'}-terminal-search`} type="search" value={query} onChange={event=>updateQuery(event.target.value)} onKeyDown={event=>{if(event.key==='Enter'){event.preventDefault();navigate(event.shiftKey?-1:1)}}} placeholder="Messages or structured data" autoComplete="off"/><button aria-label="Previous matching event" disabled={!matches.length} onClick={()=>navigate(-1)}>↑</button><button aria-label="Next matching event" disabled={!matches.length} onClick={()=>navigate(1)}>↓</button><span className="terminal-match-count" role="status">{query.trim()?`${selectedIndex+1}/${matches.length} matching events`:`${rows.length} events`}</span><label className="terminal-toggle"><input type="checkbox" checked={matchesOnly} disabled={!query.trim()} onChange={event=>{scroll.pause();setMatchesOnly(event.target.checked)}}/>Matches only</label></div>
       <div className="terminal-controls"><label className="terminal-toggle"><input type="checkbox" checked={follow} onChange={event=>{if(event.target.checked)jumpLatest();else scroll.setFollow(false)}}/>Auto-follow</label><span className={`terminal-follow-state${follow?'':' paused'}`}>{follow?'Following latest':'Paused · reading recorded events'}</span><button onClick={jumpLatest} disabled={!rows.length}>Jump to latest</button><button onClick={()=>void copy(readableLog(visibleRows,activity),`Copied ${visibleRows.length} ${matchesOnly?'matching':'recorded'} events`)} disabled={!visibleRows.length}>{matchesOnly?'Copy visible logs':'Copy logs'}</button><button onClick={()=>download('json')} disabled={!job}>Download JSON</button><button onClick={()=>download('log')} disabled={!job}>Download .log</button></div>
-      <div className="terminal-footnote"><span>Read-only operation log. Execution success does not establish scientific support. JSON export retains the complete original history.</span><span role="status" aria-live="polite">{notice}</span></div>
+      <div className="terminal-footnote"><span>Read-only operation log. New text reveals word by word after backend confirmation; this is not model token streaming. Execution success does not establish scientific support. JSON export retains the complete original history.</span><span role="status" aria-live="polite">{notice}</span></div>
     </footer>
   </section>;
 }

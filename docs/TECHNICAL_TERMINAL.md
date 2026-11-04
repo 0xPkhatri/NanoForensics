@@ -41,3 +41,10 @@ NANO_DB="$PWD/runtime/investigation-console/preview-original.db" NANO_DEMONSTRAT
 ```
 
 Preserve user-owned TEST_RESULTS formatting, next-env changes and untracked repomix-output.xml. Restore next-env from runtime/terminal-redesign/next-env.original after further builds. Do not modify frozen scientific files to address UI behavior.
+
+
+## Word-by-word terminal output — 2026-11-05
+
+Newly confirmed terminal events now reveal sequentially by word across messages and metrics, using a single ordered display queue. Saved completed history is immediate. Poll batches catch up with a bounded word batch; reduced-motion, search, opened details and hidden tabs show complete text immediately. Raw JSON, search corpus and exports always retain full confirmed events. A cursor and explicit display-only disclosure distinguish this from provider token streaming. Existing ResizeObserver/animation-frame auto-follow tracks text growth; intentional upward scrolling still pauses following. No event, backend behavior or scientific metric changed.
+
+35 frontend testsPASS (two new sequential reveal/raw preservation tests), typecheckPASS and production buildPASS. Browser visual/interaction verification remains unavailable from the previously reported adapter failure. Owned UI alone restarted; API/ongoing investigations untouched. Refresh localhost:3000 and start an investigation to see new events reveal; historical results do not replay a fake investigation. Evidence:runtime/terminal-redesign/reveal-{tests,types,build}.txt.
