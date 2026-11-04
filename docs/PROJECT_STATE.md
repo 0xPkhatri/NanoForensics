@@ -130,3 +130,5 @@ Evidence: docs/demonstration/v3/STUDY_REPORT.md and raw public archives. Runtime
 [x] Preview restored on3000/8000 using isolated copies; all three sample APIs200. No dependency/backend changes.
 
 Browser automation failed before navigation; visual/mobile and real-browser interaction QA remain unverified. See docs/TECHNICAL_TERMINAL.md. Latest verified prior checkpoint e20d85e; this milestone is checkpointed in the following Git commit. User next-env/TEST_RESULTS edits and repomix file preserved.
+
+Verified terminal implementation checkpoint: `8b3309b` on `design/frontend-simplification`. Subsequent continuity commit only records this tested source checkpoint.
