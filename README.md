@@ -1,111 +1,326 @@
 # NanoForensics
 
-An auditable counterfactual investigation workbench for a **2D reduced-unit Lennard-Jones computational testbed**. It runs actual atomistic trajectories, proposes competing mechanisms, executes geometric/protocol interventions with matched seeds, and independently checks evidence. Small lattices and short times are educational computational experiments, not validated predictions for a real engineering material.
+> **AI proposes. Physics measures. Independent rules verify.**
+
+[![Hackathon](https://img.shields.io/badge/Meta_Global_AI_Developer_Hackathon-Push_the_Frontier-1463ff)](#why-nanoforensics)
+[![AI](https://img.shields.io/badge/Meta-Muse_Spark-7851c2)](#where-ai-fits)
+[![Physics](https://img.shields.io/badge/Physics-LAMMPS_%2B_NumPy-e85d04)](#real-physics-independent-verification)
+[![Stack](https://img.shields.io/badge/Stack-Next.js_%2B_FastAPI-16324f)](#technical-architecture)
+[![Study](https://img.shields.io/badge/Published_study-NOT__VALIDATED-b45309)](#what-the-evidence-actually-shows)
+
+**An AI-assisted workbench for investigating why a simulated material breaks.**
+
+NanoForensics compares competing explanations, tests controlled changes with genuine atomistic simulations, and checks whether the measured evidence supports each explanation. Researchers can follow the entire investigation, from the original sample to the final evidence trail.
+
+Built for the **Meta Global AI Developer Hackathon**, under **Push the Frontier**, exploring AI for materials science and scientific discovery.
+
+![NanoForensics scientific investigation workflow](docs/architecture/nanoforensics-scientific-workflow.png)
+
+[Try it locally](#run-locally) · [Demo walkthrough](#try-the-investigation) · [Architecture](#technical-architecture) · [Evidence](#what-the-evidence-actually-shows) · [Detailed project guide](detail.md)
+
+## Why NanoForensics?
+
+A simulation can show a material breaking. Understanding **why** it broke requires another step: changing a suspected cause and comparing what happens.
+
+Did missing atoms inside the sample matter? Did the edge shape matter? Could loading speed or temperature explain the response? An explanation becomes useful when it leads to a test that can distinguish it from an alternative.
+
+NanoForensics organizes that process:
+
+```text
+Inspect the recorded sample
+          ↓
+Propose competing explanations
+          ↓
+Rank registered experiments
+          ↓
+Run matched-seed counterfactual simulations
+          ↓
+Independently verify measurements
+          ↓
+Revise explanations → conclude or remain inconclusive
+```
+
+**The model's confidence does not decide the scientific verdict.** Numerical checks and measured comparisons determine what the evidence supports.
+
+## What you can do
+
+- **Inspect a sample:** explore atomic configurations and stress–strain responses.
+- **Run a full investigation:** generate explanations, plan tests, simulate changes, and review verified outcomes.
+- **Explore step by step:** inspect suggestions and choose individual registered experiments.
+- **Follow execution:** watch a terminal with confirmed events, stage progress, timing, and execution sources.
+- **Inspect provenance:** distinguish live model calls, rule-based fallback, fresh computations, and saved simulation reuse.
+- **Review and export evidence:** examine measured effects, numerical checks, original event JSON, and complete logs.
+
+## Try the investigation
+
+After [starting the application](#run-locally), open **http://127.0.0.1:3000**.
+
+### 1. Choose a workspace
+
+| Workspace | What it contains | How to use it |
+|---|---|---|
+| **Original samples** | Four preserved opaque benchmark cases | Inspect the original experiments and their inconclusive findings. |
+| **Published study** | Separate preregistered specimens and recorded scientific findings | Explore saved results without model inference. |
+| **AI investigation** | An isolated AI workspace initialized from public study samples | Run a post-study rehearsal with live Muse Spark or explicit fallback. |
+
+The workspaces use separate SQLite databases. A rehearsal does not rewrite the published study's decisions.
+
+### 2. Inspect DEMO_501
+
+Select **AI investigation → DEMO_501**. Inspect its atomic structure and original stretching response. This is a small **2D reduced-unit Lennard-Jones computational testbed**, not a calibrated engineering material.
+
+### 3. Start the investigation
+
+Click **Run full investigation**. If a previous investigation is complete, use **View results** to inspect it or **Investigate again** to start another cycle.
+
+The system compares two registered changes: **Restore missing interior atoms** and **Restore missing edge atoms**. The selected experiment order can vary with model output.
+
+To inspect each stage yourself, open **Explore step by step**, choose **Suggest possible causes**, and execute individual tests.
+
+### 4. Follow the execution console
+
+Under the scientific loop, **Technical log** opens a single terminal with an **Initialize → Finish job** sidebar.
+
+- New confirmed text appears word by word; this is a display effect, not provider token streaming.
+- **Auto-follow** follows new output. Scrolling upward pauses it; **Jump to latest** resumes it.
+- Search messages and full event payloads, expand original JSON, copy events, or download the complete history.
+- Check the actual **live/fallback** and **fresh/cached** labels. A successful calculation is separate from a supported explanation.
+
+No fabricated timestep percentage or completion estimate is shown. Actual compute and provider timing vary.
+
+### 5. Compare results and inspect evidence
+
+Open **Results** to compare the original and changed simulations. Open **Evidence** for independent verdicts, AI action receipts, simulation identifiers, seeds/replay labels, and protocol hashes.
+
+For the **published DEMO_501 record**, the interior repair increased fracture strain by approximately **47.85%**; the competing edge repair changed it by approximately **−0.61%**. These are case-specific measured findings, not a promised result for every sample or future run.
+
+Finish by opening **Study scope and this sample**. A successful case does not establish that the full study passed.
+
+For a longer presentation, use the [DEMO_501 presenter walkthrough](docs/live-muse/DEMO_501_WALKTHROUGH.md).
 
 ## Run locally
 
-Requires Python 3.11+ (3.13 recommended), Node 20.9+, npm. An installed `lmp` or `lmp_serial` is detected and its SFLJ pair output verified; otherwise NumPy is selected visibly.
+### Requirements
+
+- **Python 3.11+**; Python 3.13 is the repository's Makefile default.
+- **Node.js 22.18+ recommended**, with npm, for the application and native TypeScript UI tests. Next.js itself requires Node 20.9+.
+- **Optional LAMMPS**, available as `lmp` or `lmp_serial`. Its shifted-force support is verified at runtime; otherwise the application visibly selects NumPy.
+- **Optional Meta API credentials** for live model inference. Without them, the application uses a labeled deterministic fallback.
+
+### Install
 
 ```sh
-make setup
+git clone https://github.com/0xPkhatri/NanoForensics.git
+cd NanoForensics
+
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+npm --prefix frontend ci
 cp .env.example .env
-make calibrate
-make data
-make build
+```
+
+If `.env` already exists, retain it and update only the settings you need.
+
+### Start the backend
+
+```sh
 make backend
 ```
 
-In a second terminal:
+Startup calibrates the physics runtime if needed. An empty published-study database is restored from the checksummed public evidence bundle; the AI workspace is initialized separately. Existing data are preserved. You can explore those workspaces without regenerating the scientific study.
+
+To populate the **Original samples** workspace on a clean installation, run the following separately, before starting investigations:
+
+```sh
+make calibrate
+make data
+```
+
+This performs genuine physics computation and can take time. It preserves existing specimens. New exploratory benchmarks should use a separately named `NANO_DB`.
+
+### Start the frontend
+
+In another terminal:
 
 ```sh
 make frontend
 ```
 
-Open http://127.0.0.1:3000. The backend is http://127.0.0.1:8000 with API contracts at `/docs`. The Next.js server proxies `/api` to the backend. For a production-mode local UI: `cd frontend && npm start` after building.
+| Service | Local address |
+|---|---|
+| Dashboard | http://127.0.0.1:3000 |
+| Backend | http://127.0.0.1:8000 |
+| Interactive API documentation | http://127.0.0.1:8000/docs |
 
-`make setup` uses `python3.13`; substitute an available compatible Python when needed. Dependencies are isolated in `.venv`. Runtime artifacts go under `runtime/`; neither secrets nor generated databases are committed. On a clean machine `make data` generates and freezes all four specimens (three genuine baseline seeds per case); it never silently replaces existing specimens. Delete or select a **new** `NANO_DB` only when intentionally starting a separate benchmark, not to tune held-out outcomes.
+The Next.js server proxies API requests to FastAPI. For a production-mode local frontend, run `make build`, then `npm --prefix frontend start`.
 
-## Model connection and honest results
+## Where AI fits
 
-Set `META_MUSE_BASE_URL` (OpenAI-compatible `/v1` base), `META_MUSE_API_KEY`, and `META_MUSE_MODEL` in `.env` to use Meta Muse Spark. No provider URL or model identifier is guessed. Startup probes structured JSON. Every hypothesis/revision operation separately validates its response and records request/response hashes, latency, model/host and provider-supplied usage only. A successful startup probe alone does not prove a live investigation. Without credentials or when an operation fails, the UI and action provenance show `OFFLINE_HEURISTIC_FALLBACK`. This environment has **not** demonstrated live Muse usage; a judging demo requiring live Meta inference still needs working credentials and successful per-action inference.
+Muse Spark generates structured hypotheses, contributes experiment-planning judgments, and revises explanations after evidence arrives. The controller executes only registered deterministic tools. It never runs model-generated shell commands or arbitrary Python.
 
-The current frozen benchmark yields **no unique diagnosis for any of the four cases** across all three methods. Two ALPHA baseline seeds fail the temperature-stability bound; the edge repair does not improve failure strain; rate normalization reduces failure strain; cooling yields uncertain improvement. These outcomes are preserved. See [benchmark report](docs/BENCHMARK_REPORT.md) and [test evidence](docs/TEST_RESULTS.md). No discovery or superiority claim follows from these four cases.
+| Responsibility | Owner |
+|---|---|
+| Competing explanations and subjective scores | Muse Spark, or explicitly labeled deterministic fallback |
+| Planning judgments | Structured model output or fallback; fixed backend utility calculation |
+| Allowed actions, budgets, and execution | Deterministic investigation controller |
+| Atomic trajectories and physical measurements | Verified LAMMPS or NumPy engine |
+| Numerical validity and evidence verdicts | Independent deterministic verifier |
+| Interpretation and review | Researcher, with complete recorded provenance |
 
-## Physics and verification
+Configure `.env` using the [Meta API documentation](https://dev.meta.ai/docs/overview):
 
-The potential is shifted-force 12–6 LJ with cutoff 2.5σ. The vectorized NumPy solver accumulates pair forces and half-pair per-atom virials without Python pair loops. Solver sflj-1.1 explicitly checks LAMMPS z/vz and registers enforce2d after all force-changing fixes. Both paths share force-converged L-BFGS relaxation, PCG64-seeded BAOAB equilibration, frozen-grip unstrained NVE verification, and the same post-NVE reference geometry. LAMMPS executes the Jinja2 input template for real driven trajectories; its Langevin/NVE stochastic loading integrator differs from NumPy BAOAB, so seed equality does not imply cross-engine trajectory identity. Deterministic two-body native and table-output parity is tested. A separate three-seed pristine-crystal ensemble was measured on this host: mean peak stresses differed by 0.63%, all six runs fractured, and crack-region agreement was 2/3. The small sample is descriptive and does not establish population or per-case equivalence; see [engine comparison](docs/ENGINE_COMPARISON.json). Run `.venv/bin/python -m benchmarks.validate_engines` to repeat it; absent verified LAMMPS is reported as NOT_RUN.
+```dotenv
+META_MUSE_BASE_URL=https://api.meta.ai/v1
+META_MUSE_MODEL=muse-spark-1.3
+META_MUSE_API_KEY=your_key_here
+```
 
-Engineering strain is the change in top-to-bottom grip separation divided by the post-NVE gauge. Strain rate is per LJ physical time, not per timestep. Free x boundaries, prescribed opposite grip motion, mobile-only thermostat; temperature means mobile kinetic energy per two translational DOF. Tensile-positive stress is the negative conventional kinetic-plus-configurational pressure tensor divided by nominal width × current gauge, with unit thickness. Grip-reaction agreement is checked in the elastic lattice test and the actual traction trace is retained. This is 2D normalization, not arbitrary stress scaling.
+The startup probe checks connectivity and structured-response support. **Every relevant action must independently succeed** to receive `LIVE_MUSE_SPARK_API`; unavailable credentials, provider failures, or rejected outputs produce visible `OFFLINE_HEURISTIC_FALLBACK` receipts.
 
-Reference neighbors are defined within 1.35r₀ after NVE. Active rupture requires two severed reference bonds beyond 1.65σ, positive net coordination loss, and current Z≤4, excluding grips. Reference-connected clusters of at least four atoms must persist across three measurements. Fracture is assigned retrospectively to the first confirmed post-global-peak frame below 65% of the positive peak, using a fixed three-sample centered stress mean. Otherwise `failure_strain=null` and the run is censored. Numerical failure is distinct from censoring and is excluded from causal evidence.
+A recorded live integration rehearsal completed hypotheses, planning, and evidence-based revisions with six freshly executed counterfactual MD replays. Later rehearsals explicitly reused immutable MD. Both successes and mixed failures are retained in the [integration report](docs/live-muse/INTEGRATION_REPORT.md). This is integration evidence on a published sample, not new blind discovery; current provider access must be verified again when demonstrating.
 
-Matched seeds are 42, 137 and 271. Effects use paired deltas and a noise floor; three pairs are descriptive. A diagnostic repeat cannot establish causal repair. Geometric edits infer missing sites from measured aligned lattice rows; rotated or disordered crystals may have no applicable reconstruction. No pristine site IDs or privileged labels are available to investigator tools.
+## Technical architecture
 
-## Jobs, budgets and persistence
+![NanoForensics technical architecture](docs/architecture/nanoforensics-technical-architecture.png)
 
-Interactive API requests recompute counterfactuals by default (`force_recompute=true`); immutable baseline replicates may be reused and are tagged in the audit. Set it false for explicit cache reuse. All long operations return HTTP 202 with a durable `job_id`. Poll `/api/jobs/{id}` and `/api/cases/{case_id}`. SQLite transactions enforce one active job per case across workers; conflicting reset/hypothesis/experiment requests return 409. At most two jobs run globally per database. Default run/job deadlines are 30/120 s and the investigation budget is 1800 s. Deadlines and cancellation kill and reap worker descendants; results, failures, progress and raw seed records persist in SQLite. Server restart marks orphaned work `INTERRUPTED` and releases its durable lock.
+The current implementation runs locally; cloud hosting is not assumed.
 
-Allowlisted typed experiment bodies use either `proposal_id` or `intervention` plus bounded parameters. No model-generated shell or Python is executed. Administrative benchmark jobs require `NANO_ADMIN_TOKEN` via `X-Admin-Token` and are rate limited. Privileged scoring runs separately only after observer decisions are frozen. Evaluation has a zero-intervention one-shot comparator and discloses budget differences and cache reuse.
+| Component | Technology | Responsibility |
+|---|---|---|
+| Workbench | Next.js, React, TypeScript, CSS, Plotly.js | Sample inspection, controls, plots, execution console, and evidence review |
+| API | FastAPI, Pydantic | Typed requests, validated actions, state, and job/event endpoints |
+| Job execution | Durable supervisor and bounded subprocesses | Per-case locks, deadlines, cancellation, and restart recovery |
+| AI reasoning | Meta Muse Spark via OpenAI-compatible API | Structured hypotheses, planning, and evidence-citing revisions |
+| Physics | LAMMPS / vectorized NumPy | Genuine 2D shifted-force Lennard-Jones trajectories |
+| Verification | Independent Python analysis | Numerical checks, paired comparisons, and scientific verdicts |
+| Persistence | Separate SQLite workspaces | Specimens, immutable results, mutable investigations, jobs, and events |
+| Published evidence | Checksummed public bundle and reports | Reproducible records and preserved study scope |
 
-## Verification and continuity
+The frontend polls real job events. Events retain sequence numbers, timestamps, phases, statuses, structured data, and provenance. No real shell is exposed through the terminal.
+
+### Configuration
+
+| Variable | Default / example | Purpose |
+|---|---|---|
+| `META_MUSE_BASE_URL` | `https://api.meta.ai/v1` | Structured model API base |
+| `META_MUSE_MODEL` | `muse-spark-1.3` | Configured model identifier |
+| `META_MUSE_API_KEY` | Empty | Credentials for live inference; keep private |
+| `META_MUSE_TIMEOUT_SEC` | `30` | Provider timeout; capped at 60 seconds |
+| `NANO_DB` | `runtime/nanoforensics.db` | Original benchmark workspace |
+| `NANO_DEMONSTRATION_DB` | `runtime/demonstration/v3/study.db` | Published-study workspace |
+| `NANO_LIVE_MUSE_DB` | `runtime/live-muse/rehearsal.db` | Separate AI investigation workspace |
+| `NANO_RUN_TIMEOUT` | `30` | Per-simulation timeout, seconds |
+| `NANO_JOB_TIMEOUT` | `120` | Job timeout, seconds |
+| `NANO_BUDGET` | `1800` | Investigation compute budget, seconds |
+| `NANO_ADMIN_TOKEN` | Empty | Token for guarded administrative benchmark operations |
+
+Results, failed executions, and raw seed records persist. Reset clears mutable investigation progress; it does not erase immutable simulations or force cached physics to recompute. Recompute policy is explicit and recorded. See the [detailed guide](detail.md) for APIs and storage behavior.
+
+## Real physics, independent verification
+
+- **Actual interatomic mechanics:** shifted-force 12–6 Lennard-Jones potential with cutoff 2.5σ, integrated trajectories, and virial stress. Curves and fracture metrics are not synthesized from specimen names.
+- **Verified engine choice:** LAMMPS potential output is checked; unavailable or unsupported configurations fall back visibly to NumPy. Identical seed integers do not imply identical stochastic trajectories across engines.
+- **Reference-relative fracture:** persistent severed reference bonds and a post-peak stress drop are evaluated together. An unbroken sample at the end of the measurement horizon is censored, with `failure_strain=null`.
+- **Paired evidence:** controlled changes are compared using matched seeds/replay labels and measured numerical diagnostics. Execution failure, censoring, and scientific inconclusiveness remain distinct.
+- **Blind boundaries:** original public case IDs are opaque. Privileged preparation labels and pristine site mappings stay outside live investigator inputs and tools.
+
+Definitions, stress conventions, engine comparisons, audit findings, and limitations are documented in the [detailed project guide](detail.md), [scientific audit](docs/SCIENTIFIC_FINDINGS.md), and [engine comparison](docs/ENGINE_COMPARISON.json).
+
+## What the evidence actually shows
+
+**The complete published study is `NOT_VALIDATED`.** It did not meet every preset criterion. The UI retains that status even when one specimen supports a tested explanation.
+
+| Evidence set | Recorded outcome | Scope |
+|---|---|---|
+| Original four-case benchmark | No unique diagnosis for any case across the three compared methods | No discovery or superiority claim follows from these cases. |
+| Held-out `DEMO_501` | Interior repair +47.85%; competing repair −0.61% | Met the registered case-level distinction. |
+| Held-out `DEMO_502` | Boundary repair +10.79%, below the fixed 18% criterion | Inconclusive; did not validate the repair. |
+| Held-out `DEMO_503` | Correct no-cause negative control | Does not override the failed full-study criterion. |
+| Muse Spark rehearsal | Recorded live hypotheses, planning, and revisions | Post-study integration; not a new blinded validation. |
+
+V3 is an **athermal deterministic reference**. Three exact replay labels are not independent thermal observations and do not establish population confidence intervals. Published runs took approximately 14.41–15.99 seconds each on the measured host; the loading horizon was preserved despite exceeding the runtime target.
+
+Read the [complete study report](docs/demonstration/v3/STUDY_REPORT.md), [original benchmark report](docs/BENCHMARK_REPORT.md), and [live-model evidence](docs/live-muse/INTEGRATION_REPORT.md). Earlier negative development studies and failed/mixed rehearsals remain recorded. Frozen results and thresholds must not be tuned after seeing held-out outcomes.
+
+## Reproduce and test
 
 ```sh
+# Physics, verifier, investigation, workspace and event regressions
 make test
-make evaluate
+
+# Frontend formatting, rendering, reveal and auto-follow logic
+npm --prefix frontend run test:ui
+npm --prefix frontend run typecheck
 make build
+
+# Live HTTP regression with real servers and isolated databases
 make e2e
+
+# Original benchmark evaluation
+make evaluate
 ```
 
-The E2E script starts both real servers, runs HTTP and dashboard checks while they are alive, and cleans up launched process groups. [AGENTS.md](AGENTS.md) is authoritative. [Project state](docs/PROJECT_STATE.md), [handoff](docs/HANDOFF.md), [plan](docs/IMPLEMENTATION_PLAN.md) and [executed results](docs/TEST_RESULTS.md) record ordered phase gates and Git checkpoints.
+E2E owns ports 3000/8000 while running; stop the local development servers first. It disables provider credentials, uses isolated database copies, and exercises fresh MD, cancellation, restart recovery, and workspace isolation. The frontend has no configured standalone lint script.
 
-The follow-up [scientific audit](docs/SCIENTIFIC_FINDINGS.md) explains the failed diagnoses using measured temperature, force-balance, seed and rate controls. It preserves the frozen benchmark and reports protocol improvements separately from held-out results.
+Latest recorded terminal/sidebar checks: **36 UI tests**, TypeScript and production build passed. The full-stack gate passed **11 tests**. Browser automation later failed before navigation, so the latest terminal's visual/mobile and real-browser interaction checks remain unverified. These counts are recorded checks, not a substitute for rerunning tests in your environment. See [executed results](docs/TEST_RESULTS.md) and the [terminal implementation report](docs/TECHNICAL_TERMINAL.md).
 
-## Separate prospective demonstration
+### Verify live inference separately
 
-The original four cases, public baselines and existing results remain unchanged. The dashboard dataset selector opens an isolated preregistered study under `/api/demonstrations`; study data/jobs are in a separate versioned SQLite database. Physical protocols, competing interventions, validation rules and held-out geometry procedures were committed before new results. See `demonstrations/v3/PREREGISTRATION.md` and its hashed registration.
-
-The retained V1/V2 development studies did not validate a distinguishable thermal demonstration; their held-out sets were never opened. V3 is a final **athermal finite-rate reference**, with three exact replay labels per geometry, no independent thermal samples and no population confidence interval. Its claim requires the registered repair effect, contrast, negative control and held-out timestep convergence. The dashboard must show `NOT_VALIDATED` if those requirements fail. Both repairs may have beneficial effects; the study identifies the larger tested effect, not a sole universal cause.
-
-Study generation and scoring are explicit CLI operations, never live investigator tools:
+With valid provider credentials:
 
 ```sh
-.venv/bin/python -m demonstrations.generate --partition development
-.venv/bin/python -m demonstrations.evaluate --partition development
-.venv/bin/python -m demonstrations.reproduce
-# Commit scientific code and fixed development analysis before the prospective lock.
-.venv/bin/python -m demonstrations.lock_development
-# Commit the lock; only then may the unopened held-out partition be generated.
-.venv/bin/python -m demonstrations.generate --partition held_out
-.venv/bin/python -m demonstrations.evaluate --partition held_out
-.venv/bin/python -m demonstrations.package_evidence
+# Actual model calls plus fresh counterfactual MD
+make verify-live-muse
+
+# Actual model calls with explicitly reused genuine simulation records
+.venv/bin/python -m scripts.verify_live_muse --reuse-md
+```
+
+Use a separate `NANO_LIVE_MUSE_DB` to preserve an existing rehearsal. Avoid running CLI and HTTP investigations concurrently against the same rehearsal database.
+
+### Inspect and replay published evidence
+
+```sh
 .venv/bin/python -m demonstrations.verify_preservation
-```
-
-Published fixed decisions refuse overwrite. Reproduction on a new machine requires a separately named run directory/database; it must not silently replace published evidence. All relevant scientific source hashes are verified before held-out generation and scoring. Private family maps are accessible only to generator/scorer code, after blind decisions are fixed. The live study uses registered deterministic tools and explicitly claims no model inference.
-
-Final measured result: **the full V3 study is NOT_VALIDATED**. Held-out DEMO_501 satisfies the registered interior-repair distinction (+47.85% failure-strain recovery versus −0.61% for the competing repair); DEMO_502 remains inconclusive (+10.79% boundary recovery, below the fixed 18% criterion); DEMO_503 is a correct negative control. Every applicable held-out arm passes exact replay and timestep-convergence checks. See the [complete evidence and limitations](docs/demonstration/v3/STUDY_REPORT.md). No further design search follows the negative full-study result.
-
-The application automatically restores the checksummed public MD bundle into an empty study database, so a fresh checkout can view both partitions without private preparation files or rerunning the study. Existing databases are preserved. To reproduce a published held-out trajectory without changing any stored result:
-
-```sh
+.venv/bin/python -c 'from demonstrations.lock_development import verify_lock; verify_lock()'
 .venv/bin/python -m demonstrations.replay_published
-# Optional separate empty database for inspecting the public dataset:
-NANO_DEMONSTRATION_DB="$PWD/runtime/reproduction/study.db" .venv/bin/python -m demonstrations.restore
 ```
 
-Exact physical replay was measured with the installed LAMMPS version; other versions/engines may differ. Three athermal replay labels are not independent thermal replicates. Raw runs took 14.41–15.99 seconds, exceeding the 3–12 second target without shortening the loading horizon.
+Replay leaves stored evidence unchanged. Exact replay was measured with the installed LAMMPS version; other versions and engines may differ. Scientific study generation and scoring are explicit, preregistered workflows; see the [study registration](demonstrations/v3/PREREGISTRATION.md) before attempting new study runs.
 
-## Live Muse Spark hackathon rehearsal
+## Project map
 
-Select **Live Muse Spark rehearsal** for an isolated AI workspace; the original benchmark and frozen study stay unchanged. It requests actual hypotheses, a separate structured experiment plan, and evidence-citing revisions while reusing the unchanged registered physical tools and independent verifier. Per-action receipts display actual model/host, latency, provider usage and hashes. A startup connection probe alone does not earn a live investigation badge. Fallback and historical receipts remain explicit.
-
-A real `muse-spark-1.3` loop against the documented Meta endpoint succeeded with six fresh counterfactual MD replay executions. This verifies integration, not new blind discovery. The full scientific study remains **NOT_VALIDATED**. The initial model narrative also contained a localization error, retained in the transcript; explicit coordinate-derived positions now help ground its observations.
-
-```sh
-make verify-live-muse                             # Actual provider calls + fresh counterfactual MD
-.venv/bin/python -m scripts.verify_live_muse --reuse-md  # New provider calls; explicitly reuse real MD
+```text
+NanoForensics/
+├── frontend/src/       Dashboard, execution terminal, plots, typed API client
+├── backend/
+│   ├── agents/         Structured Muse Spark client and hypothesis/planning logic
+│   ├── api/            Original REST API, durable jobs and workers
+│   ├── simulation/     LAMMPS and NumPy atomistic engines
+│   ├── analysis/       Measurements, comparisons and independent verifier
+│   ├── storage/        Original SQLite persistence
+│   ├── demonstration/  Separate published-study API and tools
+│   └── live_muse/      Isolated AI rehearsal API and investigator
+├── benchmarks/         Original case generation and evaluation
+├── demonstrations/     Preregistered studies, scoring and reproduction
+├── tests/              Physics, investigation and full-stack checks
+├── scripts/            E2E lifecycle and live-model acceptance
+├── docs/               Reports, architecture images, evidence and continuity
+└── detail.md           Full beginner-readable project guide
 ```
 
-Use a separate `NANO_LIVE_MUSE_DB` to retain an existing rehearsal while testing another run. Do not run CLI and HTTP investigations concurrently against the same rehearsal database. Settings: `META_MUSE_BASE_URL=https://api.meta.ai/v1`, `META_MUSE_MODEL=muse-spark-1.3`, existing secret `META_MUSE_API_KEY`; optional `META_MUSE_TIMEOUT_SEC` defaults to30 and is capped at60 seconds. These settings are documented by [Meta](https://dev.meta.ai/docs/overview). No key is committed.
+## Documentation
 
-[Four-minute DEMO_501 walkthrough](docs/live-muse/DEMO_501_WALKTHROUGH.md) · [Live integration evidence](docs/live-muse/INTEGRATION_REPORT.md)
+- [Complete project guide](detail.md)
+- [Scientific workflow and technical diagrams](docs/architecture/README.md)
+- [Four-minute presenter walkthrough](docs/live-muse/DEMO_501_WALKTHROUGH.md)
+- [Published study and limitations](docs/demonstration/v3/STUDY_REPORT.md)
+- [Live Muse integration and retained failures](docs/live-muse/INTEGRATION_REPORT.md)
+- [Scientific audit](docs/SCIENTIFIC_FINDINGS.md)
+- [Technical terminal behavior and verification](docs/TECHNICAL_TERMINAL.md)
+- [Build plan](docs/IMPLEMENTATION_PLAN.md) · [Project state](docs/PROJECT_STATE.md) · [Handoff](docs/HANDOFF.md)
+- [Contributor and scientific integrity instructions](AGENTS.md)
+
+## Research scope
+
+NanoForensics is a small 2D computational research demonstrator. Its findings do not establish predictive accuracy for real engineering materials or safety-critical decisions. Model scores are subjective; small matched ensembles are descriptive. The project preserves negative findings and uncertainty as part of its scientific record.
