@@ -16,7 +16,13 @@ Built for the **Meta Global AI Developer Hackathon**, under **Push the Frontier*
 
 ![NanoForensics scientific investigation workflow](docs/architecture/nanoforensics-scientific-workflow.png)
 
-[Try it locally](#run-locally) · [Demo walkthrough](#try-the-investigation) · [Architecture](#technical-architecture) · [Evidence](#what-the-evidence-actually-shows) · [Detailed project guide](detail.md)
+[Watch the demo](#demo-video) · [Try it locally](#run-locally) · [Demo walkthrough](#try-the-investigation) · [Architecture](#technical-architecture) · [Evidence](#what-the-evidence-actually-shows) · [Detailed project guide](detail.md)
+
+## Demo video
+
+[![Watch the NanoForensics demo on YouTube](https://img.youtube.com/vi/QmRvxXcSrz0/hqdefault.jpg)](https://www.youtube.com/watch?v=QmRvxXcSrz0)
+
+[Watch the NanoForensics hackathon demo on YouTube](https://www.youtube.com/watch?v=QmRvxXcSrz0).
 
 ## Why NanoForensics?
 

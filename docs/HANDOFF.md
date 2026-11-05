@@ -165,3 +165,8 @@ Rewrote root README in the presentation-first structure requested using PlantDeb
 ## Complete detail.md refresh — 2026-11-05
 
 Updated root beginner guide against current source, latest README and dated acceptance reports. Replaced old workspace/button names; documented Investigate/Results/Evidence order, controls near selectors, console below scientific loop, study-scope disclosure at bottom, default Technical log and shared left stage list, current-comparison progress, ordered word reveal versus real streaming, follow/search/JSON/copy/full exports/expanded view, working guide navigation, both architecture diagrams, event schema/job_events/activity API, current frontend/hooks/test file map, portable setup/Node recommendation, isolated preview ownership and fresh/saved presentation walkthrough. Corrected historical acceptance table to backend60/frontend36/E2E11 with dates/milestone context and retained browser adapter limitation. Preserved scientific methods, original negative findings, fullNOT_VALIDATED and historical live receipts. Validation:16 Markdown links/anchors,139 literal repository paths, balanced fences/current controlsPASS; git diff checkPASS. Documentation only; no software tests/provider calls/physics rerun, no backend/source/data edits. User TEST_RESULTS formatting, next-env edit and repomix file preserved. No pending work for this guide update.
+
+
+## YouTube demo link — 2026-11-05
+
+Added user-provided https://www.youtube.com/watch?v=QmRvxXcSrz0 near the top of README with a clickable YouTube thumbnail, direct watch link and navigation anchor. Exact URL, thumbnail ID, section anchor and balanced fences verified. Documentation only; no duration/content claims, software changes or test reruns. Existing user edits preserved.
